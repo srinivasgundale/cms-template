@@ -222,6 +222,7 @@ export interface Page {
     | HTMLEmbedBlock
     | AlertBlock
     | LogoCloudBlock
+    | SliderBlock
   )[];
   meta?: {
     title?: string | null;
@@ -1271,6 +1272,52 @@ export interface LogoCloudBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SliderBlock".
+ */
+export interface SliderBlock {
+  title?: string | null;
+  autoplay?: boolean | null;
+  /**
+   * Milliseconds between slides.
+   */
+  autoplaySpeed?: number | null;
+  showArrows?: boolean | null;
+  showDots?: boolean | null;
+  slides?:
+    | {
+        image: number | Media;
+        title?: string | null;
+        overlayPosition?: ('bottom-left' | 'bottom-center' | 'center') | null;
+        description?: string | null;
+        enableLink?: boolean | null;
+        link?: {
+          type?: ('reference' | 'custom') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: number | Page;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: number | Post;
+              } | null);
+          url?: string | null;
+          label: string;
+          /**
+           * Choose how the link should be rendered.
+           */
+          appearance?: ('default' | 'outline') | null;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'slider';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
 export interface Redirect {
@@ -1592,6 +1639,7 @@ export interface PagesSelect<T extends boolean = true> {
         htmlEmbed?: T | HTMLEmbedBlockSelect<T>;
         alert?: T | AlertBlockSelect<T>;
         logoCloud?: T | LogoCloudBlockSelect<T>;
+        slider?: T | SliderBlockSelect<T>;
       };
   meta?:
     | T
@@ -1986,6 +2034,39 @@ export interface LogoCloudBlockSelect<T extends boolean = true> {
         logo?: T;
         name?: T;
         url?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SliderBlock_select".
+ */
+export interface SliderBlockSelect<T extends boolean = true> {
+  title?: T;
+  autoplay?: T;
+  autoplaySpeed?: T;
+  showArrows?: T;
+  showDots?: T;
+  slides?:
+    | T
+    | {
+        image?: T;
+        title?: T;
+        overlayPosition?: T;
+        description?: T;
+        enableLink?: T;
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+              appearance?: T;
+            };
         id?: T;
       };
   id?: T;

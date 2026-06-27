@@ -5,6 +5,7 @@ import type { Page } from '@/payload-types'
 import { ArchiveBlock } from '@/blocks/ArchiveBlock/Component'
 import { AlertBlock } from '@/blocks/Alert/Component'
 import { ContentWithImageBlock } from '@/blocks/ContentWithImage/Component'
+import { SliderBlock } from '@/blocks/Slider/Component'
 import { CallToActionBlock } from '@/blocks/CallToAction/Component'
 import { CardsBlock } from '@/blocks/Cards/Component'
 import { ContentBlock } from '@/blocks/Content/Component'
@@ -37,6 +38,7 @@ const blockComponents = {
   logoCloud: LogoCloudBlock,
   mediaBlock: MediaBlock,
   newsletter: NewsletterBlock,
+  slider: SliderBlock,
   stats: StatsBlock,
   table: TableBlock,
   tabs: TabsBlock,

@@ -16,6 +16,7 @@ import { HTMLEmbed } from '../../blocks/HTMLEmbed/config'
 import { LogoCloud } from '../../blocks/LogoCloud/config'
 import { MediaBlock } from '../../blocks/MediaBlock/config'
 import { Newsletter } from '../../blocks/Newsletter/config'
+import { Slider } from '../../blocks/Slider/config'
 import { Stats } from '../../blocks/Stats/config'
 import { Table } from '../../blocks/Table/config'
 import { Tabs } from '../../blocks/Tabs/config'
@@ -88,7 +89,7 @@ export const Pages: CollectionConfig<'pages'> = {
             {
               name: 'layout',
               type: 'blocks',
-              blocks: [CallToAction, Content, ContentWithImage, MediaBlock, Archive, FormBlock, Gallery, Video, Testimonials, Timeline, Table, FAQ, Stats, Team, Newsletter, Cards, Tabs, HTMLEmbed, Alert, LogoCloud],
+              blocks: [CallToAction, Content, ContentWithImage, MediaBlock, Archive, FormBlock, Gallery, Video, Testimonials, Timeline, Table, FAQ, Stats, Team, Newsletter, Cards, Tabs, HTMLEmbed, Alert, LogoCloud, Slider],
               required: true,
               admin: {
                 initCollapsed: true,
