@@ -14,7 +14,12 @@ import { isEditorOrHigher } from '../../access/isEditorOrHigher'
 import { authenticatedOrPublished } from '../../access/authenticatedOrPublished'
 import { Banner } from '../../blocks/Banner/config'
 import { Code } from '../../blocks/Code/config'
+import { Gallery } from '../../blocks/Gallery/config'
 import { MediaBlock } from '../../blocks/MediaBlock/config'
+import { Table } from '../../blocks/Table/config'
+import { Testimonials } from '../../blocks/Testimonials/config'
+import { Timeline } from '../../blocks/Timeline/config'
+import { Video } from '../../blocks/Video/config'
 import { generatePreviewPath } from '../../utilities/generatePreviewPath'
 import { populateAuthors } from './hooks/populateAuthors'
 import { revalidateDelete, revalidatePost } from './hooks/revalidatePost'
@@ -90,7 +95,7 @@ export const Posts: CollectionConfig<'posts'> = {
                   return [
                     ...rootFeatures,
                     HeadingFeature({ enabledHeadingSizes: ['h1', 'h2', 'h3', 'h4'] }),
-                    BlocksFeature({ blocks: [Banner, Code, MediaBlock] }),
+                    BlocksFeature({ blocks: [Banner, Code, MediaBlock, Gallery, Video, Testimonials, Timeline, Table] }),
                     FixedToolbarFeature(),
                     InlineToolbarFeature(),
                     HorizontalRuleFeature(),

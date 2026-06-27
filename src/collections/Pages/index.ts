@@ -7,7 +7,12 @@ import { Archive } from '../../blocks/ArchiveBlock/config'
 import { CallToAction } from '../../blocks/CallToAction/config'
 import { Content } from '../../blocks/Content/config'
 import { FormBlock } from '../../blocks/Form/config'
+import { Gallery } from '../../blocks/Gallery/config'
 import { MediaBlock } from '../../blocks/MediaBlock/config'
+import { Table } from '../../blocks/Table/config'
+import { Testimonials } from '../../blocks/Testimonials/config'
+import { Timeline } from '../../blocks/Timeline/config'
+import { Video } from '../../blocks/Video/config'
 import { hero } from '@/heros/config'
 import { slugField } from 'payload'
 import { populatePublishedAt } from '../../hooks/populatePublishedAt'
@@ -73,7 +78,7 @@ export const Pages: CollectionConfig<'pages'> = {
             {
               name: 'layout',
               type: 'blocks',
-              blocks: [CallToAction, Content, MediaBlock, Archive, FormBlock],
+              blocks: [CallToAction, Content, MediaBlock, Archive, FormBlock, Gallery, Video, Testimonials, Timeline, Table],
               required: true,
               admin: {
                 initCollapsed: true,

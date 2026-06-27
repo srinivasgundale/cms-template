@@ -6,14 +6,24 @@ import { ArchiveBlock } from '@/blocks/ArchiveBlock/Component'
 import { CallToActionBlock } from '@/blocks/CallToAction/Component'
 import { ContentBlock } from '@/blocks/Content/Component'
 import { FormBlock } from '@/blocks/Form/Component'
+import { GalleryBlock } from '@/blocks/Gallery/Component'
 import { MediaBlock } from '@/blocks/MediaBlock/Component'
+import { TableBlock } from '@/blocks/Table/Component'
+import { TestimonialsBlock } from '@/blocks/Testimonials/Component'
+import { TimelineBlock } from '@/blocks/Timeline/Component'
+import { VideoBlock } from '@/blocks/Video/Component'
 
 const blockComponents = {
   archive: ArchiveBlock,
   content: ContentBlock,
   cta: CallToActionBlock,
   formBlock: FormBlock,
+  gallery: GalleryBlock,
   mediaBlock: MediaBlock,
+  table: TableBlock,
+  testimonials: TestimonialsBlock,
+  timeline: TimelineBlock,
+  video: VideoBlock,
 }
 
 export const RenderBlocks: React.FC<{

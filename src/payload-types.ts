@@ -201,7 +201,18 @@ export interface Page {
       | null;
     media?: (number | null) | Media;
   };
-  layout: (CallToActionBlock | ContentBlock | MediaBlock | ArchiveBlock | FormBlock)[];
+  layout: (
+    | CallToActionBlock
+    | ContentBlock
+    | MediaBlock
+    | ArchiveBlock
+    | FormBlock
+    | GalleryBlock
+    | VideoBlock
+    | TestimonialsBlock
+    | TimelineBlock
+    | TableBlock
+  )[];
   meta?: {
     title?: string | null;
     /**
@@ -787,6 +798,155 @@ export interface Form {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "GalleryBlock".
+ */
+export interface GalleryBlock {
+  title?: string | null;
+  layout?: ('grid' | 'masonry' | 'carousel') | null;
+  columns?: ('2' | '3' | '4') | null;
+  images?:
+    | {
+        image: number | Media;
+        caption?: string | null;
+        /**
+         * Alt text for accessibility (defaults to image alt if empty).
+         */
+        alt?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'gallery';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "VideoBlock".
+ */
+export interface VideoBlock {
+  title?: string | null;
+  source: 'youtube' | 'vimeo' | 'upload';
+  /**
+   * Paste the full YouTube or Vimeo URL (e.g. https://www.youtube.com/watch?v=...).
+   */
+  url?: string | null;
+  /**
+   * Upload an MP4 or WebM video file.
+   */
+  video?: (number | null) | Media;
+  /**
+   * Thumbnail shown before the video plays.
+   */
+  poster?: (number | null) | Media;
+  caption?: string | null;
+  /**
+   * Only applies to self-hosted videos. Autoplay is blocked by most browsers unless muted.
+   */
+  autoplay?: boolean | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'video';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TestimonialsBlock".
+ */
+export interface TestimonialsBlock {
+  title?: string | null;
+  layout?: ('grid' | 'carousel' | 'list') | null;
+  items?:
+    | {
+        quote: string;
+        author: string;
+        role?: string | null;
+        company?: string | null;
+        rating?: ('5' | '4' | '3' | '2' | '1') | null;
+        avatar?: (number | null) | Media;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'testimonials';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TimelineBlock".
+ */
+export interface TimelineBlock {
+  title?: string | null;
+  layout?: ('vertical' | 'horizontal' | 'alternating') | null;
+  items?:
+    | {
+        /**
+         * e.g. "2020", "Jan 2020", "Q1 2024"
+         */
+        date?: string | null;
+        title: string;
+        description?: {
+          root: {
+            type: string;
+            children: {
+              type: any;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        } | null;
+        /**
+         * Optional icon or image for this event.
+         */
+        icon?: (number | null) | Media;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'timeline';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TableBlock".
+ */
+export interface TableBlock {
+  /**
+   * Optional title shown above the table.
+   */
+  caption?: string | null;
+  headers?:
+    | {
+        label: string;
+        align?: ('left' | 'center' | 'right') | null;
+        id?: string | null;
+      }[]
+    | null;
+  rows?:
+    | {
+        /**
+         * Add one cell per column, in the same order as the headers.
+         */
+        cells?:
+          | {
+              content: string;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  striped?: boolean | null;
+  bordered?: boolean | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'table';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
 export interface Redirect {
@@ -1093,6 +1253,11 @@ export interface PagesSelect<T extends boolean = true> {
         mediaBlock?: T | MediaBlockSelect<T>;
         archive?: T | ArchiveBlockSelect<T>;
         formBlock?: T | FormBlockSelect<T>;
+        gallery?: T | GalleryBlockSelect<T>;
+        video?: T | VideoBlockSelect<T>;
+        testimonials?: T | TestimonialsBlockSelect<T>;
+        timeline?: T | TimelineBlockSelect<T>;
+        table?: T | TableBlockSelect<T>;
       };
   meta?:
     | T
@@ -1189,6 +1354,109 @@ export interface FormBlockSelect<T extends boolean = true> {
   form?: T;
   enableIntro?: T;
   introContent?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "GalleryBlock_select".
+ */
+export interface GalleryBlockSelect<T extends boolean = true> {
+  title?: T;
+  layout?: T;
+  columns?: T;
+  images?:
+    | T
+    | {
+        image?: T;
+        caption?: T;
+        alt?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "VideoBlock_select".
+ */
+export interface VideoBlockSelect<T extends boolean = true> {
+  title?: T;
+  source?: T;
+  url?: T;
+  video?: T;
+  poster?: T;
+  caption?: T;
+  autoplay?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TestimonialsBlock_select".
+ */
+export interface TestimonialsBlockSelect<T extends boolean = true> {
+  title?: T;
+  layout?: T;
+  items?:
+    | T
+    | {
+        quote?: T;
+        author?: T;
+        role?: T;
+        company?: T;
+        rating?: T;
+        avatar?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TimelineBlock_select".
+ */
+export interface TimelineBlockSelect<T extends boolean = true> {
+  title?: T;
+  layout?: T;
+  items?:
+    | T
+    | {
+        date?: T;
+        title?: T;
+        description?: T;
+        icon?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TableBlock_select".
+ */
+export interface TableBlockSelect<T extends boolean = true> {
+  caption?: T;
+  headers?:
+    | T
+    | {
+        label?: T;
+        align?: T;
+        id?: T;
+      };
+  rows?:
+    | T
+    | {
+        cells?:
+          | T
+          | {
+              content?: T;
+              id?: T;
+            };
+        id?: T;
+      };
+  striped?: T;
+  bordered?: T;
   id?: T;
   blockName?: T;
 }
