@@ -3,13 +3,22 @@ import type { CollectionConfig } from 'payload'
 import { isAdminOrHigher } from '../../access/isAdminOrHigher'
 import { isEditorOrHigher } from '../../access/isEditorOrHigher'
 import { authenticatedOrPublished } from '../../access/authenticatedOrPublished'
+import { Alert } from '../../blocks/Alert/config'
 import { Archive } from '../../blocks/ArchiveBlock/config'
 import { CallToAction } from '../../blocks/CallToAction/config'
+import { Cards } from '../../blocks/Cards/config'
 import { Content } from '../../blocks/Content/config'
+import { FAQ } from '../../blocks/FAQ/config'
 import { FormBlock } from '../../blocks/Form/config'
 import { Gallery } from '../../blocks/Gallery/config'
+import { HTMLEmbed } from '../../blocks/HTMLEmbed/config'
+import { LogoCloud } from '../../blocks/LogoCloud/config'
 import { MediaBlock } from '../../blocks/MediaBlock/config'
+import { Newsletter } from '../../blocks/Newsletter/config'
+import { Stats } from '../../blocks/Stats/config'
 import { Table } from '../../blocks/Table/config'
+import { Tabs } from '../../blocks/Tabs/config'
+import { Team } from '../../blocks/Team/config'
 import { Testimonials } from '../../blocks/Testimonials/config'
 import { Timeline } from '../../blocks/Timeline/config'
 import { Video } from '../../blocks/Video/config'
@@ -78,7 +87,7 @@ export const Pages: CollectionConfig<'pages'> = {
             {
               name: 'layout',
               type: 'blocks',
-              blocks: [CallToAction, Content, MediaBlock, Archive, FormBlock, Gallery, Video, Testimonials, Timeline, Table],
+              blocks: [CallToAction, Content, MediaBlock, Archive, FormBlock, Gallery, Video, Testimonials, Timeline, Table, FAQ, Stats, Team, Newsletter, Cards, Tabs, HTMLEmbed, Alert, LogoCloud],
               required: true,
               admin: {
                 initCollapsed: true,

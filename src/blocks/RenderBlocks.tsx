@@ -3,24 +3,42 @@ import React, { Fragment } from 'react'
 import type { Page } from '@/payload-types'
 
 import { ArchiveBlock } from '@/blocks/ArchiveBlock/Component'
+import { AlertBlock } from '@/blocks/Alert/Component'
 import { CallToActionBlock } from '@/blocks/CallToAction/Component'
+import { CardsBlock } from '@/blocks/Cards/Component'
 import { ContentBlock } from '@/blocks/Content/Component'
+import { FAQBlock } from '@/blocks/FAQ/Component'
 import { FormBlock } from '@/blocks/Form/Component'
 import { GalleryBlock } from '@/blocks/Gallery/Component'
+import { HTMLEmbedBlock } from '@/blocks/HTMLEmbed/Component'
+import { LogoCloudBlock } from '@/blocks/LogoCloud/Component'
 import { MediaBlock } from '@/blocks/MediaBlock/Component'
+import { NewsletterBlock } from '@/blocks/Newsletter/Component'
+import { StatsBlock } from '@/blocks/Stats/Component'
 import { TableBlock } from '@/blocks/Table/Component'
+import { TabsBlock } from '@/blocks/Tabs/Component'
+import { TeamBlock } from '@/blocks/Team/Component'
 import { TestimonialsBlock } from '@/blocks/Testimonials/Component'
 import { TimelineBlock } from '@/blocks/Timeline/Component'
 import { VideoBlock } from '@/blocks/Video/Component'
 
 const blockComponents = {
+  alert: AlertBlock,
   archive: ArchiveBlock,
+  cards: CardsBlock,
   content: ContentBlock,
   cta: CallToActionBlock,
+  faq: FAQBlock,
   formBlock: FormBlock,
   gallery: GalleryBlock,
+  htmlEmbed: HTMLEmbedBlock,
+  logoCloud: LogoCloudBlock,
   mediaBlock: MediaBlock,
+  newsletter: NewsletterBlock,
+  stats: StatsBlock,
   table: TableBlock,
+  tabs: TabsBlock,
+  team: TeamBlock,
   testimonials: TestimonialsBlock,
   timeline: TimelineBlock,
   video: VideoBlock,

@@ -212,6 +212,15 @@ export interface Page {
     | TestimonialsBlock
     | TimelineBlock
     | TableBlock
+    | FAQBlock
+    | StatsBlock
+    | TeamBlock
+    | NewsletterBlock
+    | CardsBlock
+    | TabsBlock
+    | HTMLEmbedBlock
+    | AlertBlock
+    | LogoCloudBlock
   )[];
   meta?: {
     title?: string | null;
@@ -947,6 +956,266 @@ export interface TableBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FAQBlock".
+ */
+export interface FAQBlock {
+  title?: string | null;
+  subtitle?: string | null;
+  items?:
+    | {
+        question: string;
+        answer: {
+          root: {
+            type: string;
+            children: {
+              type: any;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'faq';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "StatsBlock".
+ */
+export interface StatsBlock {
+  title?: string | null;
+  subtitle?: string | null;
+  layout?: ('grid' | 'inline') | null;
+  items?:
+    | {
+        /**
+         * e.g. "10k+", "99%", "$5M"
+         */
+        value: string;
+        /**
+         * e.g. "Active Users"
+         */
+        label: string;
+        description?: string | null;
+        icon?: (number | null) | Media;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'stats';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TeamBlock".
+ */
+export interface TeamBlock {
+  title?: string | null;
+  subtitle?: string | null;
+  layout?: ('grid' | 'list') | null;
+  columns?: ('2' | '3' | '4') | null;
+  members?:
+    | {
+        name: string;
+        role?: string | null;
+        bio?: string | null;
+        photo?: (number | null) | Media;
+        socialLinks?:
+          | {
+              platform: 'linkedin' | 'twitter' | 'github' | 'website';
+              url: string;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'team';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "NewsletterBlock".
+ */
+export interface NewsletterBlock {
+  title?: string | null;
+  description?: string | null;
+  layout?: ('centered' | 'inline' | 'stacked') | null;
+  inputPlaceholder?: string | null;
+  buttonLabel?: string | null;
+  /**
+   * Form POST endpoint (e.g. Mailchimp, ConvertKit, or your own API route). Leave blank to handle client-side.
+   */
+  actionUrl?: string | null;
+  successMessage?: string | null;
+  /**
+   * e.g. "No spam. Unsubscribe anytime."
+   */
+  disclaimer?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'newsletter';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CardsBlock".
+ */
+export interface CardsBlock {
+  title?: string | null;
+  subtitle?: string | null;
+  layout?: ('grid' | 'list') | null;
+  columns?: ('2' | '3' | '4') | null;
+  items?:
+    | {
+        title: string;
+        description?: string | null;
+        image?: (number | null) | Media;
+        /**
+         * Small label shown on the card (e.g. "New", "Popular").
+         */
+        badge?: string | null;
+        enableLink?: boolean | null;
+        link?: {
+          type?: ('reference' | 'custom') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: number | Page;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: number | Post;
+              } | null);
+          url?: string | null;
+          label: string;
+          /**
+           * Choose how the link should be rendered.
+           */
+          appearance?: ('default' | 'outline') | null;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'cards';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TabsBlock".
+ */
+export interface TabsBlock {
+  alignment?: ('left' | 'center' | 'right') | null;
+  tabs?:
+    | {
+        label: string;
+        /**
+         * Optional emoji or icon character.
+         */
+        icon?: string | null;
+        content: {
+          root: {
+            type: string;
+            children: {
+              type: any;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'tabs';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HTMLEmbedBlock".
+ */
+export interface HTMLEmbedBlock {
+  /**
+   * Raw HTML rendered directly on the page. Only use trusted content — this is not sandboxed.
+   */
+  html: string;
+  caption?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'htmlEmbed';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "AlertBlock".
+ */
+export interface AlertBlock {
+  style: 'info' | 'success' | 'warning' | 'error';
+  title?: string | null;
+  message: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  showIcon?: boolean | null;
+  dismissible?: boolean | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'alert';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "LogoCloudBlock".
+ */
+export interface LogoCloudBlock {
+  title?: string | null;
+  subtitle?: string | null;
+  layout?: ('row' | 'grid') | null;
+  grayscale?: boolean | null;
+  logos?:
+    | {
+        logo: number | Media;
+        /**
+         * Used as alt text.
+         */
+        name?: string | null;
+        /**
+         * Optional link.
+         */
+        url?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'logoCloud';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
 export interface Redirect {
@@ -1258,6 +1527,15 @@ export interface PagesSelect<T extends boolean = true> {
         testimonials?: T | TestimonialsBlockSelect<T>;
         timeline?: T | TimelineBlockSelect<T>;
         table?: T | TableBlockSelect<T>;
+        faq?: T | FAQBlockSelect<T>;
+        stats?: T | StatsBlockSelect<T>;
+        team?: T | TeamBlockSelect<T>;
+        newsletter?: T | NewsletterBlockSelect<T>;
+        cards?: T | CardsBlockSelect<T>;
+        tabs?: T | TabsBlockSelect<T>;
+        htmlEmbed?: T | HTMLEmbedBlockSelect<T>;
+        alert?: T | AlertBlockSelect<T>;
+        logoCloud?: T | LogoCloudBlockSelect<T>;
       };
   meta?:
     | T
@@ -1457,6 +1735,179 @@ export interface TableBlockSelect<T extends boolean = true> {
       };
   striped?: T;
   bordered?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FAQBlock_select".
+ */
+export interface FAQBlockSelect<T extends boolean = true> {
+  title?: T;
+  subtitle?: T;
+  items?:
+    | T
+    | {
+        question?: T;
+        answer?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "StatsBlock_select".
+ */
+export interface StatsBlockSelect<T extends boolean = true> {
+  title?: T;
+  subtitle?: T;
+  layout?: T;
+  items?:
+    | T
+    | {
+        value?: T;
+        label?: T;
+        description?: T;
+        icon?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TeamBlock_select".
+ */
+export interface TeamBlockSelect<T extends boolean = true> {
+  title?: T;
+  subtitle?: T;
+  layout?: T;
+  columns?: T;
+  members?:
+    | T
+    | {
+        name?: T;
+        role?: T;
+        bio?: T;
+        photo?: T;
+        socialLinks?:
+          | T
+          | {
+              platform?: T;
+              url?: T;
+              id?: T;
+            };
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "NewsletterBlock_select".
+ */
+export interface NewsletterBlockSelect<T extends boolean = true> {
+  title?: T;
+  description?: T;
+  layout?: T;
+  inputPlaceholder?: T;
+  buttonLabel?: T;
+  actionUrl?: T;
+  successMessage?: T;
+  disclaimer?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CardsBlock_select".
+ */
+export interface CardsBlockSelect<T extends boolean = true> {
+  title?: T;
+  subtitle?: T;
+  layout?: T;
+  columns?: T;
+  items?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        image?: T;
+        badge?: T;
+        enableLink?: T;
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+              appearance?: T;
+            };
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TabsBlock_select".
+ */
+export interface TabsBlockSelect<T extends boolean = true> {
+  alignment?: T;
+  tabs?:
+    | T
+    | {
+        label?: T;
+        icon?: T;
+        content?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HTMLEmbedBlock_select".
+ */
+export interface HTMLEmbedBlockSelect<T extends boolean = true> {
+  html?: T;
+  caption?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "AlertBlock_select".
+ */
+export interface AlertBlockSelect<T extends boolean = true> {
+  style?: T;
+  title?: T;
+  message?: T;
+  showIcon?: T;
+  dismissible?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "LogoCloudBlock_select".
+ */
+export interface LogoCloudBlockSelect<T extends boolean = true> {
+  title?: T;
+  subtitle?: T;
+  layout?: T;
+  grayscale?: T;
+  logos?:
+    | T
+    | {
+        logo?: T;
+        name?: T;
+        url?: T;
+        id?: T;
+      };
   id?: T;
   blockName?: T;
 }
