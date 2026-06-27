@@ -16,6 +16,7 @@ import { Alert } from '../../blocks/Alert/config'
 import { Banner } from '../../blocks/Banner/config'
 import { Cards } from '../../blocks/Cards/config'
 import { Code } from '../../blocks/Code/config'
+import { ContentWithImage } from '../../blocks/ContentWithImage/config'
 import { FAQ } from '../../blocks/FAQ/config'
 import { Gallery } from '../../blocks/Gallery/config'
 import { HTMLEmbed } from '../../blocks/HTMLEmbed/config'
@@ -102,7 +103,7 @@ export const Posts: CollectionConfig<'posts'> = {
                   return [
                     ...rootFeatures,
                     HeadingFeature({ enabledHeadingSizes: ['h1', 'h2', 'h3', 'h4'] }),
-                    BlocksFeature({ blocks: [Banner, Code, MediaBlock, Gallery, Video, Testimonials, Timeline, Table, FAQ, Stats, Team, Cards, Tabs, HTMLEmbed, Alert] }),
+                    BlocksFeature({ blocks: [Banner, Code, MediaBlock, Gallery, Video, Testimonials, Timeline, Table, FAQ, Stats, Team, Cards, Tabs, HTMLEmbed, Alert, ContentWithImage] }),
                     FixedToolbarFeature(),
                     InlineToolbarFeature(),
                     HorizontalRuleFeature(),

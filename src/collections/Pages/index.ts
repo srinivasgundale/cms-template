@@ -8,6 +8,7 @@ import { Archive } from '../../blocks/ArchiveBlock/config'
 import { CallToAction } from '../../blocks/CallToAction/config'
 import { Cards } from '../../blocks/Cards/config'
 import { Content } from '../../blocks/Content/config'
+import { ContentWithImage } from '../../blocks/ContentWithImage/config'
 import { FAQ } from '../../blocks/FAQ/config'
 import { FormBlock } from '../../blocks/Form/config'
 import { Gallery } from '../../blocks/Gallery/config'
@@ -87,7 +88,7 @@ export const Pages: CollectionConfig<'pages'> = {
             {
               name: 'layout',
               type: 'blocks',
-              blocks: [CallToAction, Content, MediaBlock, Archive, FormBlock, Gallery, Video, Testimonials, Timeline, Table, FAQ, Stats, Team, Newsletter, Cards, Tabs, HTMLEmbed, Alert, LogoCloud],
+              blocks: [CallToAction, Content, ContentWithImage, MediaBlock, Archive, FormBlock, Gallery, Video, Testimonials, Timeline, Table, FAQ, Stats, Team, Newsletter, Cards, Tabs, HTMLEmbed, Alert, LogoCloud],
               required: true,
               admin: {
                 initCollapsed: true,

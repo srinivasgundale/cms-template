@@ -204,6 +204,7 @@ export interface Page {
   layout: (
     | CallToActionBlock
     | ContentBlock
+    | ContentWithImageBlock
     | MediaBlock
     | ArchiveBlock
     | FormBlock
@@ -560,6 +561,60 @@ export interface ContentBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'content';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ContentWithImageBlock".
+ */
+export interface ContentWithImageBlock {
+  /**
+   * Where the image appears relative to the text content.
+   */
+  imagePosition: 'left' | 'right' | 'top' | 'bottom';
+  image: number | Media;
+  /**
+   * Small label shown above the title (e.g. "About Us", "Features").
+   */
+  subtitle?: string | null;
+  title: string;
+  description?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  enableLink?: boolean | null;
+  link?: {
+    type?: ('reference' | 'custom') | null;
+    newTab?: boolean | null;
+    reference?:
+      | ({
+          relationTo: 'pages';
+          value: number | Page;
+        } | null)
+      | ({
+          relationTo: 'posts';
+          value: number | Post;
+        } | null);
+    url?: string | null;
+    label: string;
+    /**
+     * Choose how the link should be rendered.
+     */
+    appearance?: ('default' | 'outline') | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'contentWithImage';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1519,6 +1574,7 @@ export interface PagesSelect<T extends boolean = true> {
     | {
         cta?: T | CallToActionBlockSelect<T>;
         content?: T | ContentBlockSelect<T>;
+        contentWithImage?: T | ContentWithImageBlockSelect<T>;
         mediaBlock?: T | MediaBlockSelect<T>;
         archive?: T | ArchiveBlockSelect<T>;
         formBlock?: T | FormBlockSelect<T>;
@@ -1597,6 +1653,30 @@ export interface ContentBlockSelect<T extends boolean = true> {
               appearance?: T;
             };
         id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ContentWithImageBlock_select".
+ */
+export interface ContentWithImageBlockSelect<T extends boolean = true> {
+  imagePosition?: T;
+  image?: T;
+  subtitle?: T;
+  title?: T;
+  description?: T;
+  enableLink?: T;
+  link?:
+    | T
+    | {
+        type?: T;
+        newTab?: T;
+        reference?: T;
+        url?: T;
+        label?: T;
+        appearance?: T;
       };
   id?: T;
   blockName?: T;
