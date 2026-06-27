@@ -8,6 +8,15 @@ export const Newsletter: Block = {
     { name: 'title', type: 'text' },
     { name: 'description', type: 'textarea' },
     {
+      name: 'backgroundColor',
+      type: 'text',
+      label: 'Background Color',
+      defaultValue: '#3C1500',
+      admin: {
+        description: 'CSS color for the section background (e.g. #3C1500, #1a1a2e). Defaults to dark brown.',
+      },
+    },
+    {
       name: 'layout',
       type: 'select',
       defaultValue: 'centered',

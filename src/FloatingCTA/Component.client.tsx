@@ -165,7 +165,7 @@ export const FloatingCTAClient: React.FC<Props> = ({ data }) => {
   return (
     <div
       className={cn(
-        'fixed top-1/2 z-50 -translate-y-1/2 flex flex-col items-center gap-3',
+        'fixed bottom-8 z-50 flex flex-col items-center gap-3',
         isRight ? 'right-4' : 'left-4',
       )}
     >

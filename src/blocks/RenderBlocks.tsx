@@ -26,10 +26,10 @@ import { TimelineBlock } from '@/blocks/Timeline/Component'
 import { VideoBlock } from '@/blocks/Video/Component'
 
 // Blocks that should span full viewport width with no section padding
-const fullBleedBlocks = new Set(['slider', 'mediaBlock', 'gallery'])
+const fullBleedBlocks = new Set(['slider', 'mediaBlock', 'gallery', 'contentWithImage', 'faq', 'newsletter', 'formBlock'])
 
 // Blocks that render better against a subtle section background
-const mutedSectionBlocks = new Set(['stats', 'newsletter', 'logoCloud'])
+const mutedSectionBlocks = new Set(['stats', 'logoCloud'])
 
 const blockComponents = {
   alert: AlertBlock,

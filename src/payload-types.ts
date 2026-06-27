@@ -574,6 +574,14 @@ export interface ContentWithImageBlock {
    * Where the image appears relative to the text content.
    */
   imagePosition: 'left' | 'right' | 'top' | 'bottom';
+  /**
+   * Shape applied to the image.
+   */
+  imageShape?: ('square' | 'circle') | null;
+  /**
+   * CSS color for the section background (e.g. #f9f5f0). Leave blank for white.
+   */
+  backgroundColor?: string | null;
   image: number | Media;
   /**
    * Small label shown above the title (e.g. "About Us", "Features").
@@ -669,6 +677,18 @@ export interface ArchiveBlock {
  */
 export interface FormBlock {
   form: number | Form;
+  /**
+   * CSS color for the section background. Leave blank for transparent.
+   */
+  backgroundColor?: string | null;
+  /**
+   * Optional image beside the form. Leave blank for a centred layout.
+   */
+  image?: (number | null) | Media;
+  /**
+   * Only used when an image is uploaded.
+   */
+  imagePosition?: ('left' | 'right' | 'background') | null;
   enableIntro?: boolean | null;
   introContent?: {
     root: {
@@ -882,9 +902,15 @@ export interface GalleryBlock {
         id?: string | null;
       }[]
     | null;
+  /**
+   * Leave empty to hide the CTA section entirely.
+   */
   ctaTitle?: string | null;
+  /**
+   * CSS color value for the CTA strip background (e.g. #3C1500, #1a1a2e, navy).
+   */
   backgroundColor?: string | null;
-  ctaLink?: {
+  ctaLink: {
     type?: ('reference' | 'custom') | null;
     newTab?: boolean | null;
     reference?:
@@ -898,8 +924,11 @@ export interface GalleryBlock {
         } | null);
     url?: string | null;
     label: string;
+    /**
+     * Choose how the link should be rendered.
+     */
     appearance?: ('default' | 'outline') | null;
-  } | null;
+  };
   id?: string | null;
   blockName?: string | null;
   blockType: 'gallery';
@@ -1035,8 +1064,20 @@ export interface TableBlock {
  * via the `definition` "FAQBlock".
  */
 export interface FAQBlock {
+  /**
+   * CSS color for the section background (e.g. #f9f5f0). Leave blank for default.
+   */
+  backgroundColor?: string | null;
+  /**
+   * Side for the optional image (only applies when an image is uploaded).
+   */
+  imagePosition?: ('left' | 'right') | null;
   title?: string | null;
   subtitle?: string | null;
+  /**
+   * Optional image shown beside the FAQ. Leave blank for a centred layout.
+   */
+  image?: (number | null) | Media;
   items?:
     | {
         question: string;
@@ -1125,6 +1166,10 @@ export interface TeamBlock {
 export interface NewsletterBlock {
   title?: string | null;
   description?: string | null;
+  /**
+   * CSS color for the section background (e.g. #3C1500, #1a1a2e). Defaults to dark brown.
+   */
+  backgroundColor?: string | null;
   layout?: ('centered' | 'inline' | 'stacked') | null;
   inputPlaceholder?: string | null;
   buttonLabel?: string | null;
@@ -1731,6 +1776,8 @@ export interface ContentBlockSelect<T extends boolean = true> {
  */
 export interface ContentWithImageBlockSelect<T extends boolean = true> {
   imagePosition?: T;
+  imageShape?: T;
+  backgroundColor?: T;
   image?: T;
   subtitle?: T;
   title?: T;
@@ -1778,6 +1825,9 @@ export interface ArchiveBlockSelect<T extends boolean = true> {
  */
 export interface FormBlockSelect<T extends boolean = true> {
   form?: T;
+  backgroundColor?: T;
+  image?: T;
+  imagePosition?: T;
   enableIntro?: T;
   introContent?: T;
   id?: T;
@@ -1801,7 +1851,16 @@ export interface GalleryBlockSelect<T extends boolean = true> {
       };
   ctaTitle?: T;
   backgroundColor?: T;
-  ctaLink?: T | { type?: T; newTab?: T; reference?: T; url?: T; label?: T; appearance?: T };
+  ctaLink?:
+    | T
+    | {
+        type?: T;
+        newTab?: T;
+        reference?: T;
+        url?: T;
+        label?: T;
+        appearance?: T;
+      };
   id?: T;
   blockName?: T;
 }
@@ -1894,8 +1953,11 @@ export interface TableBlockSelect<T extends boolean = true> {
  * via the `definition` "FAQBlock_select".
  */
 export interface FAQBlockSelect<T extends boolean = true> {
+  backgroundColor?: T;
+  imagePosition?: T;
   title?: T;
   subtitle?: T;
+  image?: T;
   items?:
     | T
     | {
@@ -1961,6 +2023,7 @@ export interface TeamBlockSelect<T extends boolean = true> {
 export interface NewsletterBlockSelect<T extends boolean = true> {
   title?: T;
   description?: T;
+  backgroundColor?: T;
   layout?: T;
   inputPlaceholder?: T;
   buttonLabel?: T;
