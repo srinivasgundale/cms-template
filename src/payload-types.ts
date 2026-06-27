@@ -882,6 +882,24 @@ export interface GalleryBlock {
         id?: string | null;
       }[]
     | null;
+  ctaTitle?: string | null;
+  backgroundColor?: string | null;
+  ctaLink?: {
+    type?: ('reference' | 'custom') | null;
+    newTab?: boolean | null;
+    reference?:
+      | ({
+          relationTo: 'pages';
+          value: number | Page;
+        } | null)
+      | ({
+          relationTo: 'posts';
+          value: number | Post;
+        } | null);
+    url?: string | null;
+    label: string;
+    appearance?: ('default' | 'outline') | null;
+  } | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'gallery';
@@ -1781,6 +1799,9 @@ export interface GalleryBlockSelect<T extends boolean = true> {
         alt?: T;
         id?: T;
       };
+  ctaTitle?: T;
+  backgroundColor?: T;
+  ctaLink?: T | { type?: T; newTab?: T; reference?: T; url?: T; label?: T; appearance?: T };
   id?: T;
   blockName?: T;
 }
@@ -2524,6 +2545,10 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
  */
 export interface Header {
   id: number;
+  /**
+   * Site logo shown in the header. Falls back to the text logo if not set.
+   */
+  logo?: (number | null) | Media;
   navItems?:
     | {
         link: {
@@ -2623,6 +2648,7 @@ export interface FloatingCta {
  * via the `definition` "header_select".
  */
 export interface HeaderSelect<T extends boolean = true> {
+  logo?: T;
   navItems?:
     | T
     | {

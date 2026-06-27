@@ -54,10 +54,10 @@ export const SliderBlock: React.FC<Props> = ({
   if (!slides?.length) return null
 
   return (
-    <div className={cn('container', className)}>
-      {title && <h2 className="mb-6 text-2xl font-bold">{title}</h2>}
+    <div className={cn('w-full', className)}>
+      {title && <h2 className="mb-6 px-4 text-2xl font-bold">{title}</h2>}
 
-      <div className="relative overflow-hidden rounded-xl">
+      <div className="relative w-full overflow-hidden">
         {/* Track */}
         <div
           className="flex transition-transform duration-500 ease-in-out"
@@ -66,7 +66,7 @@ export const SliderBlock: React.FC<Props> = ({
           {slides.map((slide: Slide, i) => (
             <div key={i} className="relative min-w-full">
               {/* Image */}
-              <div className="aspect-[16/7] w-full overflow-hidden">
+              <div className="aspect-[16/7] md:aspect-[16/6] w-full overflow-hidden">
                 <Media
                   resource={slide.image}
                   imgClassName="h-full w-full object-cover"

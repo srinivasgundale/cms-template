@@ -1,4 +1,3 @@
-import clsx from 'clsx'
 import React from 'react'
 
 interface Props {
@@ -7,23 +6,18 @@ interface Props {
   priority?: 'auto' | 'high' | 'low'
 }
 
-export const Logo = (props: Props) => {
-  const { loading: loadingFromProps, priority: priorityFromProps, className } = props
-
-  const loading = loadingFromProps || 'lazy'
-  const priority = priorityFromProps || 'low'
-
+export const Logo = (_props: Props) => {
   return (
-    /* eslint-disable @next/next/no-img-element */
-    <img
-      alt="Payload Logo"
-      width={193}
-      height={34}
-      loading={loading}
-      fetchPriority={priority}
-      decoding="async"
-      className={clsx('max-w-[9.375rem] w-full h-[34px]', className)}
-      src="https://raw.githubusercontent.com/payloadcms/payload/3.x/packages/ui/src/assets/payload-logo-light.svg"
-    />
+    <div className="flex items-center gap-2 select-none" aria-label="Hindu Temple">
+      <span
+        className="text-[2rem] leading-none font-bold text-[#E07800]"
+        aria-hidden="true"
+      >
+        ॐ
+      </span>
+      <span className="font-bold text-lg tracking-[0.2em] uppercase text-white">
+        HINDU
+      </span>
+    </div>
   )
 }

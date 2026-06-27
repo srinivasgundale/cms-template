@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react'
 
 import type { Page } from '@/payload-types'
+import { cn } from '@/utilities/ui'
 
 import { ArchiveBlock } from '@/blocks/ArchiveBlock/Component'
 import { AlertBlock } from '@/blocks/Alert/Component'
@@ -23,6 +24,12 @@ import { TeamBlock } from '@/blocks/Team/Component'
 import { TestimonialsBlock } from '@/blocks/Testimonials/Component'
 import { TimelineBlock } from '@/blocks/Timeline/Component'
 import { VideoBlock } from '@/blocks/Video/Component'
+
+// Blocks that should span full viewport width with no section padding
+const fullBleedBlocks = new Set(['slider', 'mediaBlock', 'gallery'])
+
+// Blocks that render better against a subtle section background
+const mutedSectionBlocks = new Set(['stats', 'newsletter', 'logoCloud'])
 
 const blockComponents = {
   alert: AlertBlock,
@@ -65,11 +72,21 @@ export const RenderBlocks: React.FC<{
             const Block = blockComponents[blockType]
 
             if (Block) {
+              const isFullBleed = fullBleedBlocks.has(blockType)
+              const isMuted = mutedSectionBlocks.has(blockType)
               return (
-                <div className="my-16" key={index}>
+                <section
+                  key={index}
+                  className={cn(
+                    'relative w-full',
+                    !isFullBleed && 'py-16 md:py-20 lg:py-24',
+                    isMuted && 'bg-muted',
+                    isFullBleed && 'overflow-hidden',
+                  )}
+                >
                   {/* @ts-expect-error there may be some mismatch between the expected types here */}
                   <Block {...block} disableInnerContainer />
-                </div>
+                </section>
               )
             }
           }

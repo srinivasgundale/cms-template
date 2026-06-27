@@ -10,6 +10,15 @@ export const Header: GlobalConfig = {
   },
   fields: [
     {
+      name: 'logo',
+      type: 'upload',
+      relationTo: 'media',
+      required: false,
+      admin: {
+        description: 'Site logo shown in the header. Falls back to the text logo if not set.',
+      },
+    },
+    {
       name: 'navItems',
       type: 'array',
       fields: [

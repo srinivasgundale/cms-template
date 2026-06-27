@@ -28,8 +28,9 @@ export const ContentWithImageBlock: React.FC<Props> = ({
   const imageOrder = imagePosition === 'right' || imagePosition === 'bottom' ? 'order-2' : 'order-1'
   const contentOrder = imagePosition === 'right' || imagePosition === 'bottom' ? 'order-1' : 'order-2'
 
+  // Vertical (top/bottom) layouts: image is full-width, text is contained
   return (
-    <div className={cn('container', className)}>
+    <div className={cn(!isHorizontal ? 'w-full' : 'container', className)}>
       <div
         className={cn('flex gap-10 lg:gap-16', {
           'flex-col md:flex-row items-center': isHorizontal,
@@ -38,9 +39,9 @@ export const ContentWithImageBlock: React.FC<Props> = ({
       >
         {/* Image */}
         <div
-          className={cn(imageOrder, 'overflow-hidden rounded-xl', {
-            'w-full md:w-1/2 shrink-0': isHorizontal,
-            'w-full max-h-[480px]': !isHorizontal,
+          className={cn(imageOrder, 'overflow-hidden', {
+            'rounded-xl w-full md:w-1/2 shrink-0': isHorizontal,
+            'w-full max-h-[560px]': !isHorizontal,
           })}
         >
           <Media
@@ -53,7 +54,7 @@ export const ContentWithImageBlock: React.FC<Props> = ({
         <div
           className={cn(contentOrder, 'flex flex-col gap-5 justify-center', {
             'w-full md:w-1/2': isHorizontal,
-            'w-full max-w-2xl text-center mx-auto': !isHorizontal,
+            'container max-w-2xl text-center': !isHorizontal,
           })}
         >
           {subtitle && (
