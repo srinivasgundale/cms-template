@@ -112,10 +112,12 @@ export interface Config {
   globals: {
     header: Header;
     footer: Footer;
+    'floating-cta': FloatingCta;
   };
   globalsSelect: {
     header: HeaderSelect<false> | HeaderSelect<true>;
     footer: FooterSelect<false> | FooterSelect<true>;
+    'floating-cta': FloatingCtaSelect<false> | FloatingCtaSelect<true>;
   };
   locale: null;
   widgets: {
@@ -2576,6 +2578,48 @@ export interface Footer {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "floating-cta".
+ */
+export interface FloatingCta {
+  id: number;
+  enabled?: boolean | null;
+  /**
+   * Where the CTA appears on the page.
+   */
+  variant?: ('bottom-bar' | 'side-right' | 'side-left') | null;
+  items?:
+    | {
+        icon: 'phone' | 'whatsapp' | 'email' | 'chat' | 'custom';
+        /**
+         * Used when icon is set to "Custom Image".
+         */
+        customIcon?: (number | null) | Media;
+        /**
+         * Button text — shown on primary/outline style buttons in the bottom bar.
+         */
+        label?: string | null;
+        /**
+         * tel:+1234567890  |  https://wa.me/1234567890  |  mailto:info@example.com  |  any URL
+         */
+        url: string;
+        style?: ('bubble' | 'primary' | 'outline') | null;
+        /**
+         * Override bubble colour (e.g. #FF6B00). Leave blank to use the default colour for the icon type.
+         */
+        backgroundColor?: string | null;
+        newTab?: boolean | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Appears at the bottom of side-bubble variants once the user scrolls down.
+   */
+  showScrollToTop?: boolean | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "header_select".
  */
 export interface HeaderSelect<T extends boolean = true> {
@@ -2616,6 +2660,30 @@ export interface FooterSelect<T extends boolean = true> {
             };
         id?: T;
       };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "floating-cta_select".
+ */
+export interface FloatingCtaSelect<T extends boolean = true> {
+  enabled?: T;
+  variant?: T;
+  items?:
+    | T
+    | {
+        icon?: T;
+        customIcon?: T;
+        label?: T;
+        url?: T;
+        style?: T;
+        backgroundColor?: T;
+        newTab?: T;
+        id?: T;
+      };
+  showScrollToTop?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
