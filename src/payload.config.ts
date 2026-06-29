@@ -1,8 +1,15 @@
 import { postgresAdapter } from '@payloadcms/db-postgres'
+import { mkdirSync } from 'fs'
 import sharp from 'sharp'
 import path from 'path'
 import { buildConfig, PayloadRequest } from 'payload'
 import { fileURLToPath } from 'url'
+
+// Vercel's filesystem is read-only except /tmp. Ensure the upload dir exists
+// before Payload tries to write files there.
+if (process.env.VERCEL) {
+  mkdirSync('/tmp/media', { recursive: true })
+}
 
 import { Categories } from './collections/Categories'
 import { Media } from './collections/Media'
