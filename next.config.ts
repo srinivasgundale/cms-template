@@ -33,6 +33,11 @@ const nextConfig: NextConfig = {
           protocol: url.protocol.replace(':', '') as 'http' | 'https',
         }
       }),
+      // Cloudinary delivery network
+      {
+        hostname: 'res.cloudinary.com',
+        protocol: 'https',
+      },
     ],
   },
   webpack: (webpackConfig) => {

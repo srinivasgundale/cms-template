@@ -33,7 +33,19 @@ export async function deleteFromCloudinary(publicId: string): Promise<void> {
   }
 }
 
+/** Build a Cloudinary delivery URL with optional on-the-fly transformation */
+export function buildCloudinaryUrl(cloudName: string, publicId: string, transform?: string): string {
+  const base = `https://res.cloudinary.com/${cloudName}/image/upload`
+  return transform ? `${base}/${transform}/${publicId}` : `${base}/${publicId}`
+}
+
+/** Derive a transformation string from a size doc entry */
+export function sizeTransform(width?: number | null, height?: number | null): string {
+  if (width && height) return `c_fill,w_${width},h_${height}`
+  if (width) return `c_scale,w_${width}`
+  if (height) return `c_scale,h_${height}`
+  return ''
+}
+
 // Derives a stable Cloudinary public_id from the media doc id
 export const cldPublicId = (docId: string | number) => `cms-media/${docId}`
-export const cldSizePublicId = (docId: string | number, size: string) =>
-  `cms-media/${docId}-${size}`
