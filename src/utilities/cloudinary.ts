@@ -8,7 +8,7 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 })
 
-const staticDir = path.resolve(process.cwd(), 'public/media')
+const staticDir = process.env.VERCEL ? '/tmp/media' : path.resolve(process.cwd(), 'public/media')
 
 export async function uploadToCloudinary(
   filename: string,
