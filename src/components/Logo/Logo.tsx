@@ -9,15 +9,10 @@ interface Props {
 export const Logo = (_props: Props) => {
   return (
     <div className="flex items-center gap-2 select-none" aria-label="Hindu Temple">
-      <span
-        className="text-[2rem] leading-none font-bold text-[#E07800]"
-        aria-hidden="true"
-      >
-        ॐ
+      <span className="text-[2rem] leading-none font-bold text-[#E07800]" aria-hidden="true">
+        $
       </span>
-      <span className="font-bold text-lg tracking-[0.2em] uppercase text-white">
-        HINDU
-      </span>
+      <span className="font-bold text-lg tracking-[0.2em] uppercase text-white">LOGO</span>
     </div>
   )
 }
