@@ -130,7 +130,7 @@ export const TestimonialsBlock: React.FC<Props> = ({
         })}
       >
         {items.map((item, i) => (
-          <TestimonialCard key={i} item={item} layout={layout} />
+          <TestimonialCard key={i} item={item} layout={layout ?? 'grid'} />
         ))}
       </div>
     </div>
