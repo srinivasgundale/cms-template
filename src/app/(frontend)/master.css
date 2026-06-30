@@ -749,7 +749,7 @@ main,
 /* ── CMS-configurable colour sections ───────────────────────────────────────
    Components set --cms-bg via a CSS custom-property inline style.
    The property itself lives here so no CSS properties appear in JSX.        */
-.cms-bg { background-color: var(--cms-bg, transparent); }
+.cms-bg { background-color: var(--cms-bg, var(--section-bg, transparent)); }
 
 /* ────────────────────────────────────────────────────────────────────────── */
 
@@ -809,6 +809,113 @@ main,
 
 ::-webkit-scrollbar-thumb:hover {
   background: var(--color-muted-foreground);
+}
+
+/* ────────────────────────────────────────────────────────────
+   26. TEAM FLIP CARD
+   --tc (team-color) is set per-card via one CSS-variable inline style.
+   All other styling lives here so no CSS properties appear in JSX.
+   ──────────────────────────────────────────────────────────── */
+.team-card {
+  perspective: 1200px;
+}
+
+/* Dynamic accent colour — driven by data-color index, set in JSX as data-color="N" */
+.team-card[data-color="0"] { --tc: #1d4ed8; }
+.team-card[data-color="1"] { --tc: #15803d; }
+.team-card[data-color="2"] { --tc: #7e22ce; }
+.team-card[data-color="3"] { --tc: #b45309; }
+.team-card[data-color="4"] { --tc: #0f766e; }
+.team-card[data-color="5"] { --tc: #be185d; }
+.team-card[data-color="6"] { --tc: #4338ca; }
+.team-card[data-color="7"] { --tc: #b91c1c; }
+
+.team-card--grid { height: 260px; }
+.team-card--list { height: 180px; }
+
+.team-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.65s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.team-card-inner.is-flipped {
+  transform: rotateY(180deg);
+}
+
+/* Shared face — applied to both front (button) and back (div) */
+.team-card-face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  border-radius: var(--radius-card);
+  border: 1px solid var(--color-border);
+  background-color: var(--color-card);
+  padding: 1.5rem;
+  overflow: hidden;
+  /* Reset button defaults when face is a <button> */
+  appearance: none;
+  cursor: pointer;
+  text-align: left;
+  font: inherit;
+}
+
+.team-card-face:focus-visible {
+  outline: 2px solid var(--color-ring);
+  outline-offset: 2px;
+}
+
+.team-card-back {
+  transform: rotateY(180deg);
+  border-color: var(--tc, var(--color-border));
+  border-width: 2px;
+  cursor: default;
+}
+
+/* Coloured top strip on the back face */
+.team-card-accent {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  border-radius: var(--radius-card) var(--radius-card) 0 0;
+  background: linear-gradient(90deg, var(--tc, var(--color-primary)), transparent);
+}
+
+/* Avatar circle — background driven by --tc */
+.team-card-avatar {
+  background-color: var(--tc, var(--color-primary));
+  color: #fff;
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+/* Role text on the back face */
+.team-role-back {
+  color: var(--tc, var(--color-primary));
+  font-size: var(--text-xs);
+  margin-top: 0.125rem;
+  margin-bottom: 0.75rem;
+}
+
+/* Social icon links */
+.team-social-link {
+  display: inline-block;
+  color: var(--color-muted-foreground);
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.team-social-link:hover {
+  color: var(--tc, var(--color-primary));
+  transform: scale(1.15);
 }
 
 /* ────────────────────────────────────────────────────────────

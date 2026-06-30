@@ -8,10 +8,7 @@ export const Testimonials: Block = {
     plural: 'Testimonials',
   },
   fields: [
-    {
-      name: 'title',
-      type: 'text',
-    },
+    { name: 'title', type: 'text' },
     {
       name: 'layout',
       type: 'select',
@@ -29,39 +26,28 @@ export const Testimonials: Block = {
       minRows: 1,
       admin: { initCollapsed: true },
       fields: [
-        {
-          name: 'quote',
-          type: 'textarea',
-          required: true,
-        },
+        { name: 'quote', type: 'textarea', required: true },
         {
           type: 'row',
           fields: [
-            {
-              name: 'author',
-              type: 'text',
-              required: true,
-              admin: { width: '50%' },
-            },
-            {
-              name: 'role',
-              type: 'text',
-              admin: { width: '50%' },
-            },
+            { name: 'author', type: 'text', required: true, admin: { width: '50%' } },
+            { name: 'role', type: 'text', admin: { width: '50%' } },
           ],
         },
         {
           type: 'row',
           fields: [
             {
-              name: 'company',
+              name: 'tenure',
               type: 'text',
-              admin: { width: '50%' },
+              label: 'Tenure / Duration',
+              admin: { width: '50%', description: 'e.g. "3 years with us"' },
             },
             {
               name: 'rating',
               type: 'select',
-              defaultValue: '5',
+              label: 'Rating (optional)',
+              admin: { width: '50%' },
               options: [
                 { label: '★★★★★  5', value: '5' },
                 { label: '★★★★☆  4', value: '4' },
@@ -69,15 +55,31 @@ export const Testimonials: Block = {
                 { label: '★★☆☆☆  2', value: '2' },
                 { label: '★☆☆☆☆  1', value: '1' },
               ],
-              admin: { width: '50%' },
             },
           ],
         },
         {
-          name: 'avatar',
-          type: 'upload',
-          relationTo: 'media',
+          type: 'row',
+          fields: [
+            { name: 'badge', type: 'text', label: 'Badge (optional, e.g. "Member")', admin: { width: '50%' } },
+            {
+              name: 'badgeColor',
+              type: 'select',
+              label: 'Badge Color',
+              defaultValue: 'green',
+              admin: { width: '50%' },
+              options: [
+                { label: 'Green', value: 'green' },
+                { label: 'Blue', value: 'blue' },
+                { label: 'Orange', value: 'orange' },
+                { label: 'Purple', value: 'purple' },
+                { label: 'Red', value: 'red' },
+                { label: 'Gray', value: 'gray' },
+              ],
+            },
+          ],
         },
+        { name: 'avatar', type: 'upload', relationTo: 'media' },
       ],
     },
   ],

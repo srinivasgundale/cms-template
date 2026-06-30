@@ -10,14 +10,103 @@ type Props = TestimonialsBlockProps & {
   disableInnerContainer?: boolean
 }
 
+type Item = NonNullable<TestimonialsBlockProps['items']>[0]
+
+const badgeColorClass: Record<string, string> = {
+  green:  'bg-green-600/20 text-green-400 border-green-600/30',
+  blue:   'bg-blue-600/20 text-blue-400 border-blue-600/30',
+  orange: 'bg-orange-500/20 text-orange-400 border-orange-500/30',
+  purple: 'bg-purple-600/20 text-purple-400 border-purple-600/30',
+  red:    'bg-red-600/20 text-red-400 border-red-600/30',
+  gray:   'bg-gray-500/20 text-gray-400 border-gray-500/30',
+}
+
+const avatarColors = [
+  '#92400e', '#1e40af', '#065f46', '#6b21a8',
+  '#9f1239', '#0f766e', '#1d4ed8', '#b45309',
+]
+
+function getAvatarColor(name: string): string {
+  let hash = 0
+  for (let i = 0; i < name.length; i++) hash = name.charCodeAt(i) + ((hash << 5) - hash)
+  return avatarColors[Math.abs(hash) % avatarColors.length]!
+}
+
+function getInitials(name: string): string {
+  return name.split(' ').filter(Boolean).map((n) => n[0]).join('').toUpperCase().slice(0, 2)
+}
+
 const Stars: React.FC<{ rating: string }> = ({ rating }) => {
   const count = parseInt(rating, 10)
   return (
-    <div className="flex gap-0.5 text-yellow-400">
+    <div className="flex gap-0.5 text-yellow-400 text-sm">
       {Array.from({ length: 5 }, (_, i) => (
         <span key={i}>{i < count ? '★' : '☆'}</span>
       ))}
     </div>
+  )
+}
+
+const TestimonialCard: React.FC<{ item: Item; layout: string }> = ({ item, layout }) => {
+  const badgeClass = badgeColorClass[item.badgeColor ?? 'green'] ?? badgeColorClass.green
+  const initials = getInitials(item.author)
+  const avatarColor = getAvatarColor(item.author)
+
+  const meta = [item.role, item.tenure].filter(Boolean).join(' · ')
+
+  return (
+    <blockquote
+      className={cn(
+        'flex flex-col gap-5 rounded-2xl border border-white/10 bg-[#1a1a2e] p-6',
+        { 'min-w-[300px] sm:min-w-[360px]': layout === 'carousel' },
+      )}
+    >
+      {/* Opening quote mark */}
+      <span className="text-5xl font-serif leading-none text-orange-500/80 select-none">"</span>
+
+      {/* Rating — only shown when set */}
+      {item.rating && <Stars rating={item.rating} />}
+
+      {/* Quote */}
+      <p className="flex-1 text-base font-semibold italic leading-relaxed text-white">
+        {item.quote}
+      </p>
+
+      {/* Footer */}
+      <footer className="flex items-center gap-3">
+        {/* Avatar */}
+        {item.avatar ? (
+          <div className="relative h-10 w-10 shrink-0 overflow-hidden rounded-full">
+            <Media
+              resource={item.avatar}
+              fill
+              pictureClassName="absolute inset-0"
+              imgClassName="object-cover"
+            />
+          </div>
+        ) : (
+          <div
+            className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-sm font-bold text-white"
+            style={{ backgroundColor: avatarColor }}
+          >
+            {initials}
+          </div>
+        )}
+
+        {/* Name + meta */}
+        <div className="flex-1 min-w-0">
+          <p className="font-bold leading-tight text-white">{item.author}</p>
+          {meta && <p className="text-xs text-white/50 mt-0.5">{meta}</p>}
+        </div>
+
+        {/* Badge */}
+        {item.badge && (
+          <span className={cn('shrink-0 rounded-full border px-3 py-0.5 text-xs font-semibold', badgeClass)}>
+            {item.badge}
+          </span>
+        )}
+      </footer>
+    </blockquote>
   )
 }
 
@@ -41,33 +130,7 @@ export const TestimonialsBlock: React.FC<Props> = ({
         })}
       >
         {items.map((item, i) => (
-          <blockquote
-            key={i}
-            className={cn(
-              'flex flex-col gap-4 rounded-xl border border-border bg-card p-6',
-              { 'min-w-[300px]': layout === 'carousel' },
-            )}
-          >
-            {item.rating && <Stars rating={item.rating} />}
-
-            <p className="flex-1 text-muted-foreground">"{item.quote}"</p>
-
-            <footer className="flex items-center gap-3">
-              {item.avatar && (
-                <div className="h-10 w-10 overflow-hidden rounded-full">
-                  <Media resource={item.avatar} imgClassName="h-full w-full object-cover" />
-                </div>
-              )}
-              <div>
-                <p className="font-semibold leading-tight">{item.author}</p>
-                {(item.role || item.company) && (
-                  <p className="text-sm text-muted-foreground">
-                    {[item.role, item.company].filter(Boolean).join(' · ')}
-                  </p>
-                )}
-              </div>
-            </footer>
-          </blockquote>
+          <TestimonialCard key={i} item={item} layout={layout} />
         ))}
       </div>
     </div>

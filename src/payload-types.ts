@@ -975,8 +975,13 @@ export interface TestimonialsBlock {
         quote: string;
         author: string;
         role?: string | null;
-        company?: string | null;
+        /**
+         * e.g. "3 years with us"
+         */
+        tenure?: string | null;
         rating?: ('5' | '4' | '3' | '2' | '1') | null;
+        badge?: string | null;
+        badgeColor?: ('green' | 'blue' | 'orange' | 'purple' | 'red' | 'gray') | null;
         avatar?: (number | null) | Media;
         id?: string | null;
       }[]
@@ -1944,8 +1949,10 @@ export interface TestimonialsBlockSelect<T extends boolean = true> {
         quote?: T;
         author?: T;
         role?: T;
-        company?: T;
+        tenure?: T;
         rating?: T;
+        badge?: T;
+        badgeColor?: T;
         avatar?: T;
         id?: T;
       };

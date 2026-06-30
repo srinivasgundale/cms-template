@@ -26,11 +26,11 @@ import { TestimonialsBlock } from '@/blocks/Testimonials/Component'
 import { TimelineBlock } from '@/blocks/Timeline/Component'
 import { VideoBlock } from '@/blocks/Video/Component'
 
-// Blocks that should span full viewport width with no section padding
-const fullBleedBlocks = new Set(['slider', 'mediaBlock', 'gallery', 'contentWithImage', 'faq', 'newsletter', 'formBlock'])
-
-// Blocks that render better against a subtle section background
-const mutedSectionBlocks = new Set(['stats', 'logoCloud'])
+// Blocks that span full viewport width and manage their own background via cms-bg
+const fullBleedBlocks = new Set([
+  'slider', 'mediaBlock', 'gallery', 'contentWithImage',
+  'faq', 'newsletter', 'formBlock', 'events',
+])
 
 const blockComponents = {
   alert: AlertBlock,
@@ -57,6 +57,9 @@ const blockComponents = {
   video: VideoBlock,
 }
 
+// Alternating section backgrounds — even: white, odd: light gray
+const sectionBgs = ['#ffffff', '#F5F5F5'] as const
+
 export const RenderBlocks: React.FC<{
   blocks: Page['layout'][0][]
 }> = (props) => {
@@ -75,16 +78,20 @@ export const RenderBlocks: React.FC<{
 
             if (Block) {
               const isFullBleed = fullBleedBlocks.has(blockType)
-              const isMuted = mutedSectionBlocks.has(blockType)
+              const alternateBg = sectionBgs[index % 2]
+
               return (
                 <section
                   key={index}
                   className={cn(
                     'relative w-full',
                     !isFullBleed && 'py-16 md:py-20 lg:py-24',
-                    isMuted && 'bg-muted',
                     isFullBleed && 'overflow-hidden',
                   )}
+                  style={{
+                    '--section-bg': alternateBg,
+                    ...(!isFullBleed && { backgroundColor: alternateBg }),
+                  } as React.CSSProperties}
                 >
                   {/* @ts-expect-error there may be some mismatch between the expected types here */}
                   <Block {...block} disableInnerContainer />

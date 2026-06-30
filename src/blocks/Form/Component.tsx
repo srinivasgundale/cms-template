@@ -161,7 +161,7 @@ export const FormBlock: React.FC<{ id?: string } & FormBlockType> = (props) => {
   return (
     <div
       className="cms-bg w-full"
-      style={{ '--cms-bg': backgroundColor || 'transparent' } as React.CSSProperties}
+      style={backgroundColor ? { '--cms-bg': backgroundColor } as React.CSSProperties : undefined}
     >
       <div className="container py-16 md:py-20 lg:py-24">
         {isSideImage ? (
