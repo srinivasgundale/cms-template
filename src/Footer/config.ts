@@ -18,6 +18,15 @@ export const Footer: GlobalConfig = {
       },
     },
     {
+      name: 'logo',
+      type: 'upload',
+      relationTo: 'media',
+      required: false,
+      admin: {
+        description: 'Site logo shown in the footer. Falls back to the text logo if not set.',
+      },
+    },
+    {
       name: 'navItems',
       type: 'array',
       fields: [
