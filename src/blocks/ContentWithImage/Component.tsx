@@ -71,16 +71,16 @@ export const ContentWithImageBlock: React.FC<Props> = ({
               'container max-w-2xl text-center': !isHorizontal,
             })}
           >
-            <h2 className="text-3xl font-bold leading-tight lg:text-4xl text-[#1BBCBC]">
+            <h2 className="text-3xl font-bold leading-tight lg:text-4xl text-orange-500">
               {title}
             </h2>
 
             {subtitle && (
-              <p className="text-lg font-medium text-[#1BBCBC]">{subtitle}</p>
+              <p className="text-lg font-medium text-black">{subtitle}</p>
             )}
 
             {description && (
-              <div className="text-gray-400 text-base leading-relaxed">
+              <div className="text-black text-base leading-relaxed">
                 <RichText data={description} enableGutter={false} />
               </div>
             )}

@@ -186,7 +186,7 @@ export const GalleryBlock: React.FC<Props> = ({
       <div className={cn('w-full', className)}>
         {title && (
           <div className="container mb-6 text-center">
-            <h2 className="text-2xl font-bold">{title}</h2>
+            <h2 className="text-2xl font-bold text-orange-500">{title}</h2>
           </div>
         )}
 
@@ -202,7 +202,9 @@ export const GalleryBlock: React.FC<Props> = ({
             >
               <Media
                 resource={item.image}
-                imgClassName="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                fill
+                pictureClassName="absolute inset-0"
+                imgClassName="object-cover transition-transform duration-500 group-hover:scale-105"
               />
               {/* Hover tint */}
               <div className="absolute inset-0 bg-black/0 transition-colors duration-300 group-hover:bg-black/20" />

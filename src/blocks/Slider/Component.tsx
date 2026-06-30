@@ -7,6 +7,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react'
 
 import { CMSLink } from '@/components/Link'
 import { Media } from '@/components/Media'
+import RichText from '@/components/RichText'
 
 type Props = SliderBlockProps & { className?: string; disableInnerContainer?: boolean }
 
@@ -29,6 +30,15 @@ export const SliderBlock: React.FC<Props> = ({
 }) => {
   const [current, setCurrent] = useState(0)
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const mq = window.matchMedia('(max-width: 767px)')
+    setIsMobile(mq.matches)
+    const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches)
+    mq.addEventListener('change', handler)
+    return () => mq.removeEventListener('change', handler)
+  }, [])
 
   const count = slides?.length ?? 0
 
@@ -55,7 +65,7 @@ export const SliderBlock: React.FC<Props> = ({
 
   return (
     <div className={cn('w-full', className)}>
-      {title && <h2 className="mb-6 px-4 text-2xl font-bold">{title}</h2>}
+      {title && <h2 className="mb-6 px-4 text-2xl font-bold text-orange-500">{title}</h2>}
 
       <div className="relative w-full overflow-hidden">
         {/* Track */}
@@ -66,9 +76,9 @@ export const SliderBlock: React.FC<Props> = ({
           {slides.map((slide: Slide, i) => (
             <div key={i} className="relative min-w-full">
               {/* Image */}
-              <div className="aspect-[16/7] md:aspect-[16/6] w-full overflow-hidden">
+              <div className="h-[100svh] md:h-auto md:aspect-[16/6] w-full overflow-hidden">
                 <Media
-                  resource={slide.image}
+                  resource={isMobile && (slide as any).mobileImage ? (slide as any).mobileImage : slide.image}
                   imgClassName="h-full w-full object-cover"
                 />
               </div>
@@ -86,7 +96,9 @@ export const SliderBlock: React.FC<Props> = ({
                       <h3 className="text-2xl font-bold drop-shadow-md">{slide.title}</h3>
                     )}
                     {slide.description && (
-                      <p className="text-sm text-white/90 drop-shadow-sm">{slide.description}</p>
+                      <div className="text-sm text-white/90 drop-shadow-sm [&_*]:text-white/90">
+                        <RichText data={slide.description} enableGutter={false} enableProse={false} />
+                      </div>
                     )}
                     {slide.enableLink && slide.link && (
                       <div>

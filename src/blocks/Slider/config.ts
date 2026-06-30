@@ -1,5 +1,10 @@
 import type { Block } from 'payload'
 
+import {
+  FixedToolbarFeature,
+  InlineToolbarFeature,
+  lexicalEditor,
+} from '@payloadcms/richtext-lexical'
 import { link } from '@/fields/link'
 
 export const Slider: Block = {
@@ -62,6 +67,13 @@ export const Slider: Block = {
           required: true,
         },
         {
+          name: 'mobileImage',
+          type: 'upload',
+          relationTo: 'media',
+          label: 'Mobile Image (optional)',
+          admin: { description: 'Shown on small screens instead of the main image.' },
+        },
+        {
           type: 'row',
           fields: [
             { name: 'title', type: 'text', admin: { width: '50%' } },
@@ -78,7 +90,17 @@ export const Slider: Block = {
             },
           ],
         },
-        { name: 'description', type: 'text' },
+        {
+          name: 'description',
+          type: 'richText',
+          editor: lexicalEditor({
+            features: ({ rootFeatures }) => [
+              ...rootFeatures,
+              FixedToolbarFeature(),
+              InlineToolbarFeature(),
+            ],
+          }),
+        },
         { name: 'enableLink', type: 'checkbox', defaultValue: false },
         link({
           appearances: ['default', 'outline'],

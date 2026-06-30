@@ -21,8 +21,8 @@ export const LogoCloudBlock: React.FC<Props> = ({
     <div className={cn('container', className)}>
       {(title || subtitle) && (
         <div className="mb-8 text-center">
-          {title && <h2 className="text-2xl font-bold">{title}</h2>}
-          {subtitle && <p className="mt-1 text-muted-foreground">{subtitle}</p>}
+          {title && <h2 className="text-2xl font-bold text-orange-500">{title}</h2>}
+          {subtitle && <p className="mt-1 text-black">{subtitle}</p>}
         </div>
       )}
 

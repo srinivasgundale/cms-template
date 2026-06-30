@@ -1352,9 +1352,27 @@ export interface SliderBlock {
   slides?:
     | {
         image: number | Media;
+        /**
+         * Shown on small screens instead of the main image.
+         */
+        mobileImage?: (number | null) | Media;
         title?: string | null;
         overlayPosition?: ('bottom-left' | 'bottom-center' | 'center') | null;
-        description?: string | null;
+        description?: {
+          root: {
+            type: string;
+            children: {
+              type: any;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        } | null;
         enableLink?: boolean | null;
         link?: {
           type?: ('reference' | 'custom') | null;
@@ -2140,6 +2158,7 @@ export interface SliderBlockSelect<T extends boolean = true> {
     | T
     | {
         image?: T;
+        mobileImage?: T;
         title?: T;
         overlayPosition?: T;
         description?: T;
