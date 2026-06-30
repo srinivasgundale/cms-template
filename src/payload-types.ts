@@ -2694,6 +2694,10 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
 export interface Header {
   id: number;
   /**
+   * CSS color for the header bar (e.g. #3C1500). Leave blank for default.
+   */
+  backgroundColor?: string | null;
+  /**
    * Site logo shown in the header. Falls back to the text logo if not set.
    */
   logo?: (number | null) | Media;
@@ -2726,6 +2730,10 @@ export interface Header {
  */
 export interface Footer {
   id: number;
+  /**
+   * CSS color for the footer (e.g. #111827). Leave blank for default.
+   */
+  backgroundColor?: string | null;
   navItems?:
     | {
         link: {
@@ -2796,6 +2804,7 @@ export interface FloatingCta {
  * via the `definition` "header_select".
  */
 export interface HeaderSelect<T extends boolean = true> {
+  backgroundColor?: T;
   logo?: T;
   navItems?:
     | T
@@ -2820,6 +2829,7 @@ export interface HeaderSelect<T extends boolean = true> {
  * via the `definition` "footer_select".
  */
 export interface FooterSelect<T extends boolean = true> {
+  backgroundColor?: T;
   navItems?:
     | T
     | {

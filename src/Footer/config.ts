@@ -10,6 +10,14 @@ export const Footer: GlobalConfig = {
   },
   fields: [
     {
+      name: 'backgroundColor',
+      type: 'text',
+      label: 'Background Color',
+      admin: {
+        description: 'CSS color for the footer (e.g. #111827). Leave blank for default.',
+      },
+    },
+    {
       name: 'navItems',
       type: 'array',
       fields: [

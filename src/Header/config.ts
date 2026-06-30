@@ -10,6 +10,14 @@ export const Header: GlobalConfig = {
   },
   fields: [
     {
+      name: 'backgroundColor',
+      type: 'text',
+      label: 'Background Color',
+      admin: {
+        description: 'CSS color for the header bar (e.g. #3C1500). Leave blank for default.',
+      },
+    },
+    {
       name: 'logo',
       type: 'upload',
       relationTo: 'media',

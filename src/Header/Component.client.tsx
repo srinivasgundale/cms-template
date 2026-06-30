@@ -32,7 +32,8 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
 
   return (
     <header
-      className="sticky top-0 z-50 w-full bg-[#3C1500]"
+      className="sticky top-0 z-50 w-full"
+      style={{ backgroundColor: data.backgroundColor || '#3C1500' }}
       {...(headerTheme ? { 'data-theme': headerTheme } : {})}
     >
       {/* ── Main bar ── */}
@@ -89,9 +90,10 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
       <div
         id="mobile-menu"
         className={cn(
-          'md:hidden w-full border-t border-white/10 bg-[#3C1500] overflow-hidden transition-all duration-300 ease-in-out',
+          'md:hidden w-full border-t border-white/10 overflow-hidden transition-all duration-300 ease-in-out',
           mobileOpen ? 'max-h-[32rem] py-2' : 'max-h-0 py-0',
         )}
+        style={{ backgroundColor: data.backgroundColor || '#3C1500' }}
         aria-live="polite"
       >
         <div className="container">
