@@ -225,6 +225,7 @@ export interface Page {
     | AlertBlock
     | LogoCloudBlock
     | SliderBlock
+    | EventsBlock
   )[];
   meta?: {
     title?: string | null;
@@ -1402,6 +1403,37 @@ export interface SliderBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "EventsBlock".
+ */
+export interface EventsBlock {
+  title?: string | null;
+  /**
+   * CSS color (e.g. #111827). Leave blank for dark default.
+   */
+  backgroundColor?: string | null;
+  subtitle?: string | null;
+  events?:
+    | {
+        title: string;
+        description?: string | null;
+        date: string;
+        time?: string | null;
+        location?: string | null;
+        /**
+         * Paste a Google Maps share link.
+         */
+        mapUrl?: string | null;
+        category?: string | null;
+        categoryColor?: ('blue' | 'green' | 'purple' | 'orange' | 'red' | 'gray') | null;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'events';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
 export interface Redirect {
@@ -1724,6 +1756,7 @@ export interface PagesSelect<T extends boolean = true> {
         alert?: T | AlertBlockSelect<T>;
         logoCloud?: T | LogoCloudBlockSelect<T>;
         slider?: T | SliderBlockSelect<T>;
+        events?: T | EventsBlockSelect<T>;
       };
   meta?:
     | T
@@ -2173,6 +2206,30 @@ export interface SliderBlockSelect<T extends boolean = true> {
               label?: T;
               appearance?: T;
             };
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "EventsBlock_select".
+ */
+export interface EventsBlockSelect<T extends boolean = true> {
+  title?: T;
+  backgroundColor?: T;
+  subtitle?: T;
+  events?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        date?: T;
+        time?: T;
+        location?: T;
+        mapUrl?: T;
+        category?: T;
+        categoryColor?: T;
         id?: T;
       };
   id?: T;

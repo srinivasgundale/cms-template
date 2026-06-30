@@ -5,6 +5,7 @@ import { cn } from '@/utilities/ui'
 
 import { ArchiveBlock } from '@/blocks/ArchiveBlock/Component'
 import { AlertBlock } from '@/blocks/Alert/Component'
+import { EventsBlock } from '@/blocks/Events/Component'
 import { ContentWithImageBlock } from '@/blocks/ContentWithImage/Component'
 import { SliderBlock } from '@/blocks/Slider/Component'
 import { CallToActionBlock } from '@/blocks/CallToAction/Component'
@@ -33,6 +34,7 @@ const mutedSectionBlocks = new Set(['stats', 'logoCloud'])
 
 const blockComponents = {
   alert: AlertBlock,
+  events: EventsBlock,
   archive: ArchiveBlock,
   cards: CardsBlock,
   content: ContentBlock,

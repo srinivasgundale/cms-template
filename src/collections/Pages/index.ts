@@ -4,6 +4,7 @@ import { isAdminOrHigher } from '../../access/isAdminOrHigher'
 import { isEditorOrHigher } from '../../access/isEditorOrHigher'
 import { authenticatedOrPublished } from '../../access/authenticatedOrPublished'
 import { Alert } from '../../blocks/Alert/config'
+import { Events } from '../../blocks/Events/config'
 import { Archive } from '../../blocks/ArchiveBlock/config'
 import { CallToAction } from '../../blocks/CallToAction/config'
 import { Cards } from '../../blocks/Cards/config'
@@ -89,7 +90,7 @@ export const Pages: CollectionConfig<'pages'> = {
             {
               name: 'layout',
               type: 'blocks',
-              blocks: [CallToAction, Content, ContentWithImage, MediaBlock, Archive, FormBlock, Gallery, Video, Testimonials, Timeline, Table, FAQ, Stats, Team, Newsletter, Cards, Tabs, HTMLEmbed, Alert, LogoCloud, Slider],
+              blocks: [CallToAction, Content, ContentWithImage, MediaBlock, Archive, FormBlock, Gallery, Video, Testimonials, Timeline, Table, FAQ, Stats, Team, Newsletter, Cards, Tabs, HTMLEmbed, Alert, LogoCloud, Slider, Events],
               required: true,
               admin: {
                 initCollapsed: true,
