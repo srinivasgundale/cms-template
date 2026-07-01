@@ -19,7 +19,7 @@ const badgeColorClass: Record<string, string> = {
   orange: 'bg-orange-50 text-brand-primary border-brand-primary/30',
   purple: 'bg-purple-50 text-purple-700 border-purple-200',
   red:    'bg-red-50 text-red-700 border-red-200',
-  gray:   'bg-gray-100 text-gray-600 border-gray-200',
+  gray:   'bg-muted text-muted-foreground border-border',
 }
 
 const avatarBgClasses = [
@@ -61,7 +61,7 @@ const TestimonialCard: React.FC<{ item: Item; layout: string }> = ({ item, layou
   return (
     <blockquote
       className={cn(
-        'flex flex-col gap-4 rounded-2xl border border-border bg-white p-6 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300',
+        'flex flex-col gap-4 rounded-2xl border border-border bg-card p-6 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300',
         layout === 'grid' && 'min-w-[280px] sm:min-w-0',
         layout === 'carousel' && 'min-w-[300px] sm:min-w-[360px]',
       )}

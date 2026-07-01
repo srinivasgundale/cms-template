@@ -58,9 +58,6 @@ const blockComponents = {
   video: VideoBlock,
 }
 
-// Alternating section backgrounds — even: white, odd: light gray
-const sectionBgs = ['#ffffff', '#F5F5F5'] as const
-
 export const RenderBlocks: React.FC<{
   blocks: Page['layout'][0][]
 }> = (props) => {
@@ -79,7 +76,6 @@ export const RenderBlocks: React.FC<{
 
             if (Block) {
               const isFullBleed = fullBleedBlocks.has(blockType)
-              const alternateBg = sectionBgs[index % 2]
 
               return (
                 <AnimateIn key={index} className="w-full">
@@ -87,12 +83,10 @@ export const RenderBlocks: React.FC<{
                     className={cn(
                       'relative w-full',
                       !isFullBleed && 'py-20 lg:py-[7.5rem]',
+                      // Alternating section backgrounds (adaptive light/dark via CSS tokens)
+                      !isFullBleed && (index % 2 === 0 ? 'bg-section-bg-a' : 'bg-section-bg-b'),
                       isFullBleed && 'overflow-hidden',
                     )}
-                    style={{
-                      '--section-bg': alternateBg,
-                      ...(!isFullBleed && { backgroundColor: alternateBg }),
-                    } as React.CSSProperties}
                   >
                     {/* @ts-expect-error there may be some mismatch between the expected types here */}
                     <Block {...block} disableInnerContainer />

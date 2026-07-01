@@ -76,11 +76,11 @@ export const ContentWithImageBlock: React.FC<Props> = ({
             </h2>
 
             {subtitle && (
-              <p className="text-lg font-medium text-black">{subtitle}</p>
+              <p className="text-lg font-medium text-muted-foreground">{subtitle}</p>
             )}
 
             {description && (
-              <div className="text-black text-base leading-relaxed">
+              <div className="text-muted-foreground text-base leading-relaxed">
                 <RichText data={description} enableGutter={false} />
               </div>
             )}

@@ -2763,6 +2763,14 @@ export interface Footer {
    * Site logo shown in the footer. Falls back to the text logo if not set.
    */
   logo?: (number | null) | Media;
+  /**
+   * Short description shown below the logo.
+   */
+  tagline?: string | null;
+  /**
+   * Heading above the navigation links column.
+   */
+  navColumnLabel?: string | null;
   navItems?:
     | {
         link: {
@@ -2783,6 +2791,21 @@ export interface Footer {
         id?: string | null;
       }[]
     | null;
+  /**
+   * Heading above the contact info column.
+   */
+  contactColumnLabel?: string | null;
+  address?: string | null;
+  phone?: string | null;
+  email?: string | null;
+  /**
+   * e.g. Mon–Fri, 9 AM – 5 PM
+   */
+  hours?: string | null;
+  /**
+   * Bottom bar text. Use {year} for the current year.
+   */
+  copyrightText?: string | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -2860,6 +2883,8 @@ export interface HeaderSelect<T extends boolean = true> {
 export interface FooterSelect<T extends boolean = true> {
   backgroundColor?: T;
   logo?: T;
+  tagline?: T;
+  navColumnLabel?: T;
   navItems?:
     | T
     | {
@@ -2874,6 +2899,12 @@ export interface FooterSelect<T extends boolean = true> {
             };
         id?: T;
       };
+  contactColumnLabel?: T;
+  address?: T;
+  phone?: T;
+  email?: T;
+  hours?: T;
+  copyrightText?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

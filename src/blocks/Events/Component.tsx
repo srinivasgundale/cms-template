@@ -109,7 +109,7 @@ const EventTile: React.FC<{ event: EventItem }> = ({ event }) => {
   const wazeUrl = event.location ? buildWazeUrl(event.location, event.mapUrl) : null
 
   return (
-    <div className="flex items-center gap-4 rounded-2xl border border-border bg-white p-4 sm:p-5 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+    <div className="flex items-center gap-4 rounded-2xl border border-border bg-card p-4 sm:p-5 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
       {/* Date badge */}
       <div className="flex w-14 shrink-0 flex-col items-center rounded-lg bg-blue-700 py-2 text-white">
         <span className="text-2xl font-extrabold leading-none">{day}</span>
@@ -144,7 +144,7 @@ const EventTile: React.FC<{ event: EventItem }> = ({ event }) => {
               </button>
 
               {mapOpen && hasMap && (
-                <div className="absolute left-0 top-full z-20 mt-1.5 min-w-[190px] overflow-hidden rounded-xl border border-border bg-white shadow-2xl">
+                <div className="absolute left-0 top-full z-20 mt-1.5 min-w-[190px] overflow-hidden rounded-xl border border-border bg-popover shadow-2xl">
                   {event.mapUrl && (
                     <a
                       href={event.mapUrl}

@@ -15,7 +15,7 @@ export const StatsBlock: React.FC<Props> = ({ className, title, subtitle, layout
       {(title || subtitle) && (
         <div className="mb-10 text-center">
           {title && <h2 className="text-3xl font-bold text-brand-primary">{title}</h2>}
-          {subtitle && <p className="mt-2 text-black">{subtitle}</p>}
+          {subtitle && <p className="mt-2 text-muted-foreground">{subtitle}</p>}
         </div>
       )}
 
