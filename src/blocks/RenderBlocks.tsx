@@ -2,6 +2,7 @@ import React, { Fragment } from 'react'
 
 import type { Page } from '@/payload-types'
 import { cn } from '@/utilities/ui'
+import { AnimateIn } from '@/components/AnimateIn'
 
 import { ArchiveBlock } from '@/blocks/ArchiveBlock/Component'
 import { AlertBlock } from '@/blocks/Alert/Component'
@@ -81,21 +82,22 @@ export const RenderBlocks: React.FC<{
               const alternateBg = sectionBgs[index % 2]
 
               return (
-                <section
-                  key={index}
-                  className={cn(
-                    'relative w-full',
-                    !isFullBleed && 'py-20 lg:py-[7.5rem]',
-                    isFullBleed && 'overflow-hidden',
-                  )}
-                  style={{
-                    '--section-bg': alternateBg,
-                    ...(!isFullBleed && { backgroundColor: alternateBg }),
-                  } as React.CSSProperties}
-                >
-                  {/* @ts-expect-error there may be some mismatch between the expected types here */}
-                  <Block {...block} disableInnerContainer />
-                </section>
+                <AnimateIn key={index} className="w-full">
+                  <section
+                    className={cn(
+                      'relative w-full',
+                      !isFullBleed && 'py-20 lg:py-[7.5rem]',
+                      isFullBleed && 'overflow-hidden',
+                    )}
+                    style={{
+                      '--section-bg': alternateBg,
+                      ...(!isFullBleed && { backgroundColor: alternateBg }),
+                    } as React.CSSProperties}
+                  >
+                    {/* @ts-expect-error there may be some mismatch between the expected types here */}
+                    <Block {...block} disableInnerContainer />
+                  </section>
+                </AnimateIn>
               )
             }
           }
