@@ -10,7 +10,7 @@ const badgeColorClass: Record<string, string> = {
   blue:   'bg-blue-600 text-white',
   green:  'bg-green-600 text-white',
   purple: 'bg-purple-600 text-white',
-  orange: 'bg-orange-500 text-white',
+  orange: 'bg-brand-primary text-white',
   red:    'bg-red-600 text-white',
   gray:   'bg-gray-500 text-white',
 }
@@ -216,7 +216,7 @@ export const EventsBlock: React.FC<Props> = ({
       <div className="container py-16 md:py-20">
         {(title || subtitle) && (
           <div className="mb-10">
-            {title && <h2 className="text-3xl font-bold text-orange-500">{title}</h2>}
+            {title && <h2 className="text-3xl font-bold text-brand-primary">{title}</h2>}
             {subtitle && <p className="mt-2 text-sm text-white/70">{subtitle}</p>}
           </div>
         )}

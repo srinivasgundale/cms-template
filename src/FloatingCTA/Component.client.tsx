@@ -12,7 +12,7 @@ type Item = NonNullable<FloatingCta['items']>[0]
 
 // ─── Default colours per icon type ─────────────────────────────────────────
 const defaultBg: Record<string, string> = {
-  phone:     '#F97316',
+  phone:     'var(--color-brand-primary)',
   whatsapp:  '#25D366',
   email:     '#1e40af',
   chat:      '#1e40af',

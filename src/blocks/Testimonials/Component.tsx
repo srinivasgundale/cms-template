@@ -15,7 +15,7 @@ type Item = NonNullable<TestimonialsBlockProps['items']>[0]
 const badgeColorClass: Record<string, string> = {
   green:  'bg-green-600/20 text-green-400 border-green-600/30',
   blue:   'bg-blue-600/20 text-blue-400 border-blue-600/30',
-  orange: 'bg-orange-500/20 text-orange-400 border-orange-500/30',
+  orange: 'bg-brand-primary/20 text-brand-primary/80 border-brand-primary/30',
   purple: 'bg-purple-600/20 text-purple-400 border-purple-600/30',
   red:    'bg-red-600/20 text-red-400 border-red-600/30',
   gray:   'bg-gray-500/20 text-gray-400 border-gray-500/30',
@@ -62,7 +62,7 @@ const TestimonialCard: React.FC<{ item: Item; layout: string }> = ({ item, layou
       )}
     >
       {/* Opening quote mark */}
-      <span className="text-5xl font-serif leading-none text-orange-500/80 select-none">"</span>
+      <span className="text-5xl font-serif leading-none text-brand-primary/80 select-none">"</span>
 
       {/* Rating — only shown when set */}
       {item.rating && <Stars rating={item.rating} />}
@@ -120,7 +120,7 @@ export const TestimonialsBlock: React.FC<Props> = ({
 
   return (
     <div className={cn('container', className)}>
-      {title && <h2 className="mb-8 text-center text-3xl font-bold text-orange-500">{title}</h2>}
+      {title && <h2 className="mb-8 text-center text-3xl font-bold text-brand-primary">{title}</h2>}
 
       <div
         className={cn({

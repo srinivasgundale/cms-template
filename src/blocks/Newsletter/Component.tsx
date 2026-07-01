@@ -63,9 +63,9 @@ export const NewsletterBlock: React.FC<Props> = ({
           {/* Decorative divider */}
           {layout !== 'inline' && (
             <div className="mb-6 flex items-center justify-center gap-4">
-              <span className="h-px w-16 bg-[#E07800]" />
-              <span className="text-xl text-[#E07800]">✦</span>
-              <span className="h-px w-16 bg-[#E07800]" />
+              <span className="h-px w-16 bg-brand-primary" />
+              <span className="text-xl text-brand-primary">✦</span>
+              <span className="h-px w-16 bg-brand-primary" />
             </div>
           )}
 
@@ -94,7 +94,7 @@ export const NewsletterBlock: React.FC<Props> = ({
                 'mt-8': layout !== 'inline',
               })}
             >
-              <div className="flex h-14 w-14 items-center justify-center rounded-full bg-[#E07800]">
+              <div className="flex h-14 w-14 items-center justify-center rounded-full bg-brand-primary">
                 <CheckIcon />
               </div>
               <p className="text-lg font-semibold text-white">{successMessage}</p>
@@ -115,12 +115,12 @@ export const NewsletterBlock: React.FC<Props> = ({
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder={inputPlaceholder ?? 'Enter your email'}
-                  className="flex-1 rounded-full border border-white/20 bg-white/10 px-5 py-3 text-sm text-white placeholder:text-white/40 outline-none transition focus:border-[#E07800] focus:ring-2 focus:ring-[#E07800]/40"
+                  className="flex-1 rounded-full border border-white/20 bg-white/10 px-5 py-3 text-sm text-white placeholder:text-white/40 outline-none transition focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/40"
                 />
                 <button
                   type="submit"
                   disabled={loading}
-                  className="shrink-0 rounded-full bg-[#E07800] px-7 py-3 text-sm font-bold uppercase tracking-widest text-white transition hover:bg-[#C06000] disabled:opacity-60"
+                  className="shrink-0 rounded-full bg-brand-primary px-7 py-3 text-sm font-bold uppercase tracking-widest text-white transition hover:bg-brand-primary-hover disabled:opacity-60"
                 >
                   {loading ? '…' : (buttonLabel ?? 'Subscribe')}
                 </button>

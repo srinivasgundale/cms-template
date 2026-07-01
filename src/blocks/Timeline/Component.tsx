@@ -21,7 +21,7 @@ export const TimelineBlock: React.FC<Props> = ({
 
   return (
     <div className={cn('container', className)}>
-      {title && <h2 className="mb-10 text-center text-3xl font-bold text-orange-500">{title}</h2>}
+      {title && <h2 className="mb-10 text-center text-3xl font-bold text-brand-primary">{title}</h2>}
 
       <div
         className={cn('relative', {

@@ -186,7 +186,7 @@ export const GalleryBlock: React.FC<Props> = ({
       <div className={cn('w-full', className)}>
         {title && (
           <div className="container mb-6 text-center">
-            <h2 className="text-2xl font-bold text-orange-500">{title}</h2>
+            <h2 className="text-2xl font-bold text-brand-primary">{title}</h2>
           </div>
         )}
 

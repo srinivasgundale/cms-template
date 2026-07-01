@@ -23,7 +23,7 @@ export const FAQBlock: React.FC<Props> = ({
 
   const header = (title || subtitle) ? (
     <div className={cn('mb-8', !hasImage && 'text-center')}>
-      {title && <h2 className="text-3xl font-bold lg:text-4xl text-orange-500">{title}</h2>}
+      {title && <h2 className="text-3xl font-bold lg:text-4xl text-brand-primary">{title}</h2>}
       {subtitle && <p className="mt-2 text-black">{subtitle}</p>}
     </div>
   ) : null

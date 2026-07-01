@@ -174,7 +174,7 @@ export const SliderBlock: React.FC<Props> = (props) => {
 
       {/* Optional above-slider section title */}
       {title && (
-        <h2 className="mb-6 px-4 text-2xl font-bold text-orange-500">{title}</h2>
+        <h2 className="mb-6 px-4 text-2xl font-bold text-brand-primary">{title}</h2>
       )}
 
       <div className="relative w-full overflow-hidden">
