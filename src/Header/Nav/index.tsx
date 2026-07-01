@@ -31,6 +31,7 @@ export const HeaderNav: React.FC<HeaderNavProps> = ({ data, mobile = false, onLi
             <CMSLink
               {...link}
               appearance="link"
+              showArrow={false}
               className={cn(
                 'font-medium tracking-wide transition-colors duration-150 no-underline',
                 mobile

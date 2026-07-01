@@ -18,6 +18,7 @@ type CMSLinkType = {
     relationTo: 'pages' | 'posts'
     value: Page | Post | string | number
   } | null
+  showArrow?: boolean
   size?: ButtonProps['size'] | null
   type?: 'custom' | 'reference' | null
   url?: string | null
@@ -33,6 +34,7 @@ export const CMSLink: React.FC<CMSLinkType> = (props) => {
     newTab,
     onClick,
     reference,
+    showArrow: showArrowProp,
     size: sizeFromProps,
     url,
   } = props
@@ -48,7 +50,7 @@ export const CMSLink: React.FC<CMSLinkType> = (props) => {
 
   const size = appearance === 'link' ? 'clear' : sizeFromProps
   const newTabProps = newTab ? { rel: 'noopener noreferrer', target: '_blank' } : {}
-  const showArrow = ARROW_APPEARANCES.has(appearance ?? '')
+  const showArrow = showArrowProp ?? ARROW_APPEARANCES.has(appearance ?? '')
 
   if (appearance === 'inline') {
     return (

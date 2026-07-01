@@ -109,7 +109,7 @@ const EventTile: React.FC<{ event: EventItem }> = ({ event }) => {
   const wazeUrl = event.location ? buildWazeUrl(event.location, event.mapUrl) : null
 
   return (
-    <div className="flex items-center gap-4 rounded-xl border border-white/10 bg-white/5 p-4 sm:p-5 transition-colors hover:bg-white/10">
+    <div className="flex items-center gap-4 rounded-2xl border border-border bg-white p-4 sm:p-5 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
       {/* Date badge */}
       <div className="flex w-14 shrink-0 flex-col items-center rounded-lg bg-blue-700 py-2 text-white">
         <span className="text-2xl font-extrabold leading-none">{day}</span>
@@ -118,12 +118,12 @@ const EventTile: React.FC<{ event: EventItem }> = ({ event }) => {
 
       {/* Content */}
       <div className="flex-1 min-w-0">
-        <p className="font-semibold text-white leading-snug">{event.title}</p>
+        <p className="font-semibold text-foreground leading-snug">{event.title}</p>
         {event.description && (
-          <p className="mt-0.5 text-sm text-white/60 leading-snug">{event.description}</p>
+          <p className="mt-0.5 text-sm text-muted-foreground leading-snug">{event.description}</p>
         )}
 
-        <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-white/60">
+        <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted-foreground">
           {event.time && (
             <span className="flex items-center gap-1">
               <ClockIcon />
@@ -136,7 +136,7 @@ const EventTile: React.FC<{ event: EventItem }> = ({ event }) => {
               <button
                 type="button"
                 onClick={() => setMapOpen((v) => !v)}
-                className="flex items-center gap-1 hover:text-white transition-colors"
+                className="flex items-center gap-1 hover:text-foreground transition-colors"
                 aria-label="View on map"
               >
                 <MapPinIcon />
@@ -144,14 +144,14 @@ const EventTile: React.FC<{ event: EventItem }> = ({ event }) => {
               </button>
 
               {mapOpen && hasMap && (
-                <div className="absolute left-0 top-full z-20 mt-1.5 min-w-[190px] overflow-hidden rounded-xl border border-white/10 bg-gray-900 shadow-2xl">
+                <div className="absolute left-0 top-full z-20 mt-1.5 min-w-[190px] overflow-hidden rounded-xl border border-border bg-white shadow-2xl">
                   {event.mapUrl && (
                     <a
                       href={event.mapUrl}
                       target="_blank"
                       rel="noopener noreferrer"
                       onClick={() => setMapOpen(false)}
-                      className="flex items-center gap-2.5 px-4 py-3 text-sm text-white hover:bg-white/10 transition-colors"
+                      className="flex items-center gap-2.5 px-4 py-3 text-sm text-foreground hover:bg-muted transition-colors"
                     >
                       <GoogleMapsIcon />
                       Open in Google Maps
@@ -163,7 +163,7 @@ const EventTile: React.FC<{ event: EventItem }> = ({ event }) => {
                       target="_blank"
                       rel="noopener noreferrer"
                       onClick={() => setMapOpen(false)}
-                      className="flex items-center gap-2.5 px-4 py-3 text-sm text-white hover:bg-white/10 transition-colors border-t border-white/5"
+                      className="flex items-center gap-2.5 px-4 py-3 text-sm text-foreground hover:bg-muted transition-colors border-t border-border"
                     >
                       <WazeIcon />
                       Open in Waze
@@ -187,7 +187,7 @@ const EventTile: React.FC<{ event: EventItem }> = ({ event }) => {
           type="button"
           onClick={handleCopy}
           title="Copy event details"
-          className="rounded p-1.5 text-white/30 hover:text-white transition-colors"
+          className="rounded p-1.5 text-muted-foreground/40 hover:text-foreground transition-colors"
           aria-label="Copy event details"
         >
           {copied ? <CheckIcon /> : <CopyIcon />}
@@ -211,13 +211,13 @@ export const EventsBlock: React.FC<Props> = ({
   return (
     <div
       className={cn('cms-bg w-full', className)}
-      style={{ '--cms-bg': backgroundColor || '#111827' } as React.CSSProperties}
+      style={backgroundColor ? ({ '--cms-bg': backgroundColor } as React.CSSProperties) : undefined}
     >
       <div className="container py-20 lg:py-[7.5rem]">
         {(title || subtitle) && (
           <div className="mb-10">
             {title && <h2 className="text-3xl font-bold text-brand-primary">{title}</h2>}
-            {subtitle && <p className="mt-2 text-sm text-white/70">{subtitle}</p>}
+            {subtitle && <p className="mt-2 text-sm text-muted-foreground">{subtitle}</p>}
           </div>
         )}
 
