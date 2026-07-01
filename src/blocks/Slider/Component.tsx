@@ -1,36 +1,99 @@
 'use client'
 
 import type { SliderBlock as SliderBlockProps } from '@/payload-types'
-
 import { cn } from '@/utilities/ui'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
-
 import { CMSLink } from '@/components/Link'
 import { Media } from '@/components/Media'
 import RichText from '@/components/RichText'
 
 type Props = SliderBlockProps & { className?: string; disableInnerContainer?: boolean }
-
 type Slide = NonNullable<SliderBlockProps['slides']>[0]
 
-const overlayClass: Record<string, string> = {
-  'bottom-left':   'items-end justify-start text-left',
-  'bottom-center': 'items-end justify-center text-center',
-  'center':        'items-center justify-center text-center',
+// Overlay gradient: position → strength → Tailwind classes
+const OVERLAY_GRADIENT: Record<string, Record<string, string>> = {
+  'bottom-left': {
+    light:  'bg-gradient-to-t from-black/50 via-black/15 to-transparent',
+    medium: 'bg-gradient-to-t from-black/75 via-black/30 to-transparent',
+    strong: 'bg-gradient-to-t from-black/90 via-black/55 to-black/10',
+  },
+  'bottom-center': {
+    light:  'bg-gradient-to-t from-black/50 via-black/15 to-transparent',
+    medium: 'bg-gradient-to-t from-black/75 via-black/30 to-transparent',
+    strong: 'bg-gradient-to-t from-black/90 via-black/55 to-black/10',
+  },
+  center: {
+    light:  'bg-black/25',
+    medium: 'bg-black/45',
+    strong: 'bg-black/65',
+  },
 }
 
-export const SliderBlock: React.FC<Props> = ({
-  className,
-  title,
-  autoplay = false,
-  autoplaySpeed = 4000,
-  showArrows = true,
-  showDots = true,
-  slides,
-}) => {
+// Flex alignment of the overlay layer
+const OVERLAY_ALIGN: Record<string, string> = {
+  'bottom-left':   'items-end justify-start',
+  'bottom-center': 'items-end justify-center',
+  center:          'items-center justify-center',
+}
+
+// Text alignment of the content block
+const TEXT_ALIGN: Record<string, string> = {
+  'bottom-left':   'text-left',
+  'bottom-center': 'text-center',
+  center:          'text-center',
+}
+
+// Padding inside the overlay layer (more at bottom for bottom positions)
+const OVERLAY_PAD: Record<string, string> = {
+  'bottom-left':   'px-6 pb-14 pt-8 md:px-14 md:pb-20',
+  'bottom-center': 'px-6 pb-14 pt-8 md:px-14 md:pb-20',
+  center:          'px-6 py-8 md:px-14 md:py-14',
+}
+
+function IconChevronLeft() {
+  return (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false">
+      <polyline points="15 18 9 12 15 6" />
+    </svg>
+  )
+}
+
+function IconChevronRight() {
+  return (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false">
+      <polyline points="9 18 15 12 9 6" />
+    </svg>
+  )
+}
+
+function IconChevronDown() {
+  return (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false">
+      <polyline points="6 9 12 15 18 9" />
+    </svg>
+  )
+}
+
+export const SliderBlock: React.FC<Props> = (props) => {
+  const {
+    className,
+    title,
+    autoplay = false,
+    autoplaySpeed = 4000,
+    showArrows = true,
+    showDots = true,
+    slides,
+  } = props
+
+  const showScrollIndicator = props.showScrollIndicator ?? false
+
   const [current, setCurrent] = useState(0)
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const progressIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null)
   const [isMobile, setIsMobile] = useState(false)
+  const [progressWidth, setProgressWidth] = useState(0)
+  const touchStartX = useRef<number | null>(null)
+  const rootRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const mq = window.matchMedia('(max-width: 767px)')
@@ -45,6 +108,7 @@ export const SliderBlock: React.FC<Props> = ({
   const go = useCallback(
     (index: number) => {
       setCurrent((index + count) % count)
+      setProgressWidth(0)
     },
     [count],
   )
@@ -52,103 +116,257 @@ export const SliderBlock: React.FC<Props> = ({
   const prev = useCallback(() => go(current - 1), [current, go])
   const next = useCallback(() => go(current + 1), [current, go])
 
-  // Autoplay
+  // Autoplay timer
   useEffect(() => {
     if (!autoplay || count < 2) return
     timerRef.current = setTimeout(next, autoplaySpeed ?? 4000)
-    return () => {
-      if (timerRef.current) clearTimeout(timerRef.current)
-    }
+    return () => { if (timerRef.current) clearTimeout(timerRef.current) }
   }, [autoplay, autoplaySpeed, current, count, next])
+
+  // Autoplay progress bar
+  useEffect(() => {
+    if (!autoplay || count < 2) return
+    setProgressWidth(0)
+    const speed = autoplaySpeed ?? 4000
+    const tick = 50
+    if (progressIntervalRef.current) clearInterval(progressIntervalRef.current)
+    progressIntervalRef.current = setInterval(() => {
+      setProgressWidth(w => Math.min(w + (tick / speed) * 100, 100))
+    }, tick)
+    return () => { if (progressIntervalRef.current) clearInterval(progressIntervalRef.current) }
+  }, [current, autoplay, autoplaySpeed, count])
+
+  // Keyboard navigation
+  useEffect(() => {
+    if (count < 2) return
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'ArrowLeft') prev()
+      else if (e.key === 'ArrowRight') next()
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [prev, next, count])
+
+  // Scroll past the hero section on click
+  const handleScrollDown = useCallback(() => {
+    const section = rootRef.current?.closest('section') ?? rootRef.current
+    if (!section) return
+    const bottom = section.getBoundingClientRect().bottom + window.scrollY
+    window.scrollTo({ top: bottom, behavior: 'smooth' })
+  }, [])
 
   if (!slides?.length) return null
 
   return (
-    <div className={cn('w-full', className)}>
-      {title && <h2 className="mb-6 px-4 text-2xl font-bold text-orange-500">{title}</h2>}
+    <div
+      ref={rootRef}
+      className={cn('w-full', className)}
+      role="region"
+      aria-label={title || 'Hero slideshow'}
+      aria-roledescription="carousel"
+    >
+      {/* Screen-reader live region announces slide changes */}
+      <div aria-live="polite" aria-atomic="true" className="sr-only">
+        {slides[current]?.title
+          ? `Slide ${current + 1} of ${count}: ${slides[current].title}`
+          : `Slide ${current + 1} of ${count}`}
+      </div>
+
+      {/* Optional above-slider section title */}
+      {title && (
+        <h2 className="mb-6 px-4 text-2xl font-bold text-orange-500">{title}</h2>
+      )}
 
       <div className="relative w-full overflow-hidden">
-        {/* Track */}
-        <div
-          className="flex transition-transform duration-500 ease-in-out"
-          style={{ transform: `translateX(-${current * 100}%)` }}
-        >
-          {slides.map((slide: Slide, i) => (
-            <div key={i} className="relative min-w-full">
-              {/* Image */}
-              <div className="h-[100svh] md:h-auto md:aspect-[16/6] w-full overflow-hidden">
-                <Media
-                  resource={isMobile && (slide as any).mobileImage ? (slide as any).mobileImage : slide.image}
-                  imgClassName="h-full w-full object-cover"
-                />
-              </div>
+        {/* Autoplay progress bar */}
+        {autoplay && count > 1 && (
+          <div className="absolute top-0 left-0 right-0 z-30 h-[3px] bg-white/20" aria-hidden="true">
+            <div
+              className="hero-progress-fill h-full bg-primary"
+              style={{ '--progress': `${progressWidth}%` } as React.CSSProperties}
+            />
+          </div>
+        )}
 
-              {/* Overlay */}
-              {(slide.title || slide.description || slide.enableLink) && (
-                <div
-                  className={cn(
-                    'absolute inset-0 flex bg-gradient-to-t from-black/60 via-black/20 to-transparent p-8',
-                    overlayClass[slide.overlayPosition ?? 'bottom-left'],
-                  )}
-                >
-                  <div className="flex max-w-lg flex-col gap-3 text-white">
-                    {slide.title && (
-                      <h3 className="text-2xl font-bold drop-shadow-md">{slide.title}</h3>
-                    )}
-                    {slide.description && (
-                      <div className="text-sm text-white/90 drop-shadow-sm [&_*]:text-white/90">
-                        <RichText data={slide.description} enableGutter={false} enableProse={false} />
-                      </div>
-                    )}
-                    {slide.enableLink && slide.link && (
-                      <div>
-                        <CMSLink {...slide.link} appearance={slide.link.appearance ?? 'default'} />
-                      </div>
-                    )}
-                  </div>
+        {/* Slide track */}
+        <div
+          className="hero-slide-track flex"
+          style={{ '--slide-index': current } as React.CSSProperties}
+          onTouchStart={(e) => { touchStartX.current = e.touches[0].clientX }}
+          onTouchEnd={(e) => {
+            if (touchStartX.current === null) return
+            const delta = touchStartX.current - e.changedTouches[0].clientX
+            if (Math.abs(delta) > 50) delta > 0 ? next() : prev()
+            touchStartX.current = null
+          }}
+        >
+          {slides.map((slide: Slide, i) => {
+            const s = slide as any
+            const pos: string = s.overlayPosition ?? 'bottom-left'
+            const strength: string = s.overlayStrength ?? 'medium'
+            const tag = s.headingTag
+            const HeadingTag = (tag === 'h1' || tag === 'h2' || tag === 'h3' ? tag : 'h2') as 'h1' | 'h2' | 'h3'
+            const hasContent = slide.title || slide.description || slide.enableLink || s.eyebrow
+            const gradientClass = OVERLAY_GRADIENT[pos]?.[strength] ?? OVERLAY_GRADIENT['bottom-left'].medium
+            const image = isMobile && s.mobileImage ? s.mobileImage : slide.image
+
+            return (
+              <div
+                key={i}
+                className="relative min-w-full"
+                role="group"
+                aria-roledescription="slide"
+                aria-label={slide.title ? `Slide ${i + 1}: ${slide.title}` : `Slide ${i + 1} of ${count}`}
+                aria-hidden={i !== current ? 'true' : undefined}
+              >
+                {/* Full-viewport background image — fill mode positions img absolutely inside the frame */}
+                <div className="hero-slide-frame w-full">
+                  <Media
+                    resource={image}
+                    fill
+                    imgClassName="object-cover"
+                    priority={i === 0}
+                    alt={s.imageAlt || undefined}
+                  />
                 </div>
-              )}
-            </div>
-          ))}
+
+                {/* Gradient overlay — always rendered so it persists during slide transition */}
+                {hasContent && (
+                  <div className={cn('absolute inset-0', gradientClass)} aria-hidden="true" />
+                )}
+
+                {/* Content — only mounted on active slide so CSS animation fires on entry */}
+                {hasContent && i === current && (
+                  <div
+                    className={cn(
+                      'absolute inset-0 flex',
+                      OVERLAY_ALIGN[pos] ?? OVERLAY_ALIGN['bottom-left'],
+                      OVERLAY_PAD[pos] ?? OVERLAY_PAD['bottom-left'],
+                    )}
+                  >
+                    <div
+                      className={cn(
+                        'hero-slide-content flex flex-col gap-4',
+                        TEXT_ALIGN[pos] ?? TEXT_ALIGN['bottom-left'],
+                        pos === 'center' ? 'items-center max-w-3xl' : 'max-w-2xl',
+                      )}
+                    >
+                      {/* Eyebrow label */}
+                      {s.eyebrow && (
+                        <span className="inline-flex items-center gap-2.5 text-sm font-semibold tracking-widest uppercase text-white/80">
+                          <span className="w-6 h-px bg-primary shrink-0" aria-hidden="true" />
+                          {s.eyebrow}
+                        </span>
+                      )}
+
+                      {/* Main heading — font size via .hero-heading CSS class */}
+                      {slide.title && (
+                        <HeadingTag className="hero-heading font-extrabold text-white text-balance">
+                          {slide.title}
+                        </HeadingTag>
+                      )}
+
+                      {/* Description */}
+                      {slide.description && (
+                        <div className="hero-description text-white/90 [&_*]:text-white/90 max-w-xl">
+                          <RichText data={slide.description} enableGutter={false} enableProse={false} />
+                        </div>
+                      )}
+
+                      {/* CTA */}
+                      {slide.enableLink && slide.link && (
+                        <div
+                          className={cn(
+                            'flex flex-wrap gap-3 mt-2',
+                            pos !== 'bottom-left' && 'justify-center',
+                          )}
+                        >
+                          <CMSLink
+                            {...slide.link}
+                            appearance={slide.link.appearance ?? 'default'}
+                          />
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                )}
+              </div>
+            )
+          })}
         </div>
 
-        {/* Arrows */}
+        {/* Prev / Next arrows */}
         {showArrows && count > 1 && (
           <>
             <button
+              type="button"
               onClick={prev}
               aria-label="Previous slide"
-              className="absolute left-3 top-1/2 -translate-y-1/2 rounded-full bg-black/40 p-2.5 text-white backdrop-blur-sm transition hover:bg-black/60"
+              className="absolute left-4 top-1/2 z-20 -translate-y-1/2 rounded-full bg-black/40 p-3 text-white backdrop-blur-sm transition-all duration-200 hover:bg-black/65 hover:scale-110 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
             >
-              ←
+              <IconChevronLeft />
             </button>
             <button
+              type="button"
               onClick={next}
               aria-label="Next slide"
-              className="absolute right-3 top-1/2 -translate-y-1/2 rounded-full bg-black/40 p-2.5 text-white backdrop-blur-sm transition hover:bg-black/60"
+              className="absolute right-4 top-1/2 z-20 -translate-y-1/2 rounded-full bg-black/40 p-3 text-white backdrop-blur-sm transition-all duration-200 hover:bg-black/65 hover:scale-110 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
             >
-              →
+              <IconChevronRight />
             </button>
           </>
         )}
-      </div>
 
-      {/* Dots */}
-      {showDots && count > 1 && (
-        <div className="mt-4 flex justify-center gap-2">
-          {slides.map((_: Slide, i) => (
-            <button
-              key={i}
-              onClick={() => go(i)}
-              aria-label={`Go to slide ${i + 1}`}
-              className={cn(
-                'h-2 rounded-full transition-all duration-300',
-                i === current ? 'w-6 bg-primary' : 'w-2 bg-muted-foreground/40 hover:bg-muted-foreground/70',
-              )}
-            />
-          ))}
-        </div>
-      )}
+        {/* Slide counter */}
+        {count > 1 && (
+          <div
+            aria-hidden="true"
+            className="absolute bottom-6 right-6 z-20 font-mono text-xs tracking-widest text-white/55 select-none"
+          >
+            {String(current + 1).padStart(2, '0')}&thinsp;/&thinsp;{String(count).padStart(2, '0')}
+          </div>
+        )}
+
+        {/* Bottom-centre bar: dots + scroll indicator — absolute so no height added below the frame */}
+        {((showDots && count > 1) || showScrollIndicator) && (
+          <div className="absolute bottom-5 left-1/2 z-20 -translate-x-1/2 flex flex-col items-center gap-3">
+            {showDots && count > 1 && (
+              <div role="tablist" aria-label="Slide indicators" className="flex gap-2">
+                {slides.map((_: Slide, i) => (
+                  <button
+                    key={i}
+                    type="button"
+                    role="tab"
+                    onClick={() => go(i)}
+                    aria-label={`Go to slide ${i + 1}`}
+                    aria-selected={i === current ? 'true' : 'false'}
+                    className={cn(
+                      'h-2 rounded-full transition-all duration-300',
+                      i === current
+                        ? 'w-6 bg-white'
+                        : 'w-2 bg-white/40 hover:bg-white/70',
+                    )}
+                  />
+                ))}
+              </div>
+            )}
+
+            {showScrollIndicator && (
+              <button
+                type="button"
+                onClick={handleScrollDown}
+                className="flex flex-col items-center gap-1.5 text-white/60 hero-scroll-indicator hover:text-white/90 transition-colors duration-200 focus-visible:outline-none focus-visible:text-white"
+                aria-label="Scroll to next section"
+              >
+                <span className="text-xs font-semibold tracking-widest uppercase">Scroll</span>
+                <span className="animate-bounce">
+                  <IconChevronDown />
+                </span>
+              </button>
+            )}
+          </div>
+        )}
+      </div>
     </div>
   )
 }

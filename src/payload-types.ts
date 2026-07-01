@@ -1355,6 +1355,10 @@ export interface SliderBlock {
   autoplaySpeed?: number | null;
   showArrows?: boolean | null;
   showDots?: boolean | null;
+  /**
+   * Animated arrow at the bottom prompting users to scroll.
+   */
+  showScrollIndicator?: boolean | null;
   slides?:
     | {
         image: number | Media;
@@ -1362,8 +1366,24 @@ export interface SliderBlock {
          * Shown on small screens instead of the main image.
          */
         mobileImage?: (number | null) | Media;
+        /**
+         * Overrides the media item alt text. Describe the image for screen readers and search engines.
+         */
+        imageAlt?: string | null;
+        /**
+         * Small text shown above the heading — e.g. "New" or "Welcome".
+         */
+        eyebrow?: string | null;
         title?: string | null;
+        /**
+         * Use h1 if this is the main page heading.
+         */
+        headingTag?: ('h1' | 'h2' | 'h3') | null;
         overlayPosition?: ('bottom-left' | 'bottom-center' | 'center') | null;
+        /**
+         * Controls how dark the gradient over the image is.
+         */
+        overlayStrength?: ('light' | 'medium' | 'strong') | null;
         description?: {
           root: {
             type: string;
@@ -2194,13 +2214,18 @@ export interface SliderBlockSelect<T extends boolean = true> {
   autoplaySpeed?: T;
   showArrows?: T;
   showDots?: T;
+  showScrollIndicator?: T;
   slides?:
     | T
     | {
         image?: T;
         mobileImage?: T;
+        imageAlt?: T;
+        eyebrow?: T;
         title?: T;
+        headingTag?: T;
         overlayPosition?: T;
+        overlayStrength?: T;
         description?: T;
         enableLink?: T;
         link?:
