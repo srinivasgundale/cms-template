@@ -232,10 +232,6 @@
   --color-warning: var(--warning);
   --color-error: var(--error);
 
-  /* Section alternating background tokens */
-  --color-section-bg-a: var(--section-bg-a);
-  --color-section-bg-b: var(--section-bg-b);
-
   /* Brand tokens exposed as Tailwind utilities */
   --color-brand-primary:        var(--brand-primary);
   --color-brand-primary-hover:  var(--brand-primary-hover);

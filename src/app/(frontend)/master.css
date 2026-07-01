@@ -1280,3 +1280,11 @@ main,
     transition: none;
   }
 }
+
+/* ────────────────────────────────────────────────────────────
+   28. SECTION ALTERNATING BACKGROUNDS
+   Light: white / #F5F5F5  |  Dark: dark-gray / slightly-lighter-dark-gray
+   Defined as plain CSS (not Tailwind utilities) to guarantee reliability.
+   ──────────────────────────────────────────────────────────── */
+.bg-section-bg-a { background-color: var(--section-bg-a); }
+.bg-section-bg-b { background-color: var(--section-bg-b); }
