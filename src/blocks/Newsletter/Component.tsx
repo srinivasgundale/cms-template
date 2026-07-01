@@ -34,10 +34,13 @@ export const NewsletterBlock: React.FC<Props> = ({
 
   const { theme } = useTheme()
   const isDarkMode = theme === 'dark'
-  // When a CMS color is set: use it to determine text. When none is set, the
-  // background comes from --section-bg (dark in dark mode, light in light mode),
-  // so treat it as dark when in dark mode.
-  const hasDarkBg = backgroundColor ? !isLightBackground(backgroundColor) : isDarkMode
+  const isLightBg = backgroundColor ? isLightBackground(backgroundColor) : null
+
+  // In dark mode, suppress light CMS colors — let --section-bg (dark) take over.
+  // This prevents white-text-on-white-bg when someone chose a light CMS color.
+  const activeBgColor = isDarkMode && isLightBg ? undefined : backgroundColor
+  const hasDarkBg = isDarkMode || isLightBg === false
+
   const text = hasDarkBg ? 'text-white' : 'text-foreground'
   const textMuted = hasDarkBg ? 'text-white/70' : 'text-muted-foreground'
   const textFaint = hasDarkBg ? 'text-white/40' : 'text-muted-foreground/50'
@@ -66,7 +69,7 @@ export const NewsletterBlock: React.FC<Props> = ({
   return (
     <div
       className={cn('cms-bg w-full', className)}
-      style={backgroundColor ? ({ '--cms-bg': backgroundColor } as React.CSSProperties) : undefined}
+      style={activeBgColor ? ({ '--cms-bg': activeBgColor } as React.CSSProperties) : undefined}
     >
       <div
         className={cn('container py-20 lg:py-[7.5rem]', {
