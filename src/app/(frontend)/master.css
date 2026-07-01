@@ -917,11 +917,17 @@ main,
   background-color: var(--color-card);
   padding: 1.5rem;
   overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow 0.3s ease;
   /* Reset button defaults when face is a <button> */
   appearance: none;
   cursor: pointer;
   text-align: left;
   font: inherit;
+}
+
+.team-card:hover .team-card-face:not(.team-card-back) {
+  box-shadow: var(--shadow-lg);
 }
 
 .team-card-face:focus-visible {

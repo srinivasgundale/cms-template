@@ -53,7 +53,7 @@ export const NewsletterBlock: React.FC<Props> = ({
       style={{ '--cms-bg': backgroundColor || '#3C1500' } as React.CSSProperties}
     >
       <div
-        className={cn('container py-20 md:py-24', {
+        className={cn('container py-20 lg:py-[7.5rem]', {
           'text-center': layout !== 'inline',
           'flex flex-col md:flex-row md:items-center md:justify-between gap-8': layout === 'inline',
         })}

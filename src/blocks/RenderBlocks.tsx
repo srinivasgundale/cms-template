@@ -85,7 +85,7 @@ export const RenderBlocks: React.FC<{
                   key={index}
                   className={cn(
                     'relative w-full',
-                    !isFullBleed && 'py-16 md:py-20 lg:py-24',
+                    !isFullBleed && 'py-20 lg:py-[7.5rem]',
                     isFullBleed && 'overflow-hidden',
                   )}
                   style={{

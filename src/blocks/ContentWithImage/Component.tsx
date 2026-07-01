@@ -34,7 +34,7 @@ export const ContentWithImageBlock: React.FC<Props> = ({
       className={cn('cms-bg w-full', className)}
       style={backgroundColor ? { '--cms-bg': backgroundColor } as React.CSSProperties : undefined}
     >
-      <div className="container py-16 md:py-20 lg:py-24">
+      <div className="container py-20 lg:py-[7.5rem]">
         <div
           className={cn('flex gap-10 lg:gap-16', {
             'flex-col md:flex-row items-center': isHorizontal,

@@ -51,8 +51,8 @@ export const CardsBlock: React.FC<Props> = ({
         {items.map((item, i) => {
           const href = item.enableLink ? resolveHref(item.link) : null
           const sharedClass = cn(
-            'group flex flex-col overflow-hidden rounded-xl border border-border bg-card transition-shadow',
-            { 'hover:shadow-md': !!href },
+            'group flex flex-col overflow-hidden rounded-xl border border-border bg-card shadow-sm transition-all duration-300',
+            { 'hover:shadow-xl hover:-translate-y-1.5': !!href && layout !== 'list' },
             { 'flex-row': layout === 'list' },
           )
 
@@ -64,7 +64,7 @@ export const CardsBlock: React.FC<Props> = ({
               className={sharedClass}
             >
               {item.image && (
-                <div className={cn('overflow-hidden', { 'h-48': layout === 'grid', 'h-32 w-32 shrink-0': layout === 'list' })}>
+                <div className={cn('overflow-hidden', { 'aspect-[16/9] w-full': layout === 'grid', 'aspect-square w-32 shrink-0': layout === 'list' })}>
                   <Media
                     resource={item.image}
                     imgClassName="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
@@ -91,7 +91,7 @@ export const CardsBlock: React.FC<Props> = ({
           ) : (
             <div key={i} className={sharedClass}>
               {item.image && (
-                <div className={cn('overflow-hidden', { 'h-48': layout === 'grid', 'h-32 w-32 shrink-0': layout === 'list' })}>
+                <div className={cn('overflow-hidden', { 'aspect-[16/9] w-full': layout === 'grid', 'aspect-square w-32 shrink-0': layout === 'list' })}>
                   <Media
                     resource={item.image}
                     imgClassName="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"

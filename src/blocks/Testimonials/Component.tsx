@@ -57,7 +57,7 @@ const TestimonialCard: React.FC<{ item: Item; layout: string }> = ({ item, layou
   return (
     <blockquote
       className={cn(
-        'flex flex-col gap-5 rounded-2xl border border-white/10 bg-[#1a1a2e] p-6',
+        'flex flex-col gap-5 rounded-2xl border border-white/10 bg-[#1a1a2e] p-6 shadow-md hover:shadow-2xl hover:-translate-y-1 transition-all duration-300',
         { 'min-w-[300px] sm:min-w-[360px]': layout === 'carousel' },
       )}
     >

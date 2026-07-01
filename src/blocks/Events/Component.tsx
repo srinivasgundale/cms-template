@@ -213,7 +213,7 @@ export const EventsBlock: React.FC<Props> = ({
       className={cn('cms-bg w-full', className)}
       style={{ '--cms-bg': backgroundColor || '#111827' } as React.CSSProperties}
     >
-      <div className="container py-16 md:py-20">
+      <div className="container py-20 lg:py-[7.5rem]">
         {(title || subtitle) && (
           <div className="mb-10">
             {title && <h2 className="text-3xl font-bold text-brand-primary">{title}</h2>}

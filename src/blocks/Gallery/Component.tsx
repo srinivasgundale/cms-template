@@ -215,7 +215,7 @@ export const GalleryBlock: React.FC<Props> = ({
         {/* ── CTA strip ── */}
         {ctaTitle && (
           <div
-            className="cms-bg w-full py-10 md:py-14"
+            className="cms-bg w-full py-20 lg:py-[7.5rem]"
             style={{ '--cms-bg': backgroundColor || '#3C1500' } as React.CSSProperties}
           >
             <div className="container flex flex-col items-center gap-6 text-center">
