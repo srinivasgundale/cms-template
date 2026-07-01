@@ -21,7 +21,7 @@ export const ScrollProgress: React.FC = () => {
       className="fixed left-0 top-0 z-[9999] h-[3px] w-full origin-left"
       style={{
         transform: `scaleX(${progress})`,
-        background: 'linear-gradient(to right, var(--brand-primary), var(--brand-accent))',
+        background: 'linear-gradient(to right, rgba(255,255,255,0.6), rgba(255,255,255,1))',
         transition: 'transform 80ms linear',
       }}
       aria-hidden="true"

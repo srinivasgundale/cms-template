@@ -2,6 +2,7 @@
 
 import type { EventsBlock as EventsBlockProps } from '@/payload-types'
 import { cn } from '@/utilities/ui'
+import { AnimateIn } from '@/components/AnimateIn'
 import React, { useEffect, useRef, useState } from 'react'
 
 type EventItem = NonNullable<EventsBlockProps['events']>[0]
@@ -223,7 +224,9 @@ export const EventsBlock: React.FC<Props> = ({
 
         <div className="flex flex-col gap-3">
           {events.map((event, i) => (
-            <EventTile key={i} event={event} />
+            <AnimateIn key={i} variant="fade-up" delay={Math.min(i, 4) * 150}>
+              <EventTile event={event} />
+            </AnimateIn>
           ))}
         </div>
       </div>

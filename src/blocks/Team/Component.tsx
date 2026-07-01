@@ -3,6 +3,7 @@
 import type { TeamBlock as TeamBlockProps } from '@/payload-types'
 import { cn } from '@/utilities/ui'
 import { ScrollHint } from '@/components/ui/scroll-hint'
+import { AnimateIn } from '@/components/AnimateIn'
 import React, { useState } from 'react'
 import { Media } from '@/components/Media'
 
@@ -222,9 +223,9 @@ export const TeamBlock: React.FC<Props> = ({
         )}
       >
         {members.map((member, i) => (
-          <div key={i} className={layout !== 'list' ? 'shrink-0 w-[220px] sm:w-auto' : undefined}>
+          <AnimateIn key={i} variant="fade-up" delay={Math.min(i, 4) * 150} className={layout !== 'list' ? 'shrink-0 w-[220px] sm:w-auto' : undefined}>
             <TeamMemberCard member={member} layout={layout ?? 'grid'} index={i} />
-          </div>
+          </AnimateIn>
         ))}
       </div>
       {layout !== 'list' && <ScrollHint />}

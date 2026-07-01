@@ -2,6 +2,7 @@ import type { TestimonialsBlock as TestimonialsBlockProps } from '@/payload-type
 
 import { cn } from '@/utilities/ui'
 import { ScrollHint } from '@/components/ui/scroll-hint'
+import { AnimateIn } from '@/components/AnimateIn'
 import React from 'react'
 
 import { Media } from '@/components/Media'
@@ -132,7 +133,9 @@ export const TestimonialsBlock: React.FC<Props> = ({
         })}
       >
         {items.map((item, i) => (
-          <TestimonialCard key={i} item={item} layout={layout ?? 'grid'} />
+          <AnimateIn key={i} variant="fade-up" delay={Math.min(i, 4) * 150}>
+            <TestimonialCard item={item} layout={layout ?? 'grid'} />
+          </AnimateIn>
         ))}
       </div>
       {layout !== 'list' && <ScrollHint />}
