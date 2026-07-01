@@ -31,13 +31,18 @@ export const NewsletterBlock: React.FC<Props> = ({
   const [submitted, setSubmitted] = useState(false)
   const [loading, setLoading] = useState(false)
 
-  const isLight = isLightBackground(backgroundColor)
-  const text = isLight ? 'text-foreground' : 'text-white'
-  const textMuted = isLight ? 'text-foreground/60' : 'text-white/70'
-  const textFaint = isLight ? 'text-foreground/40' : 'text-white/40'
-  const inputCls = isLight
-    ? 'border-foreground/20 bg-foreground/5 text-foreground placeholder:text-foreground/40 focus:border-brand-primary focus:ring-brand-primary/40'
-    : 'border-white/20 bg-white/10 text-white placeholder:text-white/40 focus:border-brand-primary focus:ring-brand-primary/40'
+  // When no CMS backgroundColor is set, the section-bg CSS variable drives the
+  // background (light in light mode, dark in dark mode). Use adaptive tokens so
+  // the text is readable in both. Only switch to white text when an explicit
+  // dark color has been chosen in the CMS.
+  const isLight = backgroundColor ? isLightBackground(backgroundColor) : null
+  const isDark = isLight === false
+  const text = isDark ? 'text-white' : 'text-foreground'
+  const textMuted = isDark ? 'text-white/70' : 'text-muted-foreground'
+  const textFaint = isDark ? 'text-white/40' : 'text-muted-foreground/50'
+  const inputCls = isDark
+    ? 'border-white/20 bg-white/10 text-white placeholder:text-white/40 focus:border-brand-primary focus:ring-brand-primary/40'
+    : 'border-foreground/20 bg-foreground/5 text-foreground placeholder:text-foreground/40 focus:border-brand-primary focus:ring-brand-primary/40'
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
