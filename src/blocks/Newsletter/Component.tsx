@@ -5,6 +5,7 @@ import type { NewsletterBlock as NewsletterBlockProps } from '@/payload-types'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/utilities/ui'
 import { isLightBackground } from '@/utilities/colorContrast'
+import { useTheme } from '@/providers/Theme'
 import React, { useState } from 'react'
 
 type Props = NewsletterBlockProps & { className?: string; disableInnerContainer?: boolean }
@@ -31,16 +32,16 @@ export const NewsletterBlock: React.FC<Props> = ({
   const [submitted, setSubmitted] = useState(false)
   const [loading, setLoading] = useState(false)
 
-  // When no CMS backgroundColor is set, the section-bg CSS variable drives the
-  // background (light in light mode, dark in dark mode). Use adaptive tokens so
-  // the text is readable in both. Only switch to white text when an explicit
-  // dark color has been chosen in the CMS.
-  const isLight = backgroundColor ? isLightBackground(backgroundColor) : null
-  const isDark = isLight === false
-  const text = isDark ? 'text-white' : 'text-foreground'
-  const textMuted = isDark ? 'text-white/70' : 'text-muted-foreground'
-  const textFaint = isDark ? 'text-white/40' : 'text-muted-foreground/50'
-  const inputCls = isDark
+  const { theme } = useTheme()
+  const isDarkMode = theme === 'dark'
+  // When a CMS color is set: use it to determine text. When none is set, the
+  // background comes from --section-bg (dark in dark mode, light in light mode),
+  // so treat it as dark when in dark mode.
+  const hasDarkBg = backgroundColor ? !isLightBackground(backgroundColor) : isDarkMode
+  const text = hasDarkBg ? 'text-white' : 'text-foreground'
+  const textMuted = hasDarkBg ? 'text-white/70' : 'text-muted-foreground'
+  const textFaint = hasDarkBg ? 'text-white/40' : 'text-muted-foreground/50'
+  const inputCls = hasDarkBg
     ? 'border-white/20 bg-white/10 text-white placeholder:text-white/40 focus:border-brand-primary focus:ring-brand-primary/40'
     : 'border-foreground/20 bg-foreground/5 text-foreground placeholder:text-foreground/40 focus:border-brand-primary focus:ring-brand-primary/40'
 
