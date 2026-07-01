@@ -154,9 +154,9 @@
 
   --background: oklch(14.5% 0 0deg);
   --foreground: oklch(98.5% 0 0deg);
-  --card: oklch(24% 0 0deg);
-  --section-bg-a: oklch(17% 0 0deg);
-  --section-bg-b: oklch(21% 0 0deg);
+  --card: #2e2e2e;
+  --section-bg-a: #1a1a1a;
+  --section-bg-b: #242424;
   --card-foreground: oklch(98.5% 0 0deg);
   --popover: oklch(14.5% 0 0deg);
   --popover-foreground: oklch(98.5% 0 0deg);

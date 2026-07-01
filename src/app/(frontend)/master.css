@@ -1283,8 +1283,7 @@ main,
 
 /* ────────────────────────────────────────────────────────────
    28. SECTION ALTERNATING BACKGROUNDS
-   Light: white / #F5F5F5  |  Dark: dark-gray / slightly-lighter-dark-gray
-   Defined as plain CSS (not Tailwind utilities) to guarantee reliability.
+   Primary mechanism: inline style={{ backgroundColor: 'var(--section-bg-a/b)' }}
+   CSS variables defined in globals.css :root and [data-theme='dark'].
+   Light: #ffffff / #F5F5F5  |  Dark: #1a1a1a / #242424
    ──────────────────────────────────────────────────────────── */
-.bg-section-bg-a { background-color: var(--section-bg-a); }
-.bg-section-bg-b { background-color: var(--section-bg-b); }
