@@ -9,6 +9,7 @@ import { ChevronLeft, ChevronRight, X } from 'lucide-react'
 import { Media } from '@/components/Media'
 import { CMSLink } from '@/components/Link'
 import { ScrollHint } from '@/components/ui/scroll-hint'
+import { AnimateIn } from '@/components/AnimateIn'
 import { isLightBackground } from '@/utilities/colorContrast'
 
 type GalleryImage = NonNullable<GalleryBlockProps['images']>[0]
@@ -238,14 +239,15 @@ export const GalleryBlock: React.FC<Props> = ({
         {layout === 'grid' && (
           <div className={cn('grid gap-[3px]', gridCols[columns ?? '4'] ?? gridCols['4'])}>
             {images.map((item, i) => (
-              <Thumb
-                key={i}
-                item={item}
-                index={i}
-                fill
-                className="h-[200px] md:h-[340px] lg:h-[400px]"
-                onClick={() => setActiveIdx(i)}
-              />
+              <AnimateIn key={i} variant="fade-up" delay={Math.min(i, 5) * 120}>
+                <Thumb
+                  item={item}
+                  index={i}
+                  fill
+                  className="h-[200px] md:h-[340px] lg:h-[400px]"
+                  onClick={() => setActiveIdx(i)}
+                />
+              </AnimateIn>
             ))}
           </div>
         )}
@@ -256,14 +258,14 @@ export const GalleryBlock: React.FC<Props> = ({
             className={cn('gap-x-[3px]', masonryCols[columns ?? '4'] ?? masonryCols['4'])}
           >
             {images.map((item, i) => (
-              <div key={i} className="mb-[3px] break-inside-avoid overflow-hidden">
+              <AnimateIn key={i} variant="fade-in" delay={Math.min(i, 5) * 120} className="mb-[3px] break-inside-avoid overflow-hidden">
                 <Thumb
                   item={item}
                   index={i}
                   fill={false}
                   onClick={() => setActiveIdx(i)}
                 />
-              </div>
+              </AnimateIn>
             ))}
           </div>
         )}

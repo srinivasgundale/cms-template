@@ -5,6 +5,7 @@ import Link from 'next/link'
 import React from 'react'
 
 import { Media } from '@/components/Media'
+import { AnimateIn } from '@/components/AnimateIn'
 
 type Props = CardsBlockProps & { className?: string; disableInnerContainer?: boolean }
 
@@ -57,8 +58,8 @@ export const CardsBlock: React.FC<Props> = ({
           )
 
           return href ? (
+            <AnimateIn key={i} variant="fade-up" delay={Math.min(i, 4) * 150}>
             <Link
-              key={i}
               href={href}
               target={item.link?.newTab ? '_blank' : undefined}
               className={sharedClass}
@@ -88,8 +89,10 @@ export const CardsBlock: React.FC<Props> = ({
                 )}
               </div>
             </Link>
+            </AnimateIn>
           ) : (
-            <div key={i} className={sharedClass}>
+            <AnimateIn key={i} variant="fade-up" delay={Math.min(i, 4) * 150}>
+            <div className={sharedClass}>
               {item.image && (
                 <div className={cn('overflow-hidden', { 'aspect-[16/9] w-full': layout === 'grid', 'aspect-square w-32 shrink-0': layout === 'list' })}>
                   <Media
@@ -110,6 +113,7 @@ export const CardsBlock: React.FC<Props> = ({
                 )}
               </div>
             </div>
+            </AnimateIn>
           )
         })}
       </div>
