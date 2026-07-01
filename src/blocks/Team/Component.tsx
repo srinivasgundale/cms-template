@@ -2,6 +2,7 @@
 
 import type { TeamBlock as TeamBlockProps } from '@/payload-types'
 import { cn } from '@/utilities/ui'
+import { ScrollHint } from '@/components/ui/scroll-hint'
 import React, { useState } from 'react'
 import { Media } from '@/components/Media'
 
@@ -15,14 +16,6 @@ const columnClass: Record<string, string> = {
 }
 
 const COLOR_COUNT = 8 // matches data-color="0"–"7" in master.css
-
-function getColorIndex(name: string): number {
-  let hash = 0
-  for (let i = 0; i < name.length; i++) {
-    hash = name.charCodeAt(i) + ((hash << 5) - hash)
-  }
-  return Math.abs(hash) % COLOR_COUNT
-}
 
 function getInitials(name: string): string {
   return name
@@ -74,12 +67,12 @@ const socialLabel: Record<string, string> = {
   website: 'Website',
 }
 
-function TeamMemberCard({ member, layout }: { member: Member; layout: string }) {
+function TeamMemberCard({ member, layout, index }: { member: Member; layout: string; index: number }) {
   const [flipped, setFlipped] = useState(false)
 
   const name = member.name ?? ''
   const initials = getInitials(name)
-  const colorIndex = getColorIndex(name)
+  const colorIndex = index % COLOR_COUNT
   const isGrid = layout === 'grid'
 
   return (
@@ -94,31 +87,53 @@ function TeamMemberCard({ member, layout }: { member: Member; layout: string }) 
         <button
           type="button"
           className={cn(
-            'team-card-face flex gap-4 w-full',
-            isGrid ? 'flex-col items-center text-center justify-center' : 'flex-row items-center',
+            'team-card-face w-full',
+            isGrid
+              ? 'flex flex-col items-center justify-between text-center'
+              : 'flex flex-row items-center gap-4',
           )}
           onClick={() => setFlipped(true)}
           aria-label={`View bio for ${name}`}
         >
-          {member.photo ? (
-            <div className={cn('overflow-hidden rounded-full shrink-0', isGrid ? 'h-24 w-24' : 'h-16 w-16')}>
-              <Media resource={member.photo} imgClassName="h-full w-full object-cover" />
-            </div>
+          {isGrid ? (
+            <>
+              {/* Avatar + name/role grouped at top-center */}
+              <div className="flex flex-col items-center gap-3 w-full">
+                {member.photo ? (
+                  <div className="h-20 w-20 overflow-hidden rounded-full shrink-0">
+                    <Media resource={member.photo} imgClassName="h-full w-full object-cover" />
+                  </div>
+                ) : (
+                  <div className="team-card-avatar h-20 w-20 text-xl">{initials}</div>
+                )}
+                <div className="w-full">
+                  <p className="font-bold text-foreground leading-tight">{name}</p>
+                  {member.role && (
+                    <p className="text-sm mt-0.5 text-muted-foreground">{member.role}</p>
+                  )}
+                </div>
+              </div>
+              {/* Hint pinned to bottom */}
+              <p className="text-xs text-muted-foreground/60 italic">Tap to learn more →</p>
+            </>
           ) : (
-            <div className={cn('team-card-avatar', isGrid ? 'h-24 w-24 text-2xl' : 'h-16 w-16 text-lg')}>
-              {initials}
-            </div>
+            <>
+              {member.photo ? (
+                <div className="h-14 w-14 overflow-hidden rounded-full shrink-0">
+                  <Media resource={member.photo} imgClassName="h-full w-full object-cover" />
+                </div>
+              ) : (
+                <div className="team-card-avatar h-14 w-14 text-base shrink-0">{initials}</div>
+              )}
+              <div className="min-w-0 text-left flex-1">
+                <p className="font-bold text-foreground leading-tight">{name}</p>
+                {member.role && (
+                  <p className="text-sm mt-0.5 text-primary">{member.role}</p>
+                )}
+                <p className="mt-1 text-xs text-muted-foreground/60 italic">Tap to learn more →</p>
+              </div>
+            </>
           )}
-
-          <div className={isGrid ? '' : 'min-w-0 text-left'}>
-            <p className="font-bold text-foreground leading-tight">{name}</p>
-            {member.role && (
-              <p className={cn('text-sm mt-0.5', isGrid ? 'text-muted-foreground' : 'text-primary')}>
-                {member.role}
-              </p>
-            )}
-            <p className="mt-2 text-xs text-muted-foreground/60 italic">Click to learn more →</p>
-          </div>
         </button>
 
         {/* ── Back — plain div; social links + back button are siblings, not nested ── */}
@@ -127,7 +142,7 @@ function TeamMemberCard({ member, layout }: { member: Member; layout: string }) 
             'team-card-face team-card-back flex flex-col',
             isGrid ? 'items-center text-center' : 'items-start',
           )}
-          aria-hidden={!flipped ? true : undefined}
+          aria-hidden={!flipped ? 'true' : 'false'}
         >
           <div className="team-card-accent" />
 
@@ -196,14 +211,23 @@ export const TeamBlock: React.FC<Props> = ({
       )}
 
       <div
-        className={cn('grid gap-6', columnClass[columns ?? '3'], {
-          'grid-cols-1': layout === 'list',
-        })}
+        className={cn(
+          layout === 'list'
+            ? 'grid grid-cols-1 gap-6'
+            : cn(
+                'flex gap-4 overflow-x-auto pb-4 snap-x [scrollbar-width:none] [&::-webkit-scrollbar]:hidden',
+                'sm:grid sm:gap-6 sm:overflow-x-visible sm:pb-0',
+                columnClass[columns ?? '3'],
+              ),
+        )}
       >
         {members.map((member, i) => (
-          <TeamMemberCard key={i} member={member} layout={layout ?? 'grid'} />
+          <div key={i} className={layout !== 'list' ? 'shrink-0 w-[220px] sm:w-auto' : undefined}>
+            <TeamMemberCard member={member} layout={layout ?? 'grid'} index={i} />
+          </div>
         ))}
       </div>
+      {layout !== 'list' && <ScrollHint />}
     </div>
   )
 }

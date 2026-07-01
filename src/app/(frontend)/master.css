@@ -914,20 +914,23 @@ main,
   -webkit-backface-visibility: hidden;
   border-radius: var(--radius-card);
   border: 1px solid var(--color-border);
-  background-color: var(--color-card);
+  background-color: white;
   padding: 1.5rem;
   overflow: hidden;
-  box-shadow: var(--shadow-sm);
-  transition: box-shadow 0.3s ease;
+  box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.08), 0 1px 2px -1px rgb(0 0 0 / 0.06);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
   /* Reset button defaults when face is a <button> */
   appearance: none;
   cursor: pointer;
-  text-align: left;
   font: inherit;
 }
 
+.team-card--list .team-card-face {
+  text-align: left;
+}
+
 .team-card:hover .team-card-face:not(.team-card-back) {
-  box-shadow: var(--shadow-lg);
+  box-shadow: 0 10px 25px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.08);
 }
 
 .team-card-face:focus-visible {
@@ -953,7 +956,7 @@ main,
   background: linear-gradient(90deg, var(--tc, var(--color-primary)), transparent);
 }
 
-/* Avatar circle — background driven by --tc */
+/* Avatar circle — background driven by --tc (set via data-color on .team-card) */
 .team-card-avatar {
   background-color: var(--tc, var(--color-primary));
   color: #fff;

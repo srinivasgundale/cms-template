@@ -891,7 +891,7 @@ export interface Form {
  */
 export interface GalleryBlock {
   title?: string | null;
-  layout?: ('grid' | 'masonry' | 'carousel') | null;
+  layout?: ('carousel' | 'masonry' | 'grid') | null;
   columns?: ('2' | '3' | '4') | null;
   images?:
     | {

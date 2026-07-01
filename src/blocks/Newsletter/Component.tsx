@@ -4,6 +4,7 @@ import type { NewsletterBlock as NewsletterBlockProps } from '@/payload-types'
 
 import { Button } from '@/components/ui/button'
 import { cn } from '@/utilities/ui'
+import { isLightBackground } from '@/utilities/colorContrast'
 import React, { useState } from 'react'
 
 type Props = NewsletterBlockProps & { className?: string; disableInnerContainer?: boolean }
@@ -30,6 +31,14 @@ export const NewsletterBlock: React.FC<Props> = ({
   const [submitted, setSubmitted] = useState(false)
   const [loading, setLoading] = useState(false)
 
+  const isLight = isLightBackground(backgroundColor)
+  const text = isLight ? 'text-foreground' : 'text-white'
+  const textMuted = isLight ? 'text-foreground/60' : 'text-white/70'
+  const textFaint = isLight ? 'text-foreground/40' : 'text-white/40'
+  const inputCls = isLight
+    ? 'border-foreground/20 bg-foreground/5 text-foreground placeholder:text-foreground/40 focus:border-brand-primary focus:ring-brand-primary/40'
+    : 'border-white/20 bg-white/10 text-white placeholder:text-white/40 focus:border-brand-primary focus:ring-brand-primary/40'
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!email) return
@@ -51,7 +60,7 @@ export const NewsletterBlock: React.FC<Props> = ({
   return (
     <div
       className={cn('cms-bg w-full', className)}
-      style={{ '--cms-bg': backgroundColor || '#3C1500' } as React.CSSProperties}
+      style={backgroundColor ? ({ '--cms-bg': backgroundColor } as React.CSSProperties) : undefined}
     >
       <div
         className={cn('container py-20 lg:py-[7.5rem]', {
@@ -71,14 +80,14 @@ export const NewsletterBlock: React.FC<Props> = ({
           )}
 
           {title && (
-            <h2 className="text-3xl font-extrabold uppercase tracking-wide text-white md:text-4xl lg:text-5xl">
+            <h2 className={cn('text-3xl font-extrabold uppercase tracking-wide md:text-4xl lg:text-5xl', text)}>
               {title}
             </h2>
           )}
 
           {description && (
             <p
-              className={cn('mt-3 text-base text-white/70 md:text-lg', {
+              className={cn('mt-3 text-base md:text-lg', textMuted, {
                 'mx-auto max-w-xl': layout !== 'inline',
               })}
             >
@@ -98,7 +107,7 @@ export const NewsletterBlock: React.FC<Props> = ({
               <div className="flex h-14 w-14 items-center justify-center rounded-full bg-brand-primary">
                 <CheckIcon />
               </div>
-              <p className="text-lg font-semibold text-white">{successMessage}</p>
+              <p className={cn('text-lg font-semibold', text)}>{successMessage}</p>
             </div>
           ) : (
             <>
@@ -116,7 +125,7 @@ export const NewsletterBlock: React.FC<Props> = ({
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder={inputPlaceholder ?? 'Enter your email'}
-                  className="flex-1 rounded-full border border-white/20 bg-white/10 px-5 py-3 text-sm text-white placeholder:text-white/40 outline-none transition focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/40"
+                  className={cn('flex-1 rounded-full border px-5 py-3 text-sm outline-none transition focus:ring-2', inputCls)}
                 />
                 <Button
                   type="submit"
@@ -130,7 +139,7 @@ export const NewsletterBlock: React.FC<Props> = ({
 
               {disclaimer && (
                 <p
-                  className={cn('mt-3 text-xs text-white/40', {
+                  className={cn('mt-3 text-xs', textFaint, {
                     'text-center': layout !== 'inline',
                   })}
                 >

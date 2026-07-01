@@ -20,11 +20,11 @@ export const Gallery: Block = {
         {
           name: 'layout',
           type: 'select',
-          defaultValue: 'grid',
+          defaultValue: 'carousel',
           options: [
-            { label: 'Grid', value: 'grid' },
-            { label: 'Masonry', value: 'masonry' },
             { label: 'Carousel', value: 'carousel' },
+            { label: 'Masonry', value: 'masonry' },
+            { label: 'Grid', value: 'grid' },
           ],
           admin: { width: '50%' },
         },
@@ -37,7 +37,10 @@ export const Gallery: Block = {
             { label: '3 Columns', value: '3' },
             { label: '4 Columns', value: '4' },
           ],
-          admin: { width: '50%' },
+          admin: {
+            width: '50%',
+            condition: (_, siblingData) => siblingData?.layout !== 'carousel',
+          },
         },
       ],
     },
