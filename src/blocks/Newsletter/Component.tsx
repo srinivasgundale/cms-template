@@ -2,6 +2,7 @@
 
 import type { NewsletterBlock as NewsletterBlockProps } from '@/payload-types'
 
+import { Button } from '@/components/ui/button'
 import { cn } from '@/utilities/ui'
 import React, { useState } from 'react'
 
@@ -117,13 +118,14 @@ export const NewsletterBlock: React.FC<Props> = ({
                   placeholder={inputPlaceholder ?? 'Enter your email'}
                   className="flex-1 rounded-full border border-white/20 bg-white/10 px-5 py-3 text-sm text-white placeholder:text-white/40 outline-none transition focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/40"
                 />
-                <button
+                <Button
                   type="submit"
-                  disabled={loading}
-                  className="shrink-0 rounded-full bg-brand-primary px-7 py-3 text-sm font-bold uppercase tracking-widest text-white transition hover:bg-brand-primary-hover disabled:opacity-60"
+                  loading={loading}
+                  showArrow={false}
+                  className="shrink-0"
                 >
-                  {loading ? '…' : (buttonLabel ?? 'Subscribe')}
-                </button>
+                  {buttonLabel ?? 'Subscribe'}
+                </Button>
               </form>
 
               {disclaimer && (

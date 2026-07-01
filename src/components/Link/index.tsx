@@ -5,6 +5,8 @@ import React from 'react'
 
 import type { Page, Post } from '@/payload-types'
 
+const ARROW_APPEARANCES = new Set(['default', 'outline', 'link'])
+
 type CMSLinkType = {
   appearance?: 'inline' | ButtonProps['variant']
   children?: React.ReactNode
@@ -46,8 +48,8 @@ export const CMSLink: React.FC<CMSLinkType> = (props) => {
 
   const size = appearance === 'link' ? 'clear' : sizeFromProps
   const newTabProps = newTab ? { rel: 'noopener noreferrer', target: '_blank' } : {}
+  const showArrow = ARROW_APPEARANCES.has(appearance ?? '')
 
-  /* Ensure we don't break any styles set by richText */
   if (appearance === 'inline') {
     return (
       <Link className={cn(className)} href={href || url || ''} onClick={onClick} {...newTabProps}>
@@ -58,10 +60,18 @@ export const CMSLink: React.FC<CMSLinkType> = (props) => {
   }
 
   return (
-    <Button asChild className={className} size={size} variant={appearance}>
+    <Button asChild showArrow={false} className={className} size={size} variant={appearance}>
       <Link className={cn(className)} href={href || url || ''} onClick={onClick} {...newTabProps}>
         {label && label}
         {children && children}
+        {showArrow && size !== 'icon' && (
+          <span
+            className="inline-block translate-x-0 transition-transform duration-200 group-hover:translate-x-1"
+            aria-hidden="true"
+          >
+            →
+          </span>
+        )}
       </Link>
     </Button>
   )

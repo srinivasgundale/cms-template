@@ -87,9 +87,7 @@ export const ContentWithImageBlock: React.FC<Props> = ({
 
             {enableLink && link && (
               <div className={cn('mt-2', { 'mx-auto': !isHorizontal })}>
-                <div className="[&_a]:inline-block [&_a]:bg-brand-primary [&_a]:text-white [&_a]:border-2 [&_a]:border-brand-primary [&_a]:hover:bg-brand-primary-hover [&_a]:hover:border-brand-primary-hover [&_a]:font-bold [&_a]:uppercase [&_a]:tracking-widest [&_a]:text-sm [&_a]:px-8 [&_a]:py-3 [&_a]:rounded [&_a]:transition-colors [&_a]:no-underline">
-                  <CMSLink {...link} appearance="default" size="lg" />
-                </div>
+                <CMSLink {...link} appearance="default" size="lg" />
               </div>
             )}
           </div>

@@ -224,9 +224,11 @@ export const GalleryBlock: React.FC<Props> = ({
               </h3>
 
               {ctaLink?.label && (
-                <div className="[&_a]:border-2 [&_a]:border-white [&_a]:bg-transparent [&_a]:text-white [&_a]:hover:bg-white [&_a]:hover:text-[#3C1500] [&_a]:font-semibold [&_a]:uppercase [&_a]:tracking-widest [&_a]:px-8 [&_a]:py-3 [&_a]:transition-colors">
-                  <CMSLink {...ctaLink} appearance="outline" />
-                </div>
+                <CMSLink
+                  {...ctaLink}
+                  appearance="outline"
+                  className="border-white text-white hover:bg-white hover:text-foreground"
+                />
               )}
             </div>
           </div>
