@@ -66,7 +66,6 @@ export const RenderBlocks: React.FC<{
   const hasBlocks = blocks && Array.isArray(blocks) && blocks.length > 0
 
   if (hasBlocks) {
-    let visibleCount = 0
     return (
       <Fragment>
         {blocks.map((block, index) => {
@@ -77,7 +76,11 @@ export const RenderBlocks: React.FC<{
 
             if (Block) {
               const isFullBleed = fullBleedBlocks.has(blockType)
-              const alt = isFullBleed ? undefined : visibleCount++ % 2
+              // Alternating background applied to every section via CSS variable.
+              // Non-full-bleed: backgroundColor directly. Full-bleed: block's
+              // .cms-bg class reads var(--section-bg) as fallback when no CMS
+              // color is set, so it inherits the alternation automatically.
+              const sectionBgVar = index % 2 === 0 ? 'var(--section-bg-a)' : 'var(--section-bg-b)'
 
               return (
                 <AnimateIn key={index} className="w-full">
@@ -87,11 +90,10 @@ export const RenderBlocks: React.FC<{
                       !isFullBleed && 'py-20 lg:py-[7.5rem]',
                       isFullBleed && 'overflow-hidden',
                     )}
-                    style={
-                      alt !== undefined
-                        ? ({ backgroundColor: alt === 0 ? 'var(--section-bg-a)' : 'var(--section-bg-b)' } as React.CSSProperties)
-                        : undefined
-                    }
+                    style={{
+                      '--section-bg': sectionBgVar,
+                      ...(!isFullBleed && { backgroundColor: sectionBgVar }),
+                    } as React.CSSProperties}
                   >
                     {/* @ts-expect-error there may be some mismatch between the expected types here */}
                     <Block {...block} disableInnerContainer />
