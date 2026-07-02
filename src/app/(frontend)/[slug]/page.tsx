@@ -93,7 +93,7 @@ export async function generateMetadata({ params: paramsPromise }: Args): Promise
   return generateMeta({ doc: page })
 }
 
-const queryPageBySlug = cache(async ({ slug, locale = 'en' }: { slug: string; locale?: string }) => {
+const queryPageBySlug = cache(async ({ slug, locale = 'en' }: { slug: string; locale?: 'en' | 'hi' | 'mr' }) => {
   const { isEnabled: draft } = await draftMode()
 
   const payload = await getPayload({ config: configPromise })

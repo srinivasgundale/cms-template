@@ -89,7 +89,7 @@ export async function generateMetadata({ params: paramsPromise }: Args): Promise
   return generateMeta({ doc: post })
 }
 
-const queryPostBySlug = cache(async ({ slug, locale = 'en' }: { slug: string; locale?: string }) => {
+const queryPostBySlug = cache(async ({ slug, locale = 'en' }: { slug: string; locale?: 'en' | 'hi' | 'mr' }) => {
   const { isEnabled: draft } = await draftMode()
 
   const payload = await getPayload({ config: configPromise })

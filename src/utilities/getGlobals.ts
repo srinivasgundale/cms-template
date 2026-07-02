@@ -6,7 +6,7 @@ import { unstable_cache } from 'next/cache'
 
 type Global = keyof Config['globals']
 
-async function getGlobal<T extends Global>(slug: T, depth = 0, locale = 'en'): Promise<DataFromGlobalSlug<T>> {
+async function getGlobal<T extends Global>(slug: T, depth = 0, locale: 'en' | 'hi' | 'mr' = 'en'): Promise<DataFromGlobalSlug<T>> {
   const payload = await getPayload({ config: configPromise })
 
   const global = await payload.findGlobal({
@@ -22,7 +22,7 @@ async function getGlobal<T extends Global>(slug: T, depth = 0, locale = 'en'): P
  * Returns a unstable_cache function mapped with the cache tag for the slug and locale.
  * All locales share the same revalidation tag so a single revalidateTag call clears all.
  */
-export const getCachedGlobal = <T extends Global>(slug: T, depth = 0, locale = 'en') =>
+export const getCachedGlobal = <T extends Global>(slug: T, depth = 0, locale: 'en' | 'hi' | 'mr' = 'en') =>
   unstable_cache(async () => getGlobal<T>(slug, depth, locale), [slug, locale], {
     tags: [`global_${slug}`],
   })

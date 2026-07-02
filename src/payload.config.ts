@@ -70,12 +70,13 @@ export default buildConfig({
     pool: {
       connectionString: process.env.DATABASE_URL || '',
     },
+    push: false,
   }),
   localization: {
     locales: [
       { label: 'English', code: 'en' },
-      { label: 'हिंदी', code: 'hi' },
       { label: 'मराठी', code: 'mr' },
+      { label: 'हिंदी', code: 'hi' },
     ],
     defaultLocale: 'en',
     fallback: true,

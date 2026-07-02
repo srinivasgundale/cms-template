@@ -108,7 +108,7 @@ export interface Config {
   db: {
     defaultIDType: number;
   };
-  fallbackLocale: ('false' | 'none' | 'null') | false | null | ('en' | 'hi' | 'mr') | ('en' | 'hi' | 'mr')[];
+  fallbackLocale: ('false' | 'none' | 'null') | false | null | ('en' | 'mr' | 'hi') | ('en' | 'mr' | 'hi')[];
   globals: {
     header: Header;
     footer: Footer;
@@ -121,7 +121,7 @@ export interface Config {
     'floating-cta': FloatingCtaSelect<false> | FloatingCtaSelect<true>;
     'site-settings': SiteSettingsSelect<false> | SiteSettingsSelect<true>;
   };
-  locale: 'en' | 'hi' | 'mr';
+  locale: 'en' | 'mr' | 'hi';
   widgets: {
     collections: CollectionsWidget;
   };
