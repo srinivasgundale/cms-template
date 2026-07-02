@@ -1,4 +1,5 @@
 import { getCachedGlobal } from '@/utilities/getGlobals'
+import { getLocale } from '@/utilities/getLocale'
 import Link from 'next/link'
 import React from 'react'
 
@@ -35,7 +36,8 @@ const ClockIcon = () => (
 )
 
 export async function Footer() {
-  const footerData = (await getCachedGlobal('footer', 1)()) as FooterType
+  const locale = await getLocale()
+  const footerData = (await getCachedGlobal('footer', 1, locale)()) as FooterType
 
   const navItems = footerData?.navItems || []
   const logoMedia = footerData?.logo && typeof footerData.logo === 'object'

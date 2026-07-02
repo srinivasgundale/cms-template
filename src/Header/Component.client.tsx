@@ -10,6 +10,7 @@ import type { Header, Media } from '@/payload-types'
 import { Logo } from '@/components/Logo/Logo'
 import { HeaderNav } from './Nav'
 import { ThemeToggle } from './ThemeToggle'
+import { LocaleToggle } from '@/components/LocaleToggle'
 import { SearchIcon, MenuIcon, XIcon } from 'lucide-react'
 import { cn } from '@/utilities/ui'
 
@@ -90,6 +91,9 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
           >
             <SearchIcon className="w-5 h-5" />
           </Link>
+
+          {/* Language selector */}
+          <LocaleToggle />
 
           {/* Dark / light mode toggle */}
           <ThemeToggle />

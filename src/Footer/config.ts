@@ -30,6 +30,7 @@ export const Footer: GlobalConfig = {
       name: 'tagline',
       type: 'text',
       label: 'Tagline',
+      localized: true,
       admin: {
         description: 'Short description shown below the logo.',
       },
@@ -39,6 +40,7 @@ export const Footer: GlobalConfig = {
       type: 'text',
       label: 'Links Column Heading',
       defaultValue: 'Quick Links',
+      localized: true,
       admin: {
         description: 'Heading above the navigation links column.',
       },
@@ -64,6 +66,7 @@ export const Footer: GlobalConfig = {
       type: 'text',
       label: 'Contact Column Heading',
       defaultValue: 'Contact Us',
+      localized: true,
       admin: {
         description: 'Heading above the contact info column.',
       },
@@ -72,21 +75,25 @@ export const Footer: GlobalConfig = {
       name: 'address',
       type: 'text',
       label: 'Address',
+      localized: true,
     },
     {
       name: 'phone',
       type: 'text',
       label: 'Phone',
+      localized: true,
     },
     {
       name: 'email',
       type: 'text',
       label: 'Email',
+      localized: true,
     },
     {
       name: 'hours',
       type: 'text',
       label: 'Office Hours',
+      localized: true,
       admin: {
         description: 'e.g. Mon–Fri, 9 AM – 5 PM',
       },
@@ -95,6 +102,7 @@ export const Footer: GlobalConfig = {
       name: 'copyrightText',
       type: 'text',
       label: 'Copyright Text',
+      localized: true,
       admin: {
         description: 'Bottom bar text. Use {year} for the current year.',
       },

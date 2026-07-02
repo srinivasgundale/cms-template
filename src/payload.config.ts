@@ -19,6 +19,7 @@ import { Users } from './collections/Users'
 import { FloatingCTA } from './FloatingCTA/config'
 import { Footer } from './Footer/config'
 import { Header } from './Header/config'
+import { SiteSettings } from './globals/SiteSettings'
 import { plugins } from './plugins'
 import { defaultLexical } from '@/fields/defaultLexical'
 import { getServerSideURL } from './utilities/getURL'
@@ -70,9 +71,18 @@ export default buildConfig({
       connectionString: process.env.DATABASE_URL || '',
     },
   }),
+  localization: {
+    locales: [
+      { label: 'English', code: 'en' },
+      { label: 'हिंदी', code: 'hi' },
+      { label: 'मराठी', code: 'mr' },
+    ],
+    defaultLocale: 'en',
+    fallback: true,
+  },
   collections: [Pages, Posts, Media, Categories, Users],
   cors: [getServerSideURL()].filter(Boolean),
-  globals: [Header, Footer, FloatingCTA],
+  globals: [Header, Footer, FloatingCTA, SiteSettings],
   plugins,
   secret: process.env.PAYLOAD_SECRET,
   sharp,
