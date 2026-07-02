@@ -42,7 +42,7 @@ export const SiteSettings: GlobalConfig = {
   hooks: {
     afterChange: [
       ({ doc }) => {
-        revalidateTag('global_site-settings')
+        revalidateTag('global_site-settings', 'max')
         return doc
       },
     ],

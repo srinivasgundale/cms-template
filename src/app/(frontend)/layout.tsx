@@ -66,7 +66,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   let selectedFont: string | undefined
   try {
     const siteSettings = await getCachedGlobal('site-settings')()
-    selectedFont = (siteSettings as Record<string, unknown>)?.devanagariFont as string | undefined
+    selectedFont = siteSettings?.devanagariFont ?? undefined
   } catch {
     // site-settings table may not exist yet (migration pending) — use default font
   }

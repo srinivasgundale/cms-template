@@ -83,7 +83,7 @@ export const Pages: CollectionConfig<'pages'> = {
       type: 'tabs',
       tabs: [
         {
-          fields: [{ ...hero, localized: true }],
+          fields: [hero],
           label: 'Hero',
         },
         {
