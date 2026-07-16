@@ -5,6 +5,7 @@ import React from 'react'
 import RichText from '@/components/RichText'
 
 import { Media } from '@/components/Media'
+import { AnimateIn } from '@/components/AnimateIn'
 
 type Props = TimelineBlockProps & {
   className?: string
@@ -35,8 +36,8 @@ export const TimelineBlock: React.FC<Props> = ({
         )}
 
         {items.map((item, i) => (
+          <AnimateIn key={i} variant="fade-up" delay={Math.min(i, 5) * 80}>
           <div
-            key={i}
             className={cn('relative flex gap-6', {
               'pb-10': layout === 'vertical',
               'flex-row-reverse': layout === 'alternating' && i % 2 !== 0,
@@ -75,6 +76,7 @@ export const TimelineBlock: React.FC<Props> = ({
               )}
             </div>
           </div>
+          </AnimateIn>
         ))}
       </div>
     </div>

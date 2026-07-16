@@ -47,12 +47,12 @@ const Thumb: React.FC<{
         resource={item.image}
         fill
         pictureClassName="absolute inset-0"
-        imgClassName="object-cover transition-transform duration-500 group-hover:scale-110"
+        imgClassName="object-cover transition-transform duration-500 fine-hover:group-hover:scale-110"
       />
     ) : (
       <Media
         resource={item.image}
-        imgClassName="w-full h-auto block transition-transform duration-500 group-hover:scale-110 origin-center"
+        imgClassName="w-full h-auto block transition-transform duration-500 fine-hover:group-hover:scale-110 origin-center"
       />
     )}
     {/* hover tint */}
@@ -179,7 +179,7 @@ const Lightbox: React.FC<{
             <span
               key={i}
               className={cn(
-                'h-1.5 rounded-full transition-all duration-300',
+                'h-1.5 rounded-full transition-[width,background-color] duration-300',
                 i === index ? 'w-5 bg-white' : 'w-1.5 bg-white/30',
               )}
             />

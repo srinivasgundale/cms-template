@@ -4,6 +4,7 @@ import { cn } from '@/utilities/ui'
 import React from 'react'
 
 import { Media } from '@/components/Media'
+import { AnimateIn } from '@/components/AnimateIn'
 
 type Props = LogoCloudBlockProps & { className?: string; disableInnerContainer?: boolean }
 
@@ -34,26 +35,25 @@ export const LogoCloudBlock: React.FC<Props> = ({
       >
         {logos.map((item, i) => {
           const img = (
-            <div
-              className={cn('flex h-12 items-center justify-center', {
-                '[&_img]:grayscale [&_img]:opacity-60 [&_img]:transition-all [&_img]:hover:grayscale-0 [&_img]:hover:opacity-100':
-                  grayscale,
-              })}
-            >
+            <div className="flex h-12 items-center justify-center">
               <Media
                 resource={item.logo}
-                imgClassName="max-h-10 w-auto object-contain"
+                imgClassName={cn('max-h-10 w-auto object-contain', grayscale && 'logo-hover-reveal')}
                 alt={item.name ?? ''}
               />
             </div>
           )
 
           return item.url ? (
-            <a key={i} href={item.url} target="_blank" rel="noopener noreferrer" aria-label={item.name ?? 'Logo'}>
-              {img}
-            </a>
+            <AnimateIn key={i} variant="fade-in" delay={Math.min(i, 5) * 60}>
+              <a href={item.url} target="_blank" rel="noopener noreferrer" aria-label={item.name ?? 'Logo'}>
+                {img}
+              </a>
+            </AnimateIn>
           ) : (
-            <div key={i}>{img}</div>
+            <AnimateIn key={i} variant="fade-in" delay={Math.min(i, 5) * 60}>
+              <div>{img}</div>
+            </AnimateIn>
           )
         })}
       </div>

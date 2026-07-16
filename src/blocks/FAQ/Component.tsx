@@ -1,12 +1,49 @@
+'use client'
+
 import type { FAQBlock as FAQBlockProps } from '@/payload-types'
 
 import { cn } from '@/utilities/ui'
-import React from 'react'
+import React, { useState } from 'react'
 import RichText from '@/components/RichText'
 
 import { Media } from '@/components/Media'
 
 type Props = FAQBlockProps & { className?: string; disableInnerContainer?: boolean }
+
+function FAQItem({ question, answer }: { question: string; answer: any }) {
+  const [open, setOpen] = useState(false)
+
+  return (
+    <div className="border-b border-border py-5">
+      <button
+        type="button"
+        onClick={() => setOpen((o) => !o)}
+        className="flex w-full cursor-pointer items-center justify-between gap-4 text-left font-semibold"
+        aria-expanded={open}
+      >
+        <span>{question}</span>
+        <span
+          className={cn(
+            'shrink-0 text-muted-foreground transition-transform duration-200',
+            open && 'rotate-180',
+          )}
+          aria-hidden
+        >
+          ▼
+        </span>
+      </button>
+
+      {/* CSS grid trick: grid-template-rows 0fr → 1fr for smooth height */}
+      <div className={cn('faq-answer', open && 'faq-open')}>
+        <div className="faq-answer-inner">
+          <div className="mt-4 text-muted-foreground">
+            <RichText data={answer} enableGutter={false} />
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
 
 export const FAQBlock: React.FC<Props> = ({
   className,
@@ -29,19 +66,9 @@ export const FAQBlock: React.FC<Props> = ({
   ) : null
 
   const accordion = (
-    <div className="divide-y divide-border">
+    <div>
       {items.map((item, i) => (
-        <details key={i} className="group py-5">
-          <summary className="flex cursor-pointer list-none items-center justify-between gap-4 font-semibold">
-            {item.question}
-            <span className="shrink-0 text-muted-foreground transition-transform duration-200 group-open:rotate-180">
-              ▼
-            </span>
-          </summary>
-          <div className="mt-4 text-muted-foreground">
-            <RichText data={item.answer} enableGutter={false} />
-          </div>
-        </details>
+        <FAQItem key={i} question={item.question} answer={item.answer} />
       ))}
     </div>
   )

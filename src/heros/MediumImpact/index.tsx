@@ -9,7 +9,7 @@ import RichText from '@/components/RichText'
 export const MediumImpactHero: React.FC<Page['hero']> = ({ links, media, richText }) => {
   return (
     <div className="">
-      <div className="container mb-8">
+      <div className="container mb-8 animate-hero-content">
         {richText && <RichText className="mb-6" data={richText} enableGutter={false} />}
 
         {Array.isArray(links) && links.length > 0 && (
@@ -24,7 +24,7 @@ export const MediumImpactHero: React.FC<Page['hero']> = ({ links, media, richTex
           </ul>
         )}
       </div>
-      <div className="container ">
+      <div className="container" style={{ animation: 'hero-content-enter 0.8s cubic-bezier(0.23, 1, 0.32, 1) 0.45s both' }}>
         {media && typeof media === 'object' && (
           <div>
             <Media

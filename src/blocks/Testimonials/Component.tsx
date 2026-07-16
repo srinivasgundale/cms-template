@@ -62,7 +62,7 @@ const TestimonialCard: React.FC<{ item: Item; layout: string }> = ({ item, layou
   return (
     <blockquote
       className={cn(
-        'flex flex-col gap-4 rounded-2xl border border-border bg-card p-6 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300',
+        'flex flex-col gap-4 rounded-2xl border border-border bg-card p-6 shadow-md transition-[transform,box-shadow] duration-300 fine-hover:hover:shadow-xl fine-hover:hover:-translate-y-1',
         layout === 'grid' && 'min-w-[280px] sm:min-w-0',
         layout === 'carousel' && 'min-w-[300px] sm:min-w-[360px]',
       )}

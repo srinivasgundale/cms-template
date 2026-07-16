@@ -52,8 +52,8 @@ export const CardsBlock: React.FC<Props> = ({
         {items.map((item, i) => {
           const href = item.enableLink ? resolveHref(item.link) : null
           const sharedClass = cn(
-            'group flex flex-col overflow-hidden rounded-xl border border-border bg-card shadow-sm transition-all duration-300',
-            { 'hover:shadow-xl hover:-translate-y-1.5': !!href && layout !== 'list' },
+            'group flex flex-col overflow-hidden rounded-xl border border-border bg-card shadow-sm transition-[transform,box-shadow] duration-300',
+            { 'fine-hover:hover:shadow-xl fine-hover:hover:-translate-y-1.5': !!href && layout !== 'list' },
             { 'flex-row': layout === 'list' },
           )
 
@@ -68,7 +68,7 @@ export const CardsBlock: React.FC<Props> = ({
                 <div className={cn('overflow-hidden', { 'aspect-[16/9] w-full': layout === 'grid', 'aspect-square w-32 shrink-0': layout === 'list' })}>
                   <Media
                     resource={item.image}
-                    imgClassName="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                    imgClassName="h-full w-full object-cover transition-transform duration-300 fine-hover:group-hover:scale-105"
                   />
                 </div>
               )}
@@ -97,7 +97,7 @@ export const CardsBlock: React.FC<Props> = ({
                 <div className={cn('overflow-hidden', { 'aspect-[16/9] w-full': layout === 'grid', 'aspect-square w-32 shrink-0': layout === 'list' })}>
                   <Media
                     resource={item.image}
-                    imgClassName="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                    imgClassName="h-full w-full object-cover transition-transform duration-300 fine-hover:group-hover:scale-105"
                   />
                 </div>
               )}

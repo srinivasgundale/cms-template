@@ -6,6 +6,7 @@ import RichText from '@/components/RichText'
 
 import { CMSLink } from '@/components/Link'
 import { Media } from '@/components/Media'
+import { AnimateIn } from '@/components/AnimateIn'
 
 type Props = ContentWithImageBlockProps & {
   className?: string
@@ -42,7 +43,8 @@ export const ContentWithImageBlock: React.FC<Props> = ({
           })}
         >
           {/* Image */}
-          <div
+          <AnimateIn
+            variant={imagePosition === 'left' ? 'fade-right' : imagePosition === 'right' ? 'fade-left' : 'fade-up'}
             className={cn(imageOrder, {
               'w-full md:w-[45%] shrink-0': isHorizontal,
               'w-full': !isHorizontal,
@@ -62,10 +64,12 @@ export const ContentWithImageBlock: React.FC<Props> = ({
                 imgClassName="w-full object-cover"
               />
             )}
-          </div>
+          </AnimateIn>
 
           {/* Content */}
-          <div
+          <AnimateIn
+            variant={imagePosition === 'left' ? 'fade-left' : imagePosition === 'right' ? 'fade-right' : 'fade-up'}
+            delay={150}
             className={cn(contentOrder, 'flex flex-col gap-4 justify-center', {
               'w-full md:w-[55%]': isHorizontal,
               'container max-w-2xl text-center': !isHorizontal,
@@ -90,7 +94,7 @@ export const ContentWithImageBlock: React.FC<Props> = ({
                 <CMSLink {...link} appearance="default" size="lg" />
               </div>
             )}
-          </div>
+          </AnimateIn>
         </div>
       </div>
     </div>

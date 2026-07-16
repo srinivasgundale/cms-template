@@ -54,6 +54,11 @@
   --shadow-lg:  0 10px 15px -3px rgb(0 0 0 / 0.08), 0 4px 6px -4px rgb(0 0 0 / 0.08);
   --shadow-xl:  0 20px 25px -5px rgb(0 0 0 / 0.08), 0 8px 10px -6px rgb(0 0 0 / 0.08);
   --shadow-float: 0 8px 30px rgb(0 0 0 / 0.12);
+
+  /* Easing tokens (Emil Kowalski / animations.dev) */
+  --ease-out:    cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
 }
 
 /* ────────────────────────────────────────────────────────────
@@ -88,12 +93,12 @@
 }
 
 /* Apply fluid type to headings globally */
-h1 { font-size: var(--text-5xl); line-height: var(--leading-tight);  letter-spacing: var(--tracking-tight); }
-h2 { font-size: var(--text-4xl); line-height: var(--leading-tight);  letter-spacing: var(--tracking-tight); }
-h3 { font-size: var(--text-3xl); line-height: var(--leading-snug);  }
-h4 { font-size: var(--text-2xl); line-height: var(--leading-snug);  }
-h5 { font-size: var(--text-xl);  line-height: var(--leading-normal); }
-h6 { font-size: var(--text-lg);  line-height: var(--leading-normal); }
+h1 { font-size: var(--text-5xl); line-height: var(--leading-tight);  letter-spacing: var(--tracking-tight); font-optical-sizing: auto; }
+h2 { font-size: var(--text-4xl); line-height: var(--leading-tight);  letter-spacing: var(--tracking-tight); font-optical-sizing: auto; }
+h3 { font-size: var(--text-3xl); line-height: var(--leading-snug);   font-optical-sizing: auto; }
+h4 { font-size: var(--text-2xl); line-height: var(--leading-snug);   font-optical-sizing: auto; }
+h5 { font-size: var(--text-xl);  line-height: var(--leading-normal); font-optical-sizing: auto; }
+h6 { font-size: var(--text-lg);  line-height: var(--leading-normal); font-optical-sizing: auto; }
 p, li, td, th { font-size: var(--text-base); line-height: var(--leading-normal); }
 small, .text-sm { font-size: var(--text-sm); }
 .text-xs { font-size: var(--text-xs); }
@@ -456,16 +461,18 @@ main,
   border-radius: var(--radius-card);
   overflow: hidden;
   box-shadow: var(--shadow-sm);
-  transition: box-shadow 0.2s ease, transform 0.2s ease;
+  transition: box-shadow 0.2s var(--ease-out), transform 0.2s var(--ease-out);
 }
 
-.card:hover {
-  box-shadow: var(--shadow-md);
-}
+@media (hover: hover) and (pointer: fine) {
+  .card:hover {
+    box-shadow: var(--shadow-md);
+  }
 
-.card-interactive:hover {
-  box-shadow: var(--shadow-lg);
-  transform: translateY(-2px);
+  .card-interactive:hover {
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-2px);
+  }
 }
 
 .card-body {
@@ -480,11 +487,13 @@ main,
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.4s ease;
+  transition: transform 0.4s var(--ease-out);
 }
 
-.card:hover .card-media img {
-  transform: scale(1.04);
+@media (hover: hover) and (pointer: fine) {
+  .card:hover .card-media img {
+    transform: scale(1.04);
+  }
 }
 
 /* ────────────────────────────────────────────────────────────
@@ -510,6 +519,10 @@ main,
 .btn:disabled {
   opacity: 0.5;
   pointer-events: none;
+}
+
+.btn:active {
+  transform: scale(0.97);
 }
 
 .btn-primary {
@@ -1229,34 +1242,34 @@ main,
 
 .animate-fade-up {
   opacity: 0;
-  transform: translateY(2.5rem);
+  transform: translateY(1.5rem);
   transition:
-    opacity   0.9s cubic-bezier(0.22, 1, 0.36, 1),
-    transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+    opacity   0.75s var(--ease-out),
+    transform 0.75s var(--ease-out);
   transition-delay: var(--animate-delay, 0ms);
 }
 
 .animate-fade-in {
   opacity: 0;
-  transition: opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: opacity 0.75s var(--ease-out);
   transition-delay: var(--animate-delay, 0ms);
 }
 
 .animate-fade-left {
   opacity: 0;
-  transform: translateX(-2.5rem);
+  transform: translateX(-1.5rem);
   transition:
-    opacity   0.9s cubic-bezier(0.22, 1, 0.36, 1),
-    transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+    opacity   0.75s var(--ease-out),
+    transform 0.75s var(--ease-out);
   transition-delay: var(--animate-delay, 0ms);
 }
 
 .animate-fade-right {
   opacity: 0;
-  transform: translateX(2.5rem);
+  transform: translateX(1.5rem);
   transition:
-    opacity   0.9s cubic-bezier(0.22, 1, 0.36, 1),
-    transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+    opacity   0.75s var(--ease-out),
+    transform 0.75s var(--ease-out);
   transition-delay: var(--animate-delay, 0ms);
 }
 
@@ -1269,6 +1282,64 @@ main,
   transform: none;
 }
 
+/* ── Hero entrance animation ────────────────────────────────
+   Plays once on mount. Content enters from slightly below.  */
+@keyframes hero-content-enter {
+  from { opacity: 0; transform: translateY(1.25rem); }
+  to   { opacity: 1; transform: none; }
+}
+
+.animate-hero-content {
+  animation: hero-content-enter 0.8s var(--ease-out) 0.2s both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-hero-content { animation: none; }
+}
+
+/* ── Logo grayscale hover (fine-pointer only) ───────────────
+   Used by LogoCloud to avoid false hover on touch.          */
+.logo-hover-reveal {
+  filter: grayscale(1);
+  opacity: 0.6;
+  transition: filter 200ms var(--ease-out), opacity 200ms var(--ease-out);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .logo-hover-reveal:hover {
+    filter: grayscale(0);
+    opacity: 1;
+  }
+}
+
+/* ── FAQ animated accordion ─────────────────────────────────
+   The outer .faq-answer grid transitions between 0fr and 1fr.
+   The inner .faq-answer-inner overflow:hidden clips during motion. */
+.faq-answer {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 300ms var(--ease-out);
+}
+
+.faq-answer.faq-open {
+  grid-template-rows: 1fr;
+}
+
+.faq-answer-inner {
+  overflow: hidden;
+}
+
+/* ── Tabs content fade ──────────────────────────────────────
+   Re-keyed wrapper plays this once on mount.               */
+@keyframes tab-content-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: none; }
+}
+
+.animate-tab-content {
+  animation: tab-content-in 200ms var(--ease-out) both;
+}
+
 /* Respect user motion preference */
 @media (prefers-reduced-motion: reduce) {
   .animate-fade-up,
@@ -1278,6 +1349,14 @@ main,
     opacity: 1;
     transform: none;
     transition: none;
+  }
+
+  .faq-answer {
+    transition: none;
+  }
+
+  .animate-tab-content {
+    animation: none;
   }
 }
 

@@ -302,7 +302,7 @@ export const SliderBlock: React.FC<Props> = (props) => {
               type="button"
               onClick={prev}
               aria-label="Previous slide"
-              className="absolute left-4 top-1/2 z-20 -translate-y-1/2 rounded-full bg-black/40 p-3 text-white backdrop-blur-sm transition-all duration-200 hover:bg-black/65 hover:scale-110 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+              className="absolute left-4 top-1/2 z-20 -translate-y-1/2 rounded-full bg-black/40 p-3 text-white backdrop-blur-sm transition-[background-color,transform] duration-200 hover:bg-black/65 fine-hover:hover:scale-110 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
             >
               <IconChevronLeft />
             </button>
@@ -310,7 +310,7 @@ export const SliderBlock: React.FC<Props> = (props) => {
               type="button"
               onClick={next}
               aria-label="Next slide"
-              className="absolute right-4 top-1/2 z-20 -translate-y-1/2 rounded-full bg-black/40 p-3 text-white backdrop-blur-sm transition-all duration-200 hover:bg-black/65 hover:scale-110 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+              className="absolute right-4 top-1/2 z-20 -translate-y-1/2 rounded-full bg-black/40 p-3 text-white backdrop-blur-sm transition-[background-color,transform] duration-200 hover:bg-black/65 fine-hover:hover:scale-110 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
             >
               <IconChevronRight />
             </button>
@@ -341,7 +341,7 @@ export const SliderBlock: React.FC<Props> = (props) => {
                     aria-label={`Go to slide ${i + 1}`}
                     aria-selected={i === current ? 'true' : 'false'}
                     className={cn(
-                      'h-2 rounded-full transition-all duration-300',
+                      'h-2 rounded-full transition-[width,background-color] duration-300',
                       i === current
                         ? 'w-6 bg-white'
                         : 'w-2 bg-white/40 hover:bg-white/70',

@@ -10,7 +10,7 @@ import type { Header, Media } from '@/payload-types'
 import { Logo } from '@/components/Logo/Logo'
 import { HeaderNav } from './Nav'
 import { ThemeToggle } from './ThemeToggle'
-import { LocaleToggle } from '@/components/LocaleToggle'
+import { LocaleToggle, LocaleToggleInline } from '@/components/LocaleToggle'
 import { SearchIcon, MenuIcon, XIcon } from 'lucide-react'
 import { cn } from '@/utilities/ui'
 
@@ -51,6 +51,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
 
   return (
     <header
+      suppressHydrationWarning
       className={cn(
         'sticky top-0 z-50 w-full transition-all duration-300',
         scrolled && 'shadow-lg backdrop-blur-md',
@@ -82,8 +83,8 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
           <HeaderNav data={data} />
         </div>
 
-        {/* Right-side icons */}
-        <div className="flex items-center gap-1 ml-auto md:ml-0">
+        {/* Desktop-only icons (hidden on mobile — they appear in the drawer instead) */}
+        <div className="hidden md:flex items-center gap-1 ml-0">
           <Link
             href="/search"
             aria-label="Search"
@@ -91,42 +92,55 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
           >
             <SearchIcon className="w-5 h-5" />
           </Link>
-
-          {/* Language selector */}
           <LocaleToggle />
-
-          {/* Dark / light mode toggle */}
           <ThemeToggle />
-
-          {/* Hamburger — mobile only */}
-          <button
-            type="button"
-            aria-label="Toggle navigation menu"
-            aria-controls="mobile-menu"
-            onClick={() => setMobileOpen((v) => !v)}
-            className="p-2 md:hidden text-white/70 hover:text-white transition-colors rounded hover:bg-white/10"
-          >
-            {mobileOpen ? (
-              <XIcon className="w-5 h-5" />
-            ) : (
-              <MenuIcon className="w-5 h-5" />
-            )}
-          </button>
         </div>
+
+        {/* Hamburger — mobile only, far right */}
+        <button
+          type="button"
+          aria-label="Toggle navigation menu"
+          aria-controls="mobile-menu"
+          onClick={() => setMobileOpen((v) => !v)}
+          className="ml-auto p-2 md:hidden text-white hover:text-white transition-colors rounded hover:bg-white/10"
+        >
+          {mobileOpen ? (
+            <XIcon className="w-6 h-6" />
+          ) : (
+            <MenuIcon className="w-6 h-6" />
+          )}
+        </button>
       </div>
 
       {/* ── Mobile slide-down panel ── */}
       <div
         id="mobile-menu"
         className={cn(
-          'md:hidden w-full border-t border-white/10 overflow-hidden transition-all duration-300 ease-in-out',
-          mobileOpen ? 'max-h-[32rem] py-2' : 'max-h-0 py-0',
+          'md:hidden w-full border-t border-white/10 overflow-hidden transition-[max-height,padding] duration-300',
+          mobileOpen ? 'max-h-[40rem] py-3' : 'max-h-0 py-0',
         )}
         style={{ backgroundColor: scrolled ? hexToRgba(bgColor, 0.95) : bgColor }}
         aria-live="polite"
       >
-        <div className="container">
+        <div className="container space-y-1">
           <HeaderNav data={data} mobile onLinkClick={() => setMobileOpen(false)} />
+
+          {/* Utility row — search / locale / theme */}
+          <div className="flex items-center gap-2 border-t border-white/10 pt-3 mt-1 px-1">
+            <Link
+              href="/search"
+              onClick={() => setMobileOpen(false)}
+              aria-label="Search"
+              className="flex items-center gap-2 px-3 py-2 text-sm text-white/80 hover:text-white hover:bg-white/10 rounded transition-colors"
+            >
+              <SearchIcon className="w-5 h-5" />
+              <span>Search</span>
+            </Link>
+            <div className="ml-auto flex items-center gap-2">
+              <LocaleToggleInline onSelect={() => setMobileOpen(false)} />
+              <ThemeToggle />
+            </div>
+          </div>
         </div>
       </div>
     </header>

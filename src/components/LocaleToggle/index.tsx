@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useEffect, useRef, useState } from 'react'
-import { usePathname, useRouter } from 'next/navigation'
+import { usePathname } from 'next/navigation'
 
 import { useLocale } from '@/providers/Locale'
 import type { SupportedLocale } from '@/utilities/getLocale'
@@ -22,10 +22,22 @@ function stripLocale(pathname: string): string {
   return pathname
 }
 
-export function LocaleToggle() {
+function useLocaleSelect() {
   const { locale, setLocale } = useLocale()
-  const router = useRouter()
   const pathname = usePathname()
+
+  const handleSelect = (code: SupportedLocale) => {
+    setLocale(code)
+    const rest = stripLocale(pathname)
+    window.location.href = `/${code}${rest === '/' ? '' : rest}`
+  }
+
+  return { locale, handleSelect }
+}
+
+/** Default: compact dropdown button for the desktop header */
+export function LocaleToggle() {
+  const { locale, handleSelect } = useLocaleSelect()
   const [open, setOpen] = useState(false)
   const ref = useRef<HTMLDivElement>(null)
 
@@ -45,15 +57,6 @@ export function LocaleToggle() {
   }, [])
 
   const current = LOCALES.find((l) => l.code === locale) ?? LOCALES[0]!
-
-  const handleSelect = (code: SupportedLocale) => {
-    setOpen(false)
-    setLocale(code)
-    const rest = stripLocale(pathname)
-    // Full navigation needed: shared layout is cached by Next.js between soft navigations,
-    // so router.push() alone won't re-render the locale providers or header/footer.
-    window.location.href = `/${code}${rest === '/' ? '' : rest}`
-  }
 
   return (
     <div className="relative" ref={ref}>
@@ -103,6 +106,33 @@ export function LocaleToggle() {
           ))}
         </div>
       )}
+    </div>
+  )
+}
+
+/** Inline variant: row of pill buttons — use inside mobile menus where dropdowns get clipped */
+export function LocaleToggleInline({ onSelect }: { onSelect?: () => void }) {
+  const { locale, handleSelect } = useLocaleSelect()
+
+  return (
+    <div className="flex items-center gap-1" role="group" aria-label="Select language">
+      {LOCALES.map(({ code, label }) => (
+        <button
+          key={code}
+          type="button"
+          suppressHydrationWarning
+          onClick={() => { handleSelect(code); onSelect?.() }}
+          aria-label={`Switch to ${LOCALES.find(l => l.code === code)?.fullLabel}`}
+          aria-pressed={locale === code}
+          className={`px-2.5 py-1 rounded text-xs font-semibold transition-colors ${
+            locale === code
+              ? 'bg-white/20 text-white'
+              : 'text-white/60 hover:text-white hover:bg-white/10'
+          }`}
+        >
+          {label}
+        </button>
+      ))}
     </div>
   )
 }

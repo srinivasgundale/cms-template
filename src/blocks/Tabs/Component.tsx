@@ -39,8 +39,8 @@ export const TabsBlock: React.FC<Props> = ({ className, alignment = 'left', tabs
         ))}
       </div>
 
-      {/* Active tab content */}
-      <div>
+      {/* Active tab content — re-keyed so the fade animation plays on every switch */}
+      <div key={active} className="animate-tab-content">
         {tabs[active]?.content && (
           <RichText data={tabs[active].content} enableGutter={false} />
         )}

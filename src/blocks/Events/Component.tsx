@@ -110,7 +110,7 @@ const EventTile: React.FC<{ event: EventItem }> = ({ event }) => {
   const wazeUrl = event.location ? buildWazeUrl(event.location, event.mapUrl) : null
 
   return (
-    <div className="flex items-center gap-4 rounded-2xl border border-border bg-card p-4 sm:p-5 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+    <div className="flex items-center gap-4 rounded-2xl border border-border bg-card p-4 sm:p-5 shadow-md transition-[transform,box-shadow] duration-300 fine-hover:hover:shadow-xl fine-hover:hover:-translate-y-1">
       {/* Date badge */}
       <div className="flex w-14 shrink-0 flex-col items-center rounded-lg bg-blue-700 py-2 text-white">
         <span className="text-2xl font-extrabold leading-none">{day}</span>

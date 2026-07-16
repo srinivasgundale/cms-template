@@ -1,5 +1,12 @@
+import plugin from 'tailwindcss/plugin'
+
 /** @type {import('tailwindcss').Config} */
 const config = {
+  plugins: [
+    plugin(function ({ addVariant }) {
+      addVariant('fine-hover', '@media (hover: hover) and (pointer: fine)')
+    }),
+  ],
   theme: {
     extend: {
       typography: {
