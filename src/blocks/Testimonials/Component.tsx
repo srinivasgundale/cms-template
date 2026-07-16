@@ -67,13 +67,10 @@ const TestimonialCard: React.FC<{ item: Item; layout: string }> = ({ item, layou
         layout === 'carousel' && 'min-w-[300px] sm:min-w-[360px]',
       )}
     >
-      {/* Opening quote mark */}
       <span className="text-5xl font-serif leading-none text-brand-primary/80 select-none">"</span>
 
-      {/* Rating */}
       {item.rating && <Stars rating={item.rating} />}
 
-      {/* Quote body */}
       <p className="flex-1 text-base italic leading-relaxed text-foreground">
         {displayQuote}
         {!truncated && (
@@ -81,7 +78,6 @@ const TestimonialCard: React.FC<{ item: Item; layout: string }> = ({ item, layou
         )}
       </p>
 
-      {/* Footer */}
       <footer className="flex items-center gap-3">
         {item.avatar ? (
           <div className="relative h-10 w-10 shrink-0 overflow-hidden rounded-full">
@@ -123,7 +119,11 @@ export const TestimonialsBlock: React.FC<Props> = ({
 
   return (
     <div className={cn('container', className)}>
-      {title && <h2 className="mb-8 text-center text-3xl font-bold text-brand-primary">{title}</h2>}
+      {title && (
+        <AnimateIn variant="fade-up">
+          <h2 className="mb-8 text-center text-3xl font-bold text-brand-primary">{title}</h2>
+        </AnimateIn>
+      )}
 
       <div
         className={cn({

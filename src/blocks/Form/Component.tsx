@@ -13,6 +13,7 @@ import type { DefaultTypedEditorState } from '@payloadcms/richtext-lexical'
 
 import { fields } from './fields'
 import { getClientSideURL } from '@/utilities/getURL'
+import { AnimateIn } from '@/components/AnimateIn'
 
 export type FormBlockType = {
   blockName?: string
@@ -145,14 +146,16 @@ export const FormBlock: React.FC<{ id?: string } & FormBlockType> = (props) => {
         <div className="absolute inset-0 bg-black/60" />
         {/* Form on top */}
         <div className="relative z-10 container py-20 md:py-28">
-          <div className="mx-auto max-w-xl">
-            {enableIntro && introContent && !hasSubmitted && (
-              <RichText className="mb-8 text-center text-white" data={introContent} enableGutter={false} />
-            )}
-            <div className="rounded-2xl bg-white/10 backdrop-blur-sm border border-white/20 p-6 lg:p-8 text-white">
-              {formContent}
+          <AnimateIn variant="fade-up">
+            <div className="mx-auto max-w-xl">
+              {enableIntro && introContent && !hasSubmitted && (
+                <RichText className="mb-8 text-center text-white" data={introContent} enableGutter={false} />
+              )}
+              <div className="rounded-2xl bg-white/10 backdrop-blur-sm border border-white/20 p-6 lg:p-8 text-white">
+                {formContent}
+              </div>
             </div>
-          </div>
+          </AnimateIn>
         </div>
       </div>
     )
@@ -168,36 +171,36 @@ export const FormBlock: React.FC<{ id?: string } & FormBlockType> = (props) => {
           // ── Side-image layout ──────────────────────────────────────────────
           <div className="flex flex-col gap-10 md:flex-row md:items-center lg:gap-16">
             {imagePosition !== 'right' && (
-              <div className="w-full shrink-0 md:w-[45%] md:sticky md:top-24">
+              <AnimateIn variant="fade-right" className="w-full shrink-0 md:w-[45%] md:sticky md:top-24">
                 <Media resource={image} imgClassName="w-full rounded-2xl object-cover shadow-lg" />
-              </div>
+              </AnimateIn>
             )}
 
-            <div className="flex-1 min-w-0">
+            <AnimateIn variant="fade-left" delay={150} className="flex-1 min-w-0">
               {enableIntro && introContent && !hasSubmitted && (
                 <RichText className="mb-8" data={introContent} enableGutter={false} />
               )}
               <div className="rounded-2xl border border-border bg-card p-6 lg:p-8">
                 {formContent}
               </div>
-            </div>
+            </AnimateIn>
 
             {imagePosition === 'right' && (
-              <div className="w-full shrink-0 md:w-[45%] md:sticky md:top-24">
+              <AnimateIn variant="fade-left" delay={150} className="w-full shrink-0 md:w-[45%] md:sticky md:top-24">
                 <Media resource={image} imgClassName="w-full rounded-2xl object-cover shadow-lg" />
-              </div>
+              </AnimateIn>
             )}
           </div>
         ) : (
           // ── Centred layout (no image) ──────────────────────────────────────
-          <div className="mx-auto max-w-xl">
+          <AnimateIn variant="fade-up" className="mx-auto max-w-xl">
             {enableIntro && introContent && !hasSubmitted && (
               <RichText className="mb-8 text-center" data={introContent} enableGutter={false} />
             )}
             <div className="rounded-2xl border border-border bg-card p-6 lg:p-8 shadow-sm">
               {formContent}
             </div>
-          </div>
+          </AnimateIn>
         )}
       </div>
     </div>

@@ -111,13 +111,11 @@ const EventTile: React.FC<{ event: EventItem }> = ({ event }) => {
 
   return (
     <div className="flex items-center gap-4 rounded-2xl border border-border bg-card p-4 sm:p-5 shadow-md transition-[transform,box-shadow] duration-300 fine-hover:hover:shadow-xl fine-hover:hover:-translate-y-1">
-      {/* Date badge */}
       <div className="flex w-14 shrink-0 flex-col items-center rounded-lg bg-blue-700 py-2 text-white">
         <span className="text-2xl font-extrabold leading-none">{day}</span>
         <span className="mt-0.5 text-xs font-semibold tracking-wider opacity-90">{month}</span>
       </div>
 
-      {/* Content */}
       <div className="flex-1 min-w-0">
         <p className="font-semibold text-foreground leading-snug">{event.title}</p>
         {event.description && (
@@ -177,7 +175,6 @@ const EventTile: React.FC<{ event: EventItem }> = ({ event }) => {
         </div>
       </div>
 
-      {/* Right: badge + copy */}
       <div className="flex shrink-0 flex-col items-end gap-2">
         {event.category && (
           <span className={cn('rounded-full px-3 py-0.5 text-xs font-semibold whitespace-nowrap', badgeClass)}>
@@ -216,10 +213,12 @@ export const EventsBlock: React.FC<Props> = ({
     >
       <div className="container py-20 lg:py-[7.5rem]">
         {(title || subtitle) && (
-          <div className="mb-10">
-            {title && <h2 className="text-3xl font-bold text-brand-primary">{title}</h2>}
-            {subtitle && <p className="mt-2 text-sm text-muted-foreground">{subtitle}</p>}
-          </div>
+          <AnimateIn variant="fade-up">
+            <div className="mb-10">
+              {title && <h2 className="text-3xl font-bold text-brand-primary">{title}</h2>}
+              {subtitle && <p className="mt-2 text-sm text-muted-foreground">{subtitle}</p>}
+            </div>
+          </AnimateIn>
         )}
 
         <div className="flex flex-col gap-3">

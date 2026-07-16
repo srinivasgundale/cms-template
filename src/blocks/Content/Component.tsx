@@ -5,6 +5,7 @@ import RichText from '@/components/RichText'
 import type { ContentBlock as ContentBlockProps } from '@/payload-types'
 
 import { CMSLink } from '../../components/Link'
+import { AnimateIn } from '@/components/AnimateIn'
 
 export const ContentBlock: React.FC<ContentBlockProps> = (props) => {
   const { columns } = props
@@ -25,16 +26,18 @@ export const ContentBlock: React.FC<ContentBlockProps> = (props) => {
             const { enableLink, link, richText, size } = col
 
             return (
-              <div
+              <AnimateIn
+                key={index}
+                variant="fade-up"
+                delay={Math.min(index, 3) * 80}
                 className={cn(`col-span-4 lg:col-span-${colsSpanClasses[size!]}`, {
                   'md:col-span-2': size !== 'full',
                 })}
-                key={index}
               >
                 {richText && <RichText data={richText} enableGutter={false} />}
 
                 {enableLink && <CMSLink {...link} />}
-              </div>
+              </AnimateIn>
             )
           })}
       </div>

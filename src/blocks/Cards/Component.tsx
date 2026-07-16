@@ -38,10 +38,12 @@ export const CardsBlock: React.FC<Props> = ({
   return (
     <div className={cn('container', className)}>
       {(title || subtitle) && (
-        <div className="mb-10 text-center">
-          {title && <h2 className="text-3xl font-bold text-brand-primary">{title}</h2>}
-          {subtitle && <p className="mt-2 text-muted-foreground">{subtitle}</p>}
-        </div>
+        <AnimateIn variant="fade-up">
+          <div className="mb-10 text-center">
+            {title && <h2 className="text-3xl font-bold text-brand-primary">{title}</h2>}
+            {subtitle && <p className="mt-2 text-muted-foreground">{subtitle}</p>}
+          </div>
+        </AnimateIn>
       )}
 
       <div

@@ -16,7 +16,7 @@ const columnClass: Record<string, string> = {
   '4': 'sm:grid-cols-2 lg:grid-cols-4',
 }
 
-const COLOR_COUNT = 8 // matches data-color="0"–"7" in master.css
+const COLOR_COUNT = 8
 
 function getInitials(name: string): string {
   return name
@@ -77,14 +77,12 @@ function TeamMemberCard({ member, layout, index }: { member: Member; layout: str
   const isGrid = layout === 'grid'
 
   return (
-    // Plain div — no role="button" so <a> links on the back face aren't nested inside an interactive control
     <div
       className={cn('team-card', isGrid ? 'team-card--grid' : 'team-card--list')}
       data-color={colorIndex}
     >
       <div className={cn('team-card-inner', flipped && 'is-flipped')}>
 
-        {/* ── Front — a <button> with no interactive children ── */}
         <button
           type="button"
           className={cn(
@@ -98,7 +96,6 @@ function TeamMemberCard({ member, layout, index }: { member: Member; layout: str
         >
           {isGrid ? (
             <>
-              {/* Avatar + name/role grouped at top-center */}
               <div className="flex flex-col items-center gap-3 w-full">
                 {member.photo ? (
                   <div className="h-20 w-20 overflow-hidden rounded-full shrink-0">
@@ -114,7 +111,6 @@ function TeamMemberCard({ member, layout, index }: { member: Member; layout: str
                   )}
                 </div>
               </div>
-              {/* Hint pinned to bottom */}
               <p className="text-xs text-muted-foreground/60 italic">Tap to learn more →</p>
             </>
           ) : (
@@ -137,7 +133,6 @@ function TeamMemberCard({ member, layout, index }: { member: Member; layout: str
           )}
         </button>
 
-        {/* ── Back — plain div; social links + back button are siblings, not nested ── */}
         <div
           className={cn(
             'team-card-face team-card-back flex flex-col',
@@ -205,10 +200,12 @@ export const TeamBlock: React.FC<Props> = ({
   return (
     <div className={cn('container', className)}>
       {(title || subtitle) && (
-        <div className="mb-10">
-          {title && <h2 className="text-3xl font-bold text-brand-primary">{title}</h2>}
-          {subtitle && <p className="mt-2 text-muted-foreground">{subtitle}</p>}
-        </div>
+        <AnimateIn variant="fade-up">
+          <div className="mb-10">
+            {title && <h2 className="text-3xl font-bold text-brand-primary">{title}</h2>}
+            {subtitle && <p className="mt-2 text-muted-foreground">{subtitle}</p>}
+          </div>
+        </AnimateIn>
       )}
 
       <div

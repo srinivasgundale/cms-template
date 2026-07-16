@@ -206,7 +206,7 @@ export const SliderBlock: React.FC<Props> = (props) => {
             const strength: string = s.overlayStrength ?? 'medium'
             const tag = s.headingTag
             const HeadingTag = (tag === 'h1' || tag === 'h2' || tag === 'h3' ? tag : 'h2') as 'h1' | 'h2' | 'h3'
-            const hasContent = slide.title || slide.description || slide.enableLink || s.eyebrow
+            const hasContent = slide.title || slide.description || slide.enableLink || s.eyebrow || showScrollIndicator
             const gradientClass = OVERLAY_GRADIENT[pos]?.[strength] ?? OVERLAY_GRADIENT['bottom-left'].medium
             const image = isMobile && s.mobileImage ? s.mobileImage : slide.image
 
@@ -287,6 +287,21 @@ export const SliderBlock: React.FC<Props> = (props) => {
                           />
                         </div>
                       )}
+
+                      {/* Scroll indicator — sits below the CTA in content flow */}
+                      {showScrollIndicator && (
+                        <button
+                          type="button"
+                          onClick={handleScrollDown}
+                          className="self-center flex flex-col items-center gap-1.5 text-white/60 hero-scroll-indicator hover:text-white/90 transition-colors duration-200 focus-visible:outline-none focus-visible:text-white mt-2"
+                          aria-label="Scroll to next section"
+                        >
+                          <span className="text-xs font-semibold tracking-widest uppercase">Scroll</span>
+                          <span className="animate-bounce">
+                            <IconChevronDown />
+                          </span>
+                        </button>
+                      )}
                     </div>
                   </div>
                 )}
@@ -327,43 +342,25 @@ export const SliderBlock: React.FC<Props> = (props) => {
           </div>
         )}
 
-        {/* Bottom-centre bar: dots + scroll indicator — absolute so no height added below the frame */}
-        {((showDots && count > 1) || showScrollIndicator) && (
-          <div className="absolute bottom-5 left-1/2 z-20 -translate-x-1/2 flex flex-col items-center gap-3">
-            {showDots && count > 1 && (
-              <div role="tablist" aria-label="Slide indicators" className="flex gap-2">
-                {slides.map((_: Slide, i) => (
-                  <button
-                    key={i}
-                    type="button"
-                    role="tab"
-                    onClick={() => go(i)}
-                    aria-label={`Go to slide ${i + 1}`}
-                    aria-selected={i === current ? 'true' : 'false'}
-                    className={cn(
-                      'h-2 rounded-full transition-[width,background-color] duration-300',
-                      i === current
-                        ? 'w-6 bg-white'
-                        : 'w-2 bg-white/40 hover:bg-white/70',
-                    )}
-                  />
-                ))}
-              </div>
-            )}
-
-            {showScrollIndicator && (
+        {/* Bottom-centre dots */}
+        {showDots && count > 1 && (
+          <div className="absolute bottom-5 left-1/2 z-20 -translate-x-1/2 flex items-center gap-2" role="tablist" aria-label="Slide indicators">
+            {slides.map((_: Slide, i) => (
               <button
+                key={i}
                 type="button"
-                onClick={handleScrollDown}
-                className="flex flex-col items-center gap-1.5 text-white/60 hero-scroll-indicator hover:text-white/90 transition-colors duration-200 focus-visible:outline-none focus-visible:text-white"
-                aria-label="Scroll to next section"
-              >
-                <span className="text-xs font-semibold tracking-widest uppercase">Scroll</span>
-                <span className="animate-bounce">
-                  <IconChevronDown />
-                </span>
-              </button>
-            )}
+                role="tab"
+                onClick={() => go(i)}
+                aria-label={`Go to slide ${i + 1}`}
+                aria-selected={i === current ? 'true' : 'false'}
+                className={cn(
+                  'h-2 rounded-full transition-[width,background-color] duration-300',
+                  i === current
+                    ? 'w-6 bg-white'
+                    : 'w-2 bg-white/40 hover:bg-white/70',
+                )}
+              />
+            ))}
           </div>
         )}
       </div>

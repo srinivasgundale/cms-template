@@ -1,9 +1,22 @@
 import type { Block, Field } from 'payload'
 
 import {
+  AlignFeature,
+  BlockquoteFeature,
+  ChecklistFeature,
   FixedToolbarFeature,
   HeadingFeature,
+  HorizontalRuleFeature,
+  IndentFeature,
+  InlineCodeFeature,
   InlineToolbarFeature,
+  OrderedListFeature,
+  StrikethroughFeature,
+  SubscriptFeature,
+  SuperscriptFeature,
+  TextStateFeature,
+  UnorderedListFeature,
+  defaultColors,
   lexicalEditor,
 } from '@payloadcms/richtext-lexical'
 
@@ -40,7 +53,26 @@ const columnFields: Field[] = [
       features: ({ rootFeatures }) => {
         return [
           ...rootFeatures,
-          HeadingFeature({ enabledHeadingSizes: ['h2', 'h3', 'h4'] }),
+          HeadingFeature({ enabledHeadingSizes: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'] }),
+          HorizontalRuleFeature(),
+          BlockquoteFeature(),
+          OrderedListFeature(),
+          UnorderedListFeature(),
+          ChecklistFeature(),
+          AlignFeature(),
+          IndentFeature(),
+          StrikethroughFeature(),
+          SubscriptFeature(),
+          SuperscriptFeature(),
+          InlineCodeFeature(),
+          TextStateFeature({
+            state: {
+              color: {
+                ...defaultColors.text,
+                ...defaultColors.background,
+              },
+            },
+          }),
           FixedToolbarFeature(),
           InlineToolbarFeature(),
         ]

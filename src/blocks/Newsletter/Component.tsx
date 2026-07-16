@@ -7,6 +7,7 @@ import { cn } from '@/utilities/ui'
 import { isLightBackground } from '@/utilities/colorContrast'
 import { useTheme } from '@/providers/Theme'
 import React, { useState } from 'react'
+import { AnimateIn } from '@/components/AnimateIn'
 
 type Props = NewsletterBlockProps & { className?: string; disableInnerContainer?: boolean }
 
@@ -78,7 +79,7 @@ export const NewsletterBlock: React.FC<Props> = ({
         })}
       >
         {/* ── Text block ── */}
-        <div className={cn({ 'flex-1': layout === 'inline' })}>
+        <AnimateIn variant="fade-up" className={cn({ 'flex-1': layout === 'inline' })}>
           {/* Decorative divider */}
           {layout !== 'inline' && (
             <div className="mb-6 flex items-center justify-center gap-4">
@@ -103,10 +104,10 @@ export const NewsletterBlock: React.FC<Props> = ({
               {description}
             </p>
           )}
-        </div>
+        </AnimateIn>
 
         {/* ── Form block ── */}
-        <div className={cn({ 'shrink-0 w-full md:max-w-sm': layout === 'inline' })}>
+        <AnimateIn variant="fade-up" delay={120} className={cn({ 'shrink-0 w-full md:max-w-sm': layout === 'inline' })}>
           {submitted ? (
             <div
               className={cn('flex flex-col items-center gap-3', {
@@ -157,7 +158,7 @@ export const NewsletterBlock: React.FC<Props> = ({
               )}
             </>
           )}
-        </div>
+        </AnimateIn>
       </div>
     </div>
   )

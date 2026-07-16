@@ -3,6 +3,7 @@ import type { BannerBlock as BannerBlockProps } from 'src/payload-types'
 import { cn } from '@/utilities/ui'
 import React from 'react'
 import RichText from '@/components/RichText'
+import { AnimateIn } from '@/components/AnimateIn'
 
 type Props = {
   className?: string
@@ -10,6 +11,7 @@ type Props = {
 
 export const BannerBlock: React.FC<Props> = ({ className, content, style }) => {
   return (
+    <AnimateIn variant="fade-up">
     <div className={cn('mx-auto my-8 w-full', className)}>
       <div
         className={cn('border py-3 px-6 flex items-center rounded', {
@@ -22,5 +24,6 @@ export const BannerBlock: React.FC<Props> = ({ className, content, style }) => {
         <RichText data={content} enableGutter={false} enableProse={false} />
       </div>
     </div>
+    </AnimateIn>
   )
 }

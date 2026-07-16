@@ -4,7 +4,7 @@ import { cn } from '@/utilities/ui'
 import React from 'react'
 import RichText from '@/components/RichText'
 
-import { CMSLink } from '@/components/Link'
+import { CMSLink } from '../../components/Link'
 import { Media } from '@/components/Media'
 import { AnimateIn } from '@/components/AnimateIn'
 

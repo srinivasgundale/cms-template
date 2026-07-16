@@ -201,7 +201,6 @@ export const GalleryBlock: React.FC<Props> = ({
   ctaLink,
   backgroundColor,
 }) => {
-  // Payload stores null for unset selects; null bypasses destructuring defaults
   const layout = layoutProp ?? 'carousel'
   const [activeIdx, setActiveIdx] = useState<number | null>(null)
   const scrollRef = useRef<HTMLDivElement>(null)
@@ -230,9 +229,11 @@ export const GalleryBlock: React.FC<Props> = ({
     <>
       <div className={cn('cms-bg w-full', !hasCta && 'pb-20 lg:pb-[7.5rem]', className)}>
         {title && (
-          <div className="container mb-8 pt-20 text-center lg:pt-[7.5rem]">
-            <h2 className="text-3xl font-bold text-brand-primary">{title}</h2>
-          </div>
+          <AnimateIn variant="fade-up">
+            <div className="container mb-8 pt-20 text-center lg:pt-[7.5rem]">
+              <h2 className="text-3xl font-bold text-brand-primary">{title}</h2>
+            </div>
+          </AnimateIn>
         )}
 
         {/* ── GRID layout ─────────────────────────────────────────────────── */}
@@ -254,9 +255,7 @@ export const GalleryBlock: React.FC<Props> = ({
 
         {/* ── MASONRY layout ──────────────────────────────────────────────── */}
         {layout === 'masonry' && (
-          <div
-            className={cn('gap-x-[3px]', masonryCols[columns ?? '4'] ?? masonryCols['4'])}
-          >
+          <div className={cn('gap-x-[3px]', masonryCols[columns ?? '4'] ?? masonryCols['4'])}>
             {images.map((item, i) => (
               <AnimateIn key={i} variant="fade-in" delay={Math.min(i, 5) * 120} className="mb-[3px] break-inside-avoid overflow-hidden">
                 <Thumb
@@ -274,7 +273,6 @@ export const GalleryBlock: React.FC<Props> = ({
         {layout === 'carousel' && (
           <>
             <div className="group/strip relative">
-              {/* Left scroll button */}
               <button
                 type="button"
                 onClick={() => scrollCarousel(-1)}
@@ -284,7 +282,6 @@ export const GalleryBlock: React.FC<Props> = ({
                 <ChevronLeft className="h-6 w-6" />
               </button>
 
-              {/* Scrollable strip */}
               <div
                 ref={scrollRef}
                 className="flex snap-x snap-mandatory gap-[3px] overflow-x-auto scroll-smooth [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
@@ -294,24 +291,16 @@ export const GalleryBlock: React.FC<Props> = ({
                     key={i}
                     className="relative h-[280px] w-[220px] shrink-0 snap-start overflow-hidden md:h-[420px] md:w-[360px]"
                   >
-                    <Thumb
-                      item={item}
-                      index={i}
-                      fill
-                      className="h-full w-full"
-                      onClick={() => setActiveIdx(i)}
-                    />
+                    <Thumb item={item} index={i} fill className="h-full w-full" onClick={() => setActiveIdx(i)} />
                   </div>
                 ))}
               </div>
 
-              {/* Right fade edge hint */}
               <div
                 className="pointer-events-none absolute right-0 top-0 h-full w-16 bg-gradient-to-l from-black/20 to-transparent"
                 aria-hidden="true"
               />
 
-              {/* Right scroll button */}
               <button
                 type="button"
                 onClick={() => scrollCarousel(1)}
@@ -336,11 +325,7 @@ export const GalleryBlock: React.FC<Props> = ({
                 {ctaTitle}
               </h3>
               {ctaLink?.label && (
-                <CMSLink
-                  {...ctaLink}
-                  appearance="outline"
-                  className={cn(ctaBorder, ctaText, ctaHover)}
-                />
+                <CMSLink {...ctaLink} appearance="outline" className={cn(ctaBorder, ctaText, ctaHover)} />
               )}
             </div>
           </div>

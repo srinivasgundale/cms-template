@@ -33,7 +33,6 @@ function FAQItem({ question, answer }: { question: string; answer: any }) {
         </span>
       </button>
 
-      {/* CSS grid trick: grid-template-rows 0fr → 1fr for smooth height */}
       <div className={cn('faq-answer', open && 'faq-open')}>
         <div className="faq-answer-inner">
           <div className="mt-4 text-muted-foreground">
