@@ -2728,6 +2728,10 @@ export interface Header {
    * Site logo shown in the header. Falls back to the text logo if not set.
    */
   logo?: (number | null) | Media;
+  /**
+   * Optional text shown next to the logo image (e.g. "Swami Namasmarana Seva").
+   */
+  logoText?: string | null;
   navItems?:
     | {
         link: {
@@ -2874,6 +2878,7 @@ export interface SiteSetting {
 export interface HeaderSelect<T extends boolean = true> {
   backgroundColor?: T;
   logo?: T;
+  logoText?: T;
   navItems?:
     | T
     | {

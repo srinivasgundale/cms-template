@@ -27,6 +27,14 @@ export const Header: GlobalConfig = {
       },
     },
     {
+      name: 'logoText',
+      type: 'text',
+      label: 'Logo Text',
+      admin: {
+        description: 'Optional text shown next to the logo image (e.g. "Swami Namasmarana Seva").',
+      },
+    },
+    {
       name: 'navItems',
       type: 'array',
       fields: [

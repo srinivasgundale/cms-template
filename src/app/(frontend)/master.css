@@ -14,8 +14,8 @@
    1. LAYOUT TOKENS
    ──────────────────────────────────────────────────────────── */
 :root {
-  /* Header height — matches h-16 in Header/Component.client.tsx */
-  --header-height: 4rem;
+  /* Header height — matches h-20 in Header/Component.client.tsx */
+  --header-height: 5rem;
 
   /* Max content widths */
   --width-narrow:    48rem;   /* 768px  — long-form text, forms */

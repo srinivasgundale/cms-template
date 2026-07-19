@@ -62,19 +62,24 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
       {...(headerTheme ? { 'data-theme': headerTheme } : {})}
     >
       {/* ── Main bar ── */}
-      <div className="container flex h-16 items-center gap-4">
+      <div className="container flex h-20 items-center gap-4">
 
-        {/* Logo */}
-        <Link href="/" className="shrink-0 mr-4" aria-label="Home">
+        {/* Logo + optional site name text */}
+        <Link href="/" className="flex items-center gap-3 shrink-0 mr-4" aria-label="Home">
           {logoMedia?.url ? (
             <img
               src={logoMedia.url}
               alt={logoMedia.alt ?? 'Site logo'}
-              className="h-10 w-auto object-contain"
+              className="w-[75px] h-[75px] object-contain flex-shrink-0"
               loading="eager"
             />
           ) : (
             <Logo />
+          )}
+          {data.logoText && (
+            <span className="text-white font-semibold text-base leading-tight max-w-[140px] whitespace-pre-line">
+              {data.logoText}
+            </span>
           )}
         </Link>
 
