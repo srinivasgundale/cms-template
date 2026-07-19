@@ -74,6 +74,27 @@ function IconChevronDown() {
   )
 }
 
+const isRichTextEmpty = (value: any): boolean => {
+  if (!value) return true
+  if (typeof value !== 'object') return !value
+  const root = value.root
+  if (!root) return true
+  const children = root.children
+  if (!Array.isArray(children) || children.length === 0) return true
+
+  const hasTextOrContent = (nodes: any[]): boolean => {
+    return nodes.some((node) => {
+      if (node && typeof node === 'object') {
+        if (typeof node.text === 'string' && node.text.trim() !== '') return true
+        if (Array.isArray(node.children) && hasTextOrContent(node.children)) return true
+        if (node.type === 'block' && node.fields) return true
+      }
+      return false
+    })
+  }
+  return !hasTextOrContent(children)
+}
+
 export const SliderBlock: React.FC<Props> = (props) => {
   const {
     className,
@@ -206,7 +227,9 @@ export const SliderBlock: React.FC<Props> = (props) => {
             const strength: string = s.overlayStrength ?? 'medium'
             const tag = s.headingTag
             const HeadingTag = (tag === 'h1' || tag === 'h2' || tag === 'h3' ? tag : 'h2') as 'h1' | 'h2' | 'h3'
-            const hasContent = slide.title || slide.description || slide.enableLink || s.eyebrow || showScrollIndicator
+            const hasDescription = slide.description && !isRichTextEmpty(slide.description)
+            const hasSlideContent = !!(slide.title || hasDescription || slide.enableLink || s.eyebrow)
+            const hasContent = hasSlideContent || showScrollIndicator
             const gradientClass = OVERLAY_GRADIENT[pos]?.[strength] ?? OVERLAY_GRADIENT['bottom-left'].medium
             const image = isMobile && s.mobileImage ? s.mobileImage : slide.image
 
@@ -230,8 +253,8 @@ export const SliderBlock: React.FC<Props> = (props) => {
                   />
                 </div>
 
-                {/* Gradient overlay — always rendered so it persists during slide transition */}
-                {hasContent && (
+                {/* Gradient overlay — only rendered when there is slide content to ensure text readability */}
+                {hasSlideContent && (
                   <div className={cn('absolute inset-0', gradientClass)} aria-hidden="true" />
                 )}
 
