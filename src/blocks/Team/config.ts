@@ -1,5 +1,25 @@
 import type { Block } from 'payload'
 
+import {
+  FixedToolbarFeature,
+  HeadingFeature,
+  InlineToolbarFeature,
+  lexicalEditor,
+  OrderedListFeature,
+  UnorderedListFeature,
+} from '@payloadcms/richtext-lexical'
+
+const richTextEditor = lexicalEditor({
+  features: ({ rootFeatures }) => [
+    ...rootFeatures,
+    FixedToolbarFeature(),
+    InlineToolbarFeature(),
+    HeadingFeature({ enabledHeadingSizes: ['h2', 'h3', 'h4'] }),
+    OrderedListFeature(),
+    UnorderedListFeature(),
+  ],
+})
+
 export const Team: Block = {
   slug: 'team',
   interfaceName: 'TeamBlock',
@@ -8,36 +28,21 @@ export const Team: Block = {
     { name: 'title', type: 'text' },
     { name: 'subtitle', type: 'text' },
     {
-      type: 'row',
-      fields: [
-        {
-          name: 'layout',
-          type: 'select',
-          defaultValue: 'grid',
-          options: [
-            { label: 'Grid', value: 'grid' },
-            { label: 'List', value: 'list' },
-          ],
-          admin: { width: '50%' },
-        },
-        {
-          name: 'columns',
-          type: 'select',
-          defaultValue: '3',
-          options: [
-            { label: '2 Columns', value: '2' },
-            { label: '3 Columns', value: '3' },
-            { label: '4 Columns', value: '4' },
-          ],
-          admin: { width: '50%' },
-        },
-      ],
+      name: 'topContent',
+      type: 'richText',
+      label: 'Top Content',
+      editor: richTextEditor,
+      admin: { description: 'Shown below the title, above the main team members.' },
     },
     {
       name: 'members',
       type: 'array',
       minRows: 1,
-      admin: { initCollapsed: true },
+      admin: {
+        initCollapsed: true,
+        description:
+          'First 4 members are featured with large portrait photos. Remaining members appear as compact name tiles.',
+      },
       fields: [
         {
           type: 'row',
@@ -75,6 +80,22 @@ export const Team: Block = {
           ],
         },
       ],
+    },
+    {
+      name: 'otherMembersTitle',
+      type: 'text',
+      label: 'Other Members Section Title',
+      admin: {
+        description:
+          'Heading for the secondary members section (appears when there are more than 4 members).',
+      },
+    },
+    {
+      name: 'bottomContent',
+      type: 'richText',
+      label: 'Bottom Content',
+      editor: richTextEditor,
+      admin: { description: 'Shown below all team members.' },
     },
   ],
 }

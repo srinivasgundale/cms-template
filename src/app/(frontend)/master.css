@@ -14,49 +14,49 @@
    1. LAYOUT TOKENS
    ──────────────────────────────────────────────────────────── */
 :root {
-  /* Header height — matches h-20 in Header/Component.client.tsx */
-  --header-height: 5rem;
+  /* Header height — matches h-16 in Header/Component.client.tsx */
+  --header-height: 4rem;
 
   /* Max content widths */
-  --width-narrow:    48rem;   /* 768px  — long-form text, forms */
-  --width-content:   64rem;   /* 1024px — standard content */
-  --width-wide:      80rem;   /* 1280px — wide sections */
-  --width-full:      86rem;   /* 1376px — max-width cap */
+  --width-narrow: 48rem; /* 768px  — long-form text, forms */
+  --width-content: 64rem; /* 1024px — standard content */
+  --width-wide: 80rem; /* 1280px — wide sections */
+  --width-full: 86rem; /* 1376px — max-width cap */
 
   /* Section vertical padding — fluid */
-  --section-padding-y:    clamp(3rem,   6vw,  7rem);
-  --section-padding-y-sm: clamp(2rem,   4vw,  4rem);
-  --section-padding-y-lg: clamp(5rem,   9vw, 10rem);
+  --section-padding-y: clamp(3rem, 6vw, 7rem);
+  --section-padding-y-sm: clamp(2rem, 4vw, 4rem);
+  --section-padding-y-lg: clamp(5rem, 9vw, 10rem);
 
   /* Horizontal gutter inside container */
-  --gutter-x:  clamp(1rem, 4vw, 2rem);
+  --gutter-x: clamp(1rem, 4vw, 2rem);
 
   /* Block-level spacing (between elements within a section) */
-  --space-1:  clamp(0.25rem, 0.5vw, 0.5rem);
-  --space-2:  clamp(0.5rem,  1vw,   0.75rem);
-  --space-3:  clamp(0.75rem, 1.5vw, 1rem);
-  --space-4:  clamp(1rem,    2vw,   1.5rem);
-  --space-6:  clamp(1.5rem,  3vw,   2.5rem);
-  --space-8:  clamp(2rem,    4vw,   3.5rem);
-  --space-12: clamp(3rem,    6vw,   6rem);
-  --space-16: clamp(4rem,    8vw,   8rem);
+  --space-1: clamp(0.25rem, 0.5vw, 0.5rem);
+  --space-2: clamp(0.5rem, 1vw, 0.75rem);
+  --space-3: clamp(0.75rem, 1.5vw, 1rem);
+  --space-4: clamp(1rem, 2vw, 1.5rem);
+  --space-6: clamp(1.5rem, 3vw, 2.5rem);
+  --space-8: clamp(2rem, 4vw, 3.5rem);
+  --space-12: clamp(3rem, 6vw, 6rem);
+  --space-16: clamp(4rem, 8vw, 8rem);
 
   /* Card gap */
   --grid-gap: clamp(1rem, 2.5vw, 1.75rem);
 
   /* Border radius */
   --radius-card: 0.75rem;
-  --radius-btn:  100px;
+  --radius-btn: 100px;
 
   /* Shadow scale */
-  --shadow-sm:  0 1px 3px 0 rgb(0 0 0 / 0.08), 0 1px 2px -1px rgb(0 0 0 / 0.08);
-  --shadow-md:  0 4px 6px -1px rgb(0 0 0 / 0.08), 0 2px 4px -2px rgb(0 0 0 / 0.08);
-  --shadow-lg:  0 10px 15px -3px rgb(0 0 0 / 0.08), 0 4px 6px -4px rgb(0 0 0 / 0.08);
-  --shadow-xl:  0 20px 25px -5px rgb(0 0 0 / 0.08), 0 8px 10px -6px rgb(0 0 0 / 0.08);
+  --shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.08), 0 1px 2px -1px rgb(0 0 0 / 0.08);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.08), 0 2px 4px -2px rgb(0 0 0 / 0.08);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.08), 0 4px 6px -4px rgb(0 0 0 / 0.08);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.08), 0 8px 10px -6px rgb(0 0 0 / 0.08);
   --shadow-float: 0 8px 30px rgb(0 0 0 / 0.12);
 
   /* Easing tokens (Emil Kowalski / animations.dev) */
-  --ease-out:    cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
   --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
   --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
 }
@@ -67,41 +67,78 @@
    the smallest and largest viewport without breakpoints.
    ──────────────────────────────────────────────────────────── */
 :root {
-  --text-xs:   clamp(0.70rem,  0.65rem + 0.25vw, 0.75rem);
-  --text-sm:   clamp(0.813rem, 0.75rem + 0.32vw, 0.875rem);
+  --text-xs: clamp(0.7rem, 0.65rem + 0.25vw, 0.75rem);
+  --text-sm: clamp(0.813rem, 0.75rem + 0.32vw, 0.875rem);
   --text-base: clamp(0.938rem, 0.875rem + 0.32vw, 1rem);
-  --text-lg:   clamp(1.063rem, 0.975rem + 0.44vw, 1.125rem);
-  --text-xl:   clamp(1.188rem, 1.05rem  + 0.69vw, 1.25rem);
-  --text-2xl:  clamp(1.313rem, 1.1rem   + 1.06vw, 1.5rem);
-  --text-3xl:  clamp(1.625rem, 1.25rem  + 1.88vw, 1.875rem);
-  --text-4xl:  clamp(2rem,     1.5rem   + 2.5vw,  2.5rem);
-  --text-5xl:  clamp(2.375rem, 1.7rem   + 3.38vw, 3rem);
-  --text-6xl:  clamp(2.75rem,  1.9rem   + 4.25vw, 3.75rem);
-  --text-7xl:  clamp(3.25rem,  2.25rem  + 5vw,    4.5rem);
+  --text-lg: clamp(1.063rem, 0.975rem + 0.44vw, 1.125rem);
+  --text-xl: clamp(1.188rem, 1.05rem + 0.69vw, 1.25rem);
+  --text-2xl: clamp(1.313rem, 1.1rem + 1.06vw, 1.5rem);
+  --text-3xl: clamp(1.625rem, 1.25rem + 1.88vw, 1.875rem);
+  --text-4xl: clamp(2rem, 1.5rem + 2.5vw, 2.5rem);
+  --text-5xl: clamp(2.375rem, 1.7rem + 3.38vw, 3rem);
+  --text-6xl: clamp(2.75rem, 1.9rem + 4.25vw, 3.75rem);
+  --text-7xl: clamp(3.25rem, 2.25rem + 5vw, 4.5rem);
 
   /* Line-height tokens */
-  --leading-tight:  1.15;
-  --leading-snug:   1.35;
+  --leading-tight: 1.15;
+  --leading-snug: 1.35;
   --leading-normal: 1.6;
-  --leading-loose:  1.8;
+  --leading-loose: 1.8;
 
   /* Letter spacing */
-  --tracking-tight:  -0.025em;
-  --tracking-normal:  0em;
-  --tracking-wide:    0.025em;
-  --tracking-widest:  0.1em;
+  --tracking-tight: -0.025em;
+  --tracking-normal: 0em;
+  --tracking-wide: 0.025em;
+  --tracking-widest: 0.1em;
 }
 
 /* Apply fluid type to headings globally */
-h1 { font-size: var(--text-5xl); line-height: var(--leading-tight);  letter-spacing: var(--tracking-tight); font-optical-sizing: auto; }
-h2 { font-size: var(--text-4xl); line-height: var(--leading-tight);  letter-spacing: var(--tracking-tight); font-optical-sizing: auto; }
-h3 { font-size: var(--text-3xl); line-height: var(--leading-snug);   font-optical-sizing: auto; }
-h4 { font-size: var(--text-2xl); line-height: var(--leading-snug);   font-optical-sizing: auto; }
-h5 { font-size: var(--text-xl);  line-height: var(--leading-normal); font-optical-sizing: auto; }
-h6 { font-size: var(--text-lg);  line-height: var(--leading-normal); font-optical-sizing: auto; }
-p, li, td, th { font-size: var(--text-base); line-height: var(--leading-normal); }
-small, .text-sm { font-size: var(--text-sm); }
-.text-xs { font-size: var(--text-xs); }
+h1 {
+  font-size: var(--text-5xl);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tight);
+  font-optical-sizing: auto;
+}
+h2 {
+  font-size: var(--text-4xl);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tight);
+  font-optical-sizing: auto;
+}
+h3 {
+  font-size: var(--text-3xl);
+  line-height: var(--leading-snug);
+  font-optical-sizing: auto;
+}
+h4 {
+  font-size: var(--text-2xl);
+  line-height: var(--leading-snug);
+  font-optical-sizing: auto;
+}
+h5 {
+  font-size: var(--text-xl);
+  line-height: var(--leading-normal);
+  font-optical-sizing: auto;
+}
+h6 {
+  font-size: var(--text-lg);
+  line-height: var(--leading-normal);
+  font-optical-sizing: auto;
+}
+p,
+li,
+td,
+th {
+  font-size: var(--text-base);
+  line-height: var(--leading-normal);
+}
+small,
+.text-sm {
+  font-size: var(--text-sm);
+}
+.text-xs {
+  font-size: var(--text-xs);
+}
 
 /* ────────────────────────────────────────────────────────────
    3. BASE / RESET EXTENSIONS
@@ -245,8 +282,12 @@ main,
 }
 
 /* Background variants */
-.section-muted  { background-color: var(--muted); }
-.section-card   { background-color: var(--card); }
+.section-muted {
+  background-color: var(--muted);
+}
+.section-card {
+  background-color: var(--card);
+}
 .section-primary {
   background-color: var(--primary);
   color: var(--primary-foreground);
@@ -282,17 +323,27 @@ main,
 }
 
 @media (min-width: 40rem) {
-  .grid-2 { grid-template-columns: repeat(2, 1fr); }
-  .grid-4 { grid-template-columns: repeat(2, 1fr); }
+  .grid-2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .grid-4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 @media (min-width: 48rem) {
-  .grid-3 { grid-template-columns: repeat(2, 1fr); }
+  .grid-3 {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 @media (min-width: 64rem) {
-  .grid-3 { grid-template-columns: repeat(3, 1fr); }
-  .grid-4 { grid-template-columns: repeat(4, 1fr); }
+  .grid-3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .grid-4 {
+    grid-template-columns: repeat(4, 1fr);
+  }
 }
 
 /* Content + sidebar */
@@ -303,8 +354,12 @@ main,
 }
 
 @media (min-width: 64rem) {
-  .grid-sidebar        { grid-template-columns: 1fr 320px; }
-  .grid-sidebar-left   { grid-template-columns: 320px 1fr; }
+  .grid-sidebar {
+    grid-template-columns: 1fr 320px;
+  }
+  .grid-sidebar-left {
+    grid-template-columns: 320px 1fr;
+  }
 }
 
 /* Full 12-column grid (manual column placement) */
@@ -315,11 +370,15 @@ main,
 }
 
 @media (min-width: 48rem) {
-  .grid-12 { grid-template-columns: repeat(8, 1fr); }
+  .grid-12 {
+    grid-template-columns: repeat(8, 1fr);
+  }
 }
 
 @media (min-width: 64rem) {
-  .grid-12 { grid-template-columns: repeat(12, 1fr); }
+  .grid-12 {
+    grid-template-columns: repeat(12, 1fr);
+  }
 }
 
 /* Masonry (CSS-only) */
@@ -328,8 +387,16 @@ main,
   gap: var(--grid-gap);
 }
 
-@media (min-width: 40rem) { .grid-masonry { columns: 2; } }
-@media (min-width: 64rem) { .grid-masonry { columns: 3; } }
+@media (min-width: 40rem) {
+  .grid-masonry {
+    columns: 2;
+  }
+}
+@media (min-width: 64rem) {
+  .grid-masonry {
+    columns: 3;
+  }
+}
 
 .grid-masonry > * {
   break-inside: avoid;
@@ -348,7 +415,9 @@ main,
 }
 
 @media (min-width: 48rem) {
-  .stack-row { flex-direction: row; }
+  .stack-row {
+    flex-direction: row;
+  }
 }
 
 /* Center everything */
@@ -378,8 +447,12 @@ main,
    ──────────────────────────────────────────────────────────── */
 
 /* Balanced heading wrap */
-.text-balance  { text-wrap: balance; }
-.text-pretty   { text-wrap: pretty; }
+.text-balance {
+  text-wrap: balance;
+}
+.text-pretty {
+  text-wrap: pretty;
+}
 
 /* Section header group */
 .section-header {
@@ -432,11 +505,21 @@ main,
 /* ────────────────────────────────────────────────────────────
    10. ASPECT RATIOS
    ──────────────────────────────────────────────────────────── */
-.aspect-hero   { aspect-ratio: 16 / 7; }
-.aspect-card   { aspect-ratio: 4  / 3; }
-.aspect-square { aspect-ratio: 1  / 1; }
-.aspect-portrait { aspect-ratio: 3  / 4; }
-.aspect-cinema { aspect-ratio: 21 / 9; }
+.aspect-hero {
+  aspect-ratio: 16 / 7;
+}
+.aspect-card {
+  aspect-ratio: 4 / 3;
+}
+.aspect-square {
+  aspect-ratio: 1 / 1;
+}
+.aspect-portrait {
+  aspect-ratio: 3 / 4;
+}
+.aspect-cinema {
+  aspect-ratio: 21 / 9;
+}
 
 /* Image fit helpers */
 .img-cover {
@@ -461,7 +544,9 @@ main,
   border-radius: var(--radius-card);
   overflow: hidden;
   box-shadow: var(--shadow-sm);
-  transition: box-shadow 0.2s var(--ease-out), transform 0.2s var(--ease-out);
+  transition:
+    box-shadow 0.2s var(--ease-out),
+    transform 0.2s var(--ease-out);
 }
 
 @media (hover: hover) and (pointer: fine) {
@@ -511,7 +596,11 @@ main,
   line-height: 1;
   cursor: pointer;
   border: 2px solid transparent;
-  transition: background-color 0.15s, border-color 0.15s, color 0.15s, box-shadow 0.15s;
+  transition:
+    background-color 0.15s,
+    border-color 0.15s,
+    color 0.15s,
+    box-shadow 0.15s;
   text-decoration: none;
   white-space: nowrap;
 }
@@ -607,7 +696,9 @@ main,
   color: var(--color-foreground);
   font-size: var(--text-base);
   line-height: var(--leading-normal);
-  transition: border-color 0.15s, box-shadow 0.15s;
+  transition:
+    border-color 0.15s,
+    box-shadow 0.15s;
   appearance: none;
 }
 
@@ -679,11 +770,26 @@ main,
   white-space: nowrap;
 }
 
-.badge-primary  { background-color: var(--color-primary);  color: var(--color-primary-foreground); }
-.badge-muted    { background-color: var(--color-muted);    color: var(--color-muted-foreground);   }
-.badge-success  { background-color: var(--color-success);  color: var(--color-foreground);          }
-.badge-warning  { background-color: var(--color-warning);  color: var(--color-foreground);          }
-.badge-error    { background-color: var(--color-error);    color: white;                            }
+.badge-primary {
+  background-color: var(--color-primary);
+  color: var(--color-primary-foreground);
+}
+.badge-muted {
+  background-color: var(--color-muted);
+  color: var(--color-muted-foreground);
+}
+.badge-success {
+  background-color: var(--color-success);
+  color: var(--color-foreground);
+}
+.badge-warning {
+  background-color: var(--color-warning);
+  color: var(--color-foreground);
+}
+.badge-error {
+  background-color: var(--color-error);
+  color: white;
+}
 
 /* ────────────────────────────────────────────────────────────
    16. NAVIGATION HELPERS
@@ -698,7 +804,9 @@ main,
   text-decoration: none;
   padding: 0.375rem 0.5rem;
   border-radius: 0.375rem;
-  transition: color 0.15s, background-color 0.15s;
+  transition:
+    color 0.15s,
+    background-color 0.15s;
 }
 
 .nav-link:hover,
@@ -710,16 +818,26 @@ main,
 /* ────────────────────────────────────────────────────────────
    17. OVERLAY / SCRIM
    ──────────────────────────────────────────────────────────── */
-.overlay-dark  { background: linear-gradient(to top, rgb(0 0 0 / 0.7) 0%, rgb(0 0 0 / 0) 60%); }
-.overlay-light { background: linear-gradient(to top, rgb(255 255 255 / 0.8) 0%, transparent 60%); }
-.overlay-full  { background: rgb(0 0 0 / 0.45); }
+.overlay-dark {
+  background: linear-gradient(to top, rgb(0 0 0 / 0.7) 0%, rgb(0 0 0 / 0) 60%);
+}
+.overlay-light {
+  background: linear-gradient(to top, rgb(255 255 255 / 0.8) 0%, transparent 60%);
+}
+.overlay-full {
+  background: rgb(0 0 0 / 0.45);
+}
 
 /* ────────────────────────────────────────────────────────────
    18. SKELETON LOADERS
    ──────────────────────────────────────────────────────────── */
 @keyframes skeleton-shimmer {
-  0%   { background-position: -400px 0; }
-  100% { background-position:  400px 0; }
+  0% {
+    background-position: -400px 0;
+  }
+  100% {
+    background-position: 400px 0;
+  }
 }
 
 .skeleton {
@@ -740,29 +858,53 @@ main,
    pure CSS animation-timeline where supported.
    ──────────────────────────────────────────────────────────── */
 @keyframes fade-up {
-  from { opacity: 0; transform: translateY(1.5rem); }
-  to   { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(1.5rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes fade-in {
-  from { opacity: 0; }
-  to   { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes slide-in-left {
-  from { opacity: 0; transform: translateX(-2rem); }
-  to   { opacity: 1; transform: translateX(0); }
+  from {
+    opacity: 0;
+    transform: translateX(-2rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 @keyframes slide-in-right {
-  from { opacity: 0; transform: translateX(2rem); }
-  to   { opacity: 1; transform: translateX(0); }
+  from {
+    opacity: 0;
+    transform: translateX(2rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 /* ── CMS-configurable colour sections ───────────────────────────────────────
    Components set --cms-bg via a CSS custom-property inline style.
    The property itself lives here so no CSS properties appear in JSX.        */
-.cms-bg { background-color: var(--cms-bg, var(--section-bg, transparent)); }
+.cms-bg {
+  background-color: var(--cms-bg, var(--section-bg, transparent));
+}
 
 /* ────────────────────────────────────────────────────────────────────────── */
 
@@ -770,7 +912,9 @@ main,
 .animate-on-scroll {
   opacity: 0;
   transform: translateY(1.5rem);
-  transition: opacity 0.55s ease, transform 0.55s ease;
+  transition:
+    opacity 0.55s ease,
+    transform 0.55s ease;
 }
 
 .animate-on-scroll.is-visible {
@@ -778,10 +922,18 @@ main,
   transform: translateY(0);
 }
 
-.animate-delay-1 { transition-delay: 0.1s; }
-.animate-delay-2 { transition-delay: 0.2s; }
-.animate-delay-3 { transition-delay: 0.3s; }
-.animate-delay-4 { transition-delay: 0.4s; }
+.animate-delay-1 {
+  transition-delay: 0.1s;
+}
+.animate-delay-2 {
+  transition-delay: 0.2s;
+}
+.animate-delay-3 {
+  transition-delay: 0.3s;
+}
+.animate-delay-4 {
+  transition-delay: 0.4s;
+}
 
 /* ────────────────────────────────────────────────────────────
    20. REDUCED MOTION
@@ -830,7 +982,7 @@ main,
 
 /* Full-viewport slide frame — 100svh avoids mobile browser-chrome shift */
 .hero-slide-frame {
-  position: relative;       /* required for fill-mode Next.js Image */
+  position: relative; /* required for fill-mode Next.js Image */
   height: 100vh;
   height: 100svh;
   min-height: 600px;
@@ -886,28 +1038,49 @@ main,
 }
 
 /* ────────────────────────────────────────────────────────────
-   27. TEAM FLIP CARD
-   --tc (team-color) is set per-card via one CSS-variable inline style.
-   All other styling lives here so no CSS properties appear in JSX.
+   27. TEAM SECTION
+   Two-tier layout:
+     • .team-main-card  — large portrait cards (first 4 members, flip for bio)
+     • .team-other-tile — compact pill tiles (remaining members)
+   --tc (team-color) driven by data-color="N" on the card root.
    ──────────────────────────────────────────────────────────── */
-.team-card {
-  perspective: 1200px;
+
+/* Accent colours shared by both tiers */
+[data-color='0'] {
+  --tc: #1d4ed8;
+}
+[data-color='1'] {
+  --tc: #15803d;
+}
+[data-color='2'] {
+  --tc: #7e22ce;
+}
+[data-color='3'] {
+  --tc: #b45309;
+}
+[data-color='4'] {
+  --tc: #0f766e;
+}
+[data-color='5'] {
+  --tc: #be185d;
+}
+[data-color='6'] {
+  --tc: #4338ca;
+}
+[data-color='7'] {
+  --tc: #b91c1c;
 }
 
-/* Dynamic accent colour — driven by data-color index, set in JSX as data-color="N" */
-.team-card[data-color="0"] { --tc: #1d4ed8; }
-.team-card[data-color="1"] { --tc: #15803d; }
-.team-card[data-color="2"] { --tc: #7e22ce; }
-.team-card[data-color="3"] { --tc: #b45309; }
-.team-card[data-color="4"] { --tc: #0f766e; }
-.team-card[data-color="5"] { --tc: #be185d; }
-.team-card[data-color="6"] { --tc: #4338ca; }
-.team-card[data-color="7"] { --tc: #b91c1c; }
+/* ── Main portrait cards ─────────────────────────────────── */
+.team-main-card {
+  perspective: 1200px;
+  position: relative;
+  /* Tall portrait — shows face + full body */
+  aspect-ratio: 3 / 4;
+  min-height: 320px;
+}
 
-.team-card--grid { height: 260px; }
-.team-card--list { height: 180px; }
-
-.team-card-inner {
+.team-main-card-inner {
   position: relative;
   width: 100%;
   height: 100%;
@@ -915,50 +1088,118 @@ main,
   transition: transform 0.65s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.team-card-inner.is-flipped {
+.team-main-card-inner.is-flipped {
   transform: rotateY(180deg);
 }
 
-/* Shared face — applied to both front (button) and back (div) */
-.team-card-face {
+/* Shared face base */
+.team-main-card-face {
   position: absolute;
   inset: 0;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
   border-radius: var(--radius-card);
-  border: 1px solid var(--color-border);
-  background-color: var(--color-card);
-  padding: 1.5rem;
   overflow: hidden;
-  box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.08), 0 1px 2px -1px rgb(0 0 0 / 0.06);
-  transition: box-shadow 0.3s ease, transform 0.3s ease;
-  /* Reset button defaults when face is a <button> */
-  appearance: none;
-  cursor: pointer;
-  font: inherit;
+  border: 1px solid var(--color-border);
+  box-shadow: 0 4px 16px rgb(0 0 0 / 0.12);
+  transition: box-shadow 0.3s ease;
 }
 
-.team-card--list .team-card-face {
+/* Front — full-bleed photo with name/role gradient overlay */
+.team-main-card-front {
+  cursor: pointer;
+  appearance: none;
+  font: inherit;
+  padding: 0;
+  background: var(--color-card);
+  display: block;
+  width: 100%;
   text-align: left;
 }
 
-.team-card:hover .team-card-face:not(.team-card-back) {
-  box-shadow: 0 10px 25px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.08);
+.team-main-card:hover .team-main-card-front {
+  box-shadow: 0 12px 32px rgb(0 0 0 / 0.2);
 }
 
-.team-card-face:focus-visible {
+.team-main-card-front:focus-visible {
   outline: 2px solid var(--color-ring);
-  outline-offset: 2px;
+  outline-offset: 3px;
 }
 
-.team-card-back {
+/* Photo area — fills the entire card */
+.team-main-photo {
+  position: absolute;
+  inset: 0;
+  background: var(--color-muted);
+}
+
+.team-main-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+}
+
+/* Fallback initials when no photo */
+.team-main-avatar {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+  font-weight: 700;
+  color: #fff;
+  background-color: var(--tc, var(--color-primary));
+  border-radius: 0;
+}
+
+/* Gradient name overlay at bottom of front face */
+.team-main-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 2.5rem 1.25rem 1.25rem;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.72) 0%, transparent 100%);
+  color: #fff;
+}
+
+.team-main-member-name {
+  font-weight: 700;
+  font-size: 1.125rem;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+}
+
+.team-main-member-role {
+  font-size: 0.8125rem;
+  opacity: 0.8;
+  margin-top: 0.25rem;
+}
+
+.team-main-hint {
+  display: block;
+  font-size: 0.6875rem;
+  opacity: 0.55;
+  margin-top: 0.5rem;
+  font-style: italic;
+}
+
+/* Back — bio + social links */
+.team-main-card-back {
   transform: rotateY(180deg);
+  background-color: var(--color-card);
   border-color: var(--tc, var(--color-border));
   border-width: 2px;
   cursor: default;
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem;
 }
 
-/* Coloured top strip on the back face */
+/* Coloured top strip on back */
 .team-card-accent {
   position: absolute;
   top: 0;
@@ -969,19 +1210,7 @@ main,
   background: linear-gradient(90deg, var(--tc, var(--color-primary)), transparent);
 }
 
-/* Avatar circle — background driven by --tc (set via data-color on .team-card) */
-.team-card-avatar {
-  background-color: var(--tc, var(--color-primary));
-  color: #fff;
-  border-radius: 9999px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 700;
-  flex-shrink: 0;
-}
-
-/* Role text on the back face */
+/* Role text on back */
 .team-role-back {
   color: var(--tc, var(--color-primary));
   font-size: var(--text-xs);
@@ -989,16 +1218,86 @@ main,
   margin-bottom: 0.75rem;
 }
 
-/* Social icon links */
+/* Social icon links (shared) */
 .team-social-link {
   display: inline-block;
   color: var(--color-muted-foreground);
-  transition: color 0.2s ease, transform 0.2s ease;
+  transition:
+    color 0.2s ease,
+    transform 0.2s ease;
 }
 
 .team-social-link:hover {
   color: var(--tc, var(--color-primary));
   transform: scale(1.15);
+}
+
+/* ── Other member compact tiles ──────────────────────────── */
+.team-other-tile {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  padding: 0.375rem 0.875rem 0.375rem 0.375rem;
+  border: 1px solid var(--color-border);
+  border-radius: 9999px;
+  background-color: var(--color-card);
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.05);
+  transition:
+    box-shadow 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.team-other-tile:hover {
+  box-shadow: 0 4px 12px rgb(0 0 0 / 0.1);
+  border-color: var(--tc, var(--color-primary));
+  transform: translateY(-1px);
+}
+
+/* Small avatar image */
+.team-other-avatar-img {
+  height: 2.25rem;
+  width: 2.25rem;
+  border-radius: 9999px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.team-other-avatar-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Small initials fallback */
+.team-other-avatar {
+  height: 2.25rem;
+  width: 2.25rem;
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #fff;
+  background-color: var(--tc, var(--color-primary));
+  flex-shrink: 0;
+}
+
+.team-other-name {
+  font-weight: 600;
+  font-size: 0.875rem;
+  line-height: 1.2;
+  color: var(--color-foreground);
+  white-space: nowrap;
+}
+
+.team-other-role {
+  font-size: 0.6875rem;
+  color: var(--color-muted-foreground);
+  margin-top: 0.125rem;
+  white-space: nowrap;
 }
 
 /* ────────────────────────────────────────────────────────────
@@ -1040,7 +1339,14 @@ main,
   }
 
   /* Avoid page breaks inside key elements */
-  h1, h2, h3, h4, blockquote, figure, table, pre {
+  h1,
+  h2,
+  h3,
+  h4,
+  blockquote,
+  figure,
+  table,
+  pre {
     break-inside: avoid;
   }
 
@@ -1057,12 +1363,20 @@ main,
 /* ────────────────────────────────────────────────────────────
    23. RESPONSIVE VISIBILITY HELPERS
    ──────────────────────────────────────────────────────────── */
-.hide-mobile  { display: none; }
-.hide-desktop { display: block; }
+.hide-mobile {
+  display: none;
+}
+.hide-desktop {
+  display: block;
+}
 
 @media (min-width: 48rem) {
-  .hide-mobile  { display: block; }
-  .hide-desktop { display: none;  }
+  .hide-mobile {
+    display: block;
+  }
+  .hide-desktop {
+    display: none;
+  }
 }
 
 /* ────────────────────────────────────────────────────────────
@@ -1140,12 +1454,18 @@ main,
 }
 
 @media (min-width: 40rem) {
-  .block-cards .cards-grid { grid-template-columns: repeat(2, 1fr); }
+  .block-cards .cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 @media (min-width: 64rem) {
-  .block-cards .cards-grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
-  .block-cards .cards-grid.cols-4 { grid-template-columns: repeat(4, 1fr); }
+  .block-cards .cards-grid.cols-3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .block-cards .cards-grid.cols-4 {
+    grid-template-columns: repeat(4, 1fr);
+  }
 }
 
 /* ── CTA Banner block ── */
@@ -1167,43 +1487,61 @@ main,
 
 /* ── 2XL: 1376px+ ── */
 @media (min-width: 86rem) {
-  :root { --gutter-x: 2rem; }
+  :root {
+    --gutter-x: 2rem;
+  }
 
-  .section { padding-block: clamp(6rem, 8vw, 8rem); }
+  .section {
+    padding-block: clamp(6rem, 8vw, 8rem);
+  }
 }
 
 /* ── XL: 1280px – 1375px ── */
 @media (min-width: 80rem) and (max-width: 85.9375rem) {
-  :root { --gutter-x: 2rem; }
+  :root {
+    --gutter-x: 2rem;
+  }
 }
 
 /* ── LG: 1024px – 1279px ── */
 @media (min-width: 64rem) and (max-width: 79.9375rem) {
-  :root { --gutter-x: 1.5rem; }
+  :root {
+    --gutter-x: 1.5rem;
+  }
 }
 
 /* ── MD: 768px – 1023px (tablet) ── */
 @media (min-width: 48rem) and (max-width: 63.9375rem) {
-  :root { --gutter-x: 1.5rem; }
+  :root {
+    --gutter-x: 1.5rem;
+  }
 
-  h1 { font-size: clamp(2rem, 4vw, 2.5rem); }
-  h2 { font-size: clamp(1.625rem, 3.5vw, 2rem); }
+  h1 {
+    font-size: clamp(2rem, 4vw, 2.5rem);
+  }
+  h2 {
+    font-size: clamp(1.625rem, 3.5vw, 2rem);
+  }
 }
 
 /* ── SM: 640px – 767px ── */
 @media (min-width: 40rem) and (max-width: 47.9375rem) {
-  :root { --gutter-x: 1.25rem; }
+  :root {
+    --gutter-x: 1.25rem;
+  }
 }
 
 /* ── XS: < 640px (mobile) ── */
 @media (max-width: 39.9375rem) {
   :root {
-    --gutter-x:            1rem;
-    --header-height:       3.5rem;
-    --section-padding-y:   clamp(2.5rem, 6vw, 4rem);
+    --gutter-x: 1rem;
+    --header-height: 3.5rem;
+    --section-padding-y: clamp(2.5rem, 6vw, 4rem);
   }
 
-  .section-header { margin-bottom: var(--space-8); }
+  .section-header {
+    margin-bottom: var(--space-8);
+  }
 
   /* Stack all grid layouts */
   .grid-2,
@@ -1221,17 +1559,29 @@ main,
   }
 
   /* Reduce heading sizes further on very small screens */
-  h1 { font-size: clamp(1.75rem, 7vw, 2.25rem); }
-  h2 { font-size: clamp(1.5rem,  6vw, 1.875rem); }
-  h3 { font-size: clamp(1.25rem, 5vw, 1.5rem);  }
+  h1 {
+    font-size: clamp(1.75rem, 7vw, 2.25rem);
+  }
+  h2 {
+    font-size: clamp(1.5rem, 6vw, 1.875rem);
+  }
+  h3 {
+    font-size: clamp(1.25rem, 5vw, 1.5rem);
+  }
 }
 
 /* ── Very small (360px and below) ── */
 @media (max-width: 22.5rem) {
-  :root { --gutter-x: 0.875rem; }
+  :root {
+    --gutter-x: 0.875rem;
+  }
 
-  h1 { font-size: 1.625rem; }
-  h2 { font-size: 1.375rem; }
+  h1 {
+    font-size: 1.625rem;
+  }
+  h2 {
+    font-size: 1.375rem;
+  }
 }
 
 /* ────────────────────────────────────────────────────────────
@@ -1244,7 +1594,7 @@ main,
   opacity: 0;
   transform: translateY(1.5rem);
   transition:
-    opacity   0.75s var(--ease-out),
+    opacity 0.75s var(--ease-out),
     transform 0.75s var(--ease-out);
   transition-delay: var(--animate-delay, 0ms);
 }
@@ -1259,7 +1609,7 @@ main,
   opacity: 0;
   transform: translateX(-1.5rem);
   transition:
-    opacity   0.75s var(--ease-out),
+    opacity 0.75s var(--ease-out),
     transform 0.75s var(--ease-out);
   transition-delay: var(--animate-delay, 0ms);
 }
@@ -1268,7 +1618,7 @@ main,
   opacity: 0;
   transform: translateX(1.5rem);
   transition:
-    opacity   0.75s var(--ease-out),
+    opacity 0.75s var(--ease-out),
     transform 0.75s var(--ease-out);
   transition-delay: var(--animate-delay, 0ms);
 }
@@ -1285,8 +1635,14 @@ main,
 /* ── Hero entrance animation ────────────────────────────────
    Plays once on mount. Content enters from slightly below.  */
 @keyframes hero-content-enter {
-  from { opacity: 0; transform: translateY(1.25rem); }
-  to   { opacity: 1; transform: none; }
+  from {
+    opacity: 0;
+    transform: translateY(1.25rem);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
 }
 
 .animate-hero-content {
@@ -1294,7 +1650,9 @@ main,
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .animate-hero-content { animation: none; }
+  .animate-hero-content {
+    animation: none;
+  }
 }
 
 /* ── Logo grayscale hover (fine-pointer only) ───────────────
@@ -1302,7 +1660,9 @@ main,
 .logo-hover-reveal {
   filter: grayscale(1);
   opacity: 0.6;
-  transition: filter 200ms var(--ease-out), opacity 200ms var(--ease-out);
+  transition:
+    filter 200ms var(--ease-out),
+    opacity 200ms var(--ease-out);
 }
 
 @media (hover: hover) and (pointer: fine) {
@@ -1332,8 +1692,14 @@ main,
 /* ── Tabs content fade ──────────────────────────────────────
    Re-keyed wrapper plays this once on mount.               */
 @keyframes tab-content-in {
-  from { opacity: 0; transform: translateY(6px); }
-  to   { opacity: 1; transform: none; }
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
 }
 
 .animate-tab-content {

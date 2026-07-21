@@ -1146,8 +1146,27 @@ export interface StatsBlock {
 export interface TeamBlock {
   title?: string | null;
   subtitle?: string | null;
-  layout?: ('grid' | 'list') | null;
-  columns?: ('2' | '3' | '4') | null;
+  /**
+   * Shown below the title, above the main team members.
+   */
+  topContent?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * First 4 members are featured with large portrait photos. Remaining members appear as compact name tiles.
+   */
   members?:
     | {
         name: string;
@@ -1164,6 +1183,28 @@ export interface TeamBlock {
         id?: string | null;
       }[]
     | null;
+  /**
+   * Heading for the secondary members section (appears when there are more than 4 members).
+   */
+  otherMembersTitle?: string | null;
+  /**
+   * Shown below all team members.
+   */
+  bottomContent?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'team';
@@ -2076,8 +2117,7 @@ export interface StatsBlockSelect<T extends boolean = true> {
 export interface TeamBlockSelect<T extends boolean = true> {
   title?: T;
   subtitle?: T;
-  layout?: T;
-  columns?: T;
+  topContent?: T;
   members?:
     | T
     | {
@@ -2094,6 +2134,8 @@ export interface TeamBlockSelect<T extends boolean = true> {
             };
         id?: T;
       };
+  otherMembersTitle?: T;
+  bottomContent?: T;
   id?: T;
   blockName?: T;
 }
