@@ -27,13 +27,13 @@ export const Team: Block = {
   fields: [
     { name: 'title', type: 'text' },
     { name: 'subtitle', type: 'text' },
-    {
-      name: 'topContent',
-      type: 'richText',
-      label: 'Top Content',
-      editor: richTextEditor,
-      admin: { description: 'Shown below the title, above the main team members.' },
-    },
+    // {
+    //   name: 'topContent',
+    //   type: 'richText',
+    //   label: 'Top Content',
+    //   editor: richTextEditor,
+    //   admin: { description: 'Shown below the title, above the main team members.' },
+    // },
     {
       name: 'members',
       type: 'array',
@@ -81,21 +81,21 @@ export const Team: Block = {
         },
       ],
     },
-    {
-      name: 'otherMembersTitle',
-      type: 'text',
-      label: 'Other Members Section Title',
-      admin: {
-        description:
-          'Heading for the secondary members section (appears when there are more than 4 members).',
-      },
-    },
-    {
-      name: 'bottomContent',
-      type: 'richText',
-      label: 'Bottom Content',
-      editor: richTextEditor,
-      admin: { description: 'Shown below all team members.' },
-    },
+    // {
+    //   name: 'otherMembersTitle',
+    //   type: 'text',
+    //   label: 'Other Members Section Title',
+    //   admin: {
+    //     description:
+    //       'Heading for the secondary members section (appears when there are more than 4 members).',
+    //   },
+    // },
+    // {
+    //   name: 'bottomContent',
+    //   type: 'richText',
+    //   label: 'Bottom Content',
+    //   editor: richTextEditor,
+    //   admin: { description: 'Shown below all team members.' },
+    // },
   ],
 }

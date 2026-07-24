@@ -14,9 +14,9 @@ type Member = NonNullable<TeamBlockProps['members']>[number]
 type Props = TeamBlockProps & {
   className?: string
   disableInnerContainer?: boolean
-  topContent?: DefaultTypedEditorState | null
-  bottomContent?: DefaultTypedEditorState | null
-  otherMembersTitle?: string | null
+  // topContent?: DefaultTypedEditorState | null
+  // bottomContent?: DefaultTypedEditorState | null
+  // otherMembersTitle?: string | null
 }
 
 const COLOR_COUNT = 8
@@ -188,9 +188,9 @@ export const TeamBlock: React.FC<Props> = ({
   className,
   title,
   subtitle,
-  topContent,
-  bottomContent,
-  otherMembersTitle,
+  // topContent,
+  // bottomContent,
+  // otherMembersTitle,
   members,
 }) => {
   if (!members?.length) return null
@@ -211,11 +211,11 @@ export const TeamBlock: React.FC<Props> = ({
       )}
 
       {/* Top rich text */}
-      {topContent && (
+      {/* {topContent && (
         <AnimateIn variant="fade-up">
           <RichText data={topContent} enableGutter={false} className="mb-10" />
         </AnimateIn>
-      )}
+      )} */}
 
       {/* Main members — large portrait grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
@@ -229,11 +229,11 @@ export const TeamBlock: React.FC<Props> = ({
       {/* Other members section */}
       {otherMembers.length > 0 && (
         <div className="mb-10">
-          {otherMembersTitle && (
+          {/* {otherMembersTitle && (
             <AnimateIn variant="fade-up">
               <h3 className="text-xl font-semibold text-foreground mb-5">{otherMembersTitle}</h3>
             </AnimateIn>
-          )}
+          )} */}
           <div className="flex flex-wrap gap-3">
             {otherMembers.map((member, i) => (
               <AnimateIn key={member.id ?? i} variant="fade-up" delay={Math.min(i, 8) * 60}>
@@ -245,11 +245,11 @@ export const TeamBlock: React.FC<Props> = ({
       )}
 
       {/* Bottom rich text */}
-      {bottomContent && (
+      {/* {bottomContent && (
         <AnimateIn variant="fade-up">
           <RichText data={bottomContent} enableGutter={false} className="mt-4" />
         </AnimateIn>
-      )}
+      )} */}
     </div>
   )
 }
